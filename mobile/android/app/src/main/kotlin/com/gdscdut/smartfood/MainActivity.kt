@@ -1,4 +1,4 @@
-package com.gdscdut.mobile
+package com.gdscdut.smartfood
 
 import io.flutter.embedding.android.FlutterActivity
 
