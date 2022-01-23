@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/features/main_screen/main_screen.dart';
 
 class App extends StatelessWidget {
@@ -7,11 +8,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       title: "Smart Food",
       debugShowCheckedModeBanner: false,
+      routes: RouteManager.listRoute,
+      initialRoute: RouteManager.mainScreen,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MainScreen(),
     );
   }
 }
