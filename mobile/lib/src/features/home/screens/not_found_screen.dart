@@ -49,7 +49,8 @@ class NotFoundScreen extends StatelessWidget {
             height: 20,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pushReplacementNamed(
+                context, RouteManager.selectRecipe),
             child: const Text(
               "Công thức tương tự",
               style: TextStyle(

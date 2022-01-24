@@ -77,8 +77,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                     ),
                   ),
                   InkWell(
-                    onTap: () =>
-                        Navigator.pushNamed(context, RouteManager.yourMaterial),
+                    onTap: () => Navigator.pushReplacementNamed(
+                        context, RouteManager.yourMaterial),
                     child: Container(
                       width: 45,
                       height: 45,
