@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/features/food_bank/food_bank.dart';
 import 'package:mobile/src/features/home/home_screen.dart';
+import 'package:mobile/src/features/home/select_recipe.dart';
 import 'package:mobile/src/features/setting/setting_screen.dart';
 import 'package:mobile/src/features/user/user_screen.dart';
 
