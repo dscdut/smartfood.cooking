@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/features/home/cook_recipe.dart';
+import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 
 class SelectRecipe extends StatelessWidget {
   const SelectRecipe({Key? key}) : super(key: key);
@@ -7,39 +8,35 @@ class SelectRecipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          SizedBox(
-              height: MediaQuery.of(context).size.height * 3 / 4,
-              width: MediaQuery.of(context).size.width,
-              child: ScrollConfiguration(
-                behavior: CustomScroll(),
-                child: ListView(
-                  children: suggest.map<Widget>(listRecipe).toList(),
-                ),
-              )),
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: Center(
-              child: FlatButton(
-                  color: Colors.green,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return CookRecipe();
-                    }));
-                  },
-                  child: Text(
-                    'Tiếp tục',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  )),
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+            height: MediaQuery.of(context).size.height * 3 / 4,
+            width: MediaQuery.of(context).size.width,
+            child: ScrollConfiguration(
+              behavior: CustomScroll(),
+              child: ListView(
+                children: suggest.map(listRecipe).toList(),
+              ),
+            )),
+        SizedBox(
+          height: 100,
+          width: 100,
+          child: Center(
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(backgroundColor: Colors.green),
+              onPressed: () {
+                Navigator.pushNamed(context, RouteManager.cookRecipe);
+              },
+              child: const Text(
+                'Tiếp tục',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ));
   }
 
@@ -49,7 +46,7 @@ class SelectRecipe extends StatelessWidget {
       padding: const EdgeInsets.only(left: 50, right: 50, bottom: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           GestureDetector(
             onTap: () {
               hasSelect = true;
@@ -69,8 +66,6 @@ class SelectRecipe extends StatelessWidget {
               padding: EdgeInsets.only(top: 10),
               child: GestureDetector(
                 onTap: () {
-                  setState() {}
-                  ;
                   hasSelect = true;
                 },
                 child: Text(

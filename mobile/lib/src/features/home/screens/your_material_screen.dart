@@ -20,10 +20,9 @@ class YourMaterialScreen extends StatelessWidget {
             const Text(
               "Danh sách nguyên liệu của bạn",
               style: TextStyle(
-                color: Colors.black54,
-                fontWeight: FontWeight.bold,
-                fontSize: 18
-              ),
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
             ),
             const SizedBox(
               height: 20,
@@ -67,7 +66,10 @@ class YourMaterialScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-
+                Navigator.pushNamed(
+                  context,
+                  RouteManager.chooseYourMaterial,
+                );
               },
               child: const Text(
                 "Chỉnh sửa",
