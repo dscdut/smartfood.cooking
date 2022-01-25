@@ -1,0 +1,5 @@
+{
+    "hooks": {
+        "pre-commit": "yarn commitlint --edit $1"
+    }
+}
