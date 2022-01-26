@@ -1,5 +1,0 @@
-{
-    "connectionString": "mongodb://localhost/pbl4",
-    "migrationPath": "/src/core/database/migrations/**.js",
-    "seedingPath": "/src/core/database/seeds/**.js"
-}

@@ -5,8 +5,8 @@ import { JoiUtils } from '../../../utils';
 export const CreateUserInterceptor = new DefaultValidatorInterceptor(
     Joi.object({
         email: JoiUtils.email().required(),
-        username: JoiUtils.requiredString().min(1),
+        fullName: JoiUtils.requiredString().min(1),
         password: JoiUtils.password().required(),
-        confirmPassword: JoiUtils.requiredString(),
+        confirmPassword: JoiUtils.password().required(),
     })
 );
