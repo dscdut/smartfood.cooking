@@ -1,9 +1,9 @@
 import { Module } from 'packages/handler/Module';
 import { CreateUserInterceptor, UpdateUserInterceptor } from 'core/modules/user/interceptor';
-import { ObjectId } from 'core/common/swagger';
-import { objectIdInterceptor } from 'core/modules/mongoose/objectId.interceptor';
 import { hasAdminOrSuperAdminRole, hasAdminRole } from 'core/modules/auth/guard';
+import { RecordIdInterceptor } from 'core/modules/interceptor/recordId/record-id.interceptor';
 import { UserController } from './user.controller';
+import { RecordId } from '../../common/swagger/record-id';
 
 export const UserResolver = Module.builder()
     .addPrefix({
@@ -32,8 +32,8 @@ export const UserResolver = Module.builder()
         {
             route: '/:id',
             method: 'get',
-            params: [ObjectId],
-            interceptors: [objectIdInterceptor],
+            params: [RecordId],
+            interceptors: [RecordIdInterceptor],
             guards: [hasAdminOrSuperAdminRole],
             controller: UserController.findById,
             preAuthorization: true,

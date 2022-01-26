@@ -1,29 +1,17 @@
-import { DataPersistenceService } from '../../../packages/restBuilder/core/dataHandler';
-import { RoleRepository } from './role.repository';
-import { logger } from '../../../packages/logger';
-import { Optional } from '../../utils';
-import { NotFoundException } from '../../../packages/httpException';
-import { ServerRepository } from '../server/server.repository';
-import { PermissionRepository } from '../permission/permission.respository';
+import { RoleRepository } from 'core/modules/role/role.repository';
+import { Optional } from 'core/utils';
+import { NotFoundException } from 'packages/httpException';
 
-class Service extends DataPersistenceService {
+class Service {
     constructor() {
-        super(RoleRepository);
-        this.serverRepository = ServerRepository;
-        this.permissionRespository = PermissionRepository;
-        this.logger = logger;
+        this.roleRepository = RoleRepository;
     }
 
-    async createOne(roleDto) {
-        Optional
-            .of(await this.serverRepository.findById(roleDto.server))
-            .throwIfNullable(new NotFoundException('Server not found'));
-        await Promise.all(roleDto.permissions.map(async permissionId => {
-            Optional
-                .of(await this.permissionRespository.findById(permissionId))
-                .throwIfNullable(new NotFoundException('Permission not found'));
-        }));
-        return this.createOneSafety(roleDto);
+    async findById(sectorId) {
+        const sector = Optional.of(await this.roleRepository.findById(sectorId)).throwIfNotPresent(new NotFoundException());
+
+        return sector.get();
     }
 }
+
 export const RoleService = new Service();

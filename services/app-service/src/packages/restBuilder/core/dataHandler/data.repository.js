@@ -1,78 +1,59 @@
-import { UnsupportedMethodException } from 'core/infrastructure/exceptions/unsupported-method.exception';
-import { logger } from 'packages/logger';
+import connection from 'core/database';
+import { logger } from 'core/utils';
 import { camelCase, upperFirst } from 'lodash';
 
 export class DataRepository {
+    #table;
+
+    #connection;
+
+    constructor(tableName) {
+        this.#table = tableName;
+        this.#connection = connection;
+        logger.info(`[${upperFirst(camelCase(this.#table))}Repository] is bundling`);
+    }
+
+    query() {
+        return this.#connection(this.#table).clone();
+    }
+
     /**
-     * @type {import('mongoose').Model<Document<any, {}>, {}>}
+     * =======================================================================
+     * ==============       Shortcut of model method           ===============
+     * =======================================================================
      */
-    model;
 
-    constructor(model) {
-        this.model = model;
-        this.collection = model.collection.collectionName;
-        logger.info(
-            `[${upperFirst(camelCase(model.collection.collectionName))}Repository] is bundling`,
-        );
+    insert(data = {}, trx = null, columns = 'id') {
+        const queryBuilder = this.query().insert(data, columns);
+        if (trx) queryBuilder.transacting(trx);
+        return queryBuilder;
     }
 
-    /**
-    * =======================================================================
-    * ==============       Shortcut of model method           ===============
-    * =======================================================================
-    */
-
-    find(query = {}, fields = []) {
-        return this.model.find(query).select(fields).lean();
+    update(id, data = {}, trx = null) {
+        const queryBuilder = this.query().whereNull('deleted_at').where({ id }).update(data);
+        if (trx) queryBuilder.transacting(trx);
+        return queryBuilder;
     }
 
-    findByIds(ids, fields = []) {
-        return this.model
-            .find({ _id: { $in: ids } })
-            .select(fields)
-            .lean();
+    permanentlyDeleteMany(ids, trx = null) {
+        const queryBuilder = this.query().whereIn('id', ids).delete();
+        if (trx) queryBuilder.transacting(trx);
+        return queryBuilder;
     }
 
-    findOne(condition, fields = []) {
-        return this.model.findOne(condition, fields).lean();
+    softDeleteMany(ids, trx = null) {
+        const queryBuilder = this.query().whereIn('id', ids).update({ deleted_at: this.#connection.fn.now() }, 'id');
+        if (trx) queryBuilder.transacting(trx);
+        return queryBuilder;
     }
 
-    findById(id, fields = []) {
-        return this.model.findById(id, fields).lean();
+    restore(ids, trx = null, columns = 'id') {
+        const queryBuilder = this.query().whereIn('id', ids).update({ deleted_at: null }, columns);
+        if (trx) queryBuilder.transacting(trx);
+        return queryBuilder;
     }
 
-    updateById(id, payload) {
-        return this.model.findByIdAndUpdate(id, payload, { new: true });
-    }
-
-    updateByIds(ids, fields) {
-        return this.model.updateMany(
-            { _id: { $in: ids } },
-            { ...fields }
-        );
-    }
-
-    softDeleteById(id) {
-        if (!this.model.schema.obj.deletedAt) {
-            throw new UnsupportedMethodException(
-                this.collection,
-                'soft delete',
-            );
-        }
-        return this.updateById(id, { deletedAt: new Date() });
-    }
-
-    deleteMany(conditions, options = {}) {
-        if (this.model.schema.obj.deletedAt) {
-            return this.model.updateMany(conditions, { deletedAt: new Date() });
-        }
-        return this.model.deleteMany(conditions, options);
-    }
-
-    hasRecord(field, value, filter = {}) {
-        return this.model.countDocuments({
-            [field]: value,
-            ...filter
-        });
+    findTrashed() {
+        return this.query().whereNotNull('deleted_at');
     }
 }
