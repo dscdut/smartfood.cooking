@@ -1,4 +1,4 @@
-import { UserService } from '../../modules/user/user.service';
+import { UserService } from '../../modules/user/services/user.service';
 import { CreateUserDto, UpdateUserDto } from '../../modules/user/dto';
 import { ValidHttpResponse } from '../../../packages/handler/response/validHttp.response';
 

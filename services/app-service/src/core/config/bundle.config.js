@@ -2,7 +2,7 @@
 import * as express from 'express';
 import methodOverride from 'method-override';
 import swaggerUi from 'swagger-ui-express';
-import { DatabaseInstance } from 'core/config/database.config';
+import { connectDatabase } from 'core/database';
 import { InvalidResolver, InvalidFilter } from '../common/exceptions/system';
 import { logger } from '../../packages/logger';
 import { NODE_ENV } from '../env';
@@ -100,6 +100,6 @@ export class AppBundle {
      */
     async run() {
         AppBundle.logger.info('Building asynchronous config');
-        await DatabaseInstance.connect();
+        await connectDatabase();
     }
 }

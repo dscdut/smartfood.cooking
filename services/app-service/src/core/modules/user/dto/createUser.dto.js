@@ -3,14 +3,14 @@ import { SwaggerDocument } from 'packages/swagger';
 
 ApiDocument.addModel('CreateUserDto', {
     email: SwaggerDocument.ApiProperty({ type: 'string' }),
-    username: SwaggerDocument.ApiProperty({ type: 'string' }),
+    fullName: SwaggerDocument.ApiProperty({ type: 'string' }),
     password: SwaggerDocument.ApiProperty({ type: 'string' }),
     confirmPassword: SwaggerDocument.ApiProperty({ type: 'string' }),
 });
 
 export const CreateUserDto = body => ({
     email: body.email,
-    username: body.username,
+    full_name: body.fullName,
     password: body.password,
-    confirmPassword: body.confirmPassword,
+    confirm_password: body.confirmPassword,
 });

@@ -1,3 +1,3 @@
 export * from './filter';
-export * from './objectId';
+export * from './record-id';
 export * from './upload-file';
