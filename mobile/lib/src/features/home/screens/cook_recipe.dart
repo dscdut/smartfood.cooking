@@ -234,7 +234,7 @@ class CookRecipe extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.people,
                                             size: 35,
@@ -265,7 +265,7 @@ class CookRecipe extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.nordic_walking,
                                             size: 35,
@@ -296,7 +296,7 @@ class CookRecipe extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.water,
                                             size: 35,
@@ -327,7 +327,7 @@ class CookRecipe extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.favorite_sharp,
                                             size: 35,
