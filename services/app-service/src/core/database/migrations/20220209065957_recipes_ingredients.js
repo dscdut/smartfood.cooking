@@ -15,12 +15,21 @@ exports.up = async knex => {
       .references('id')
       .inTable('ingredients')
       .notNullable();
-
     table.double('value');
     table.string('unit');
+    table.dateTime('deleted_at').defaultTo(null);
+    table.timestamps(false, true);
 
     table.primary(['recipe_id', 'ingredient_id']);
   });
+
+  await knex.raw(`
+   CREATE TRIGGER update_timestamp
+   BEFORE UPDATE
+   ON ${tableName}
+   FOR EACH ROW
+   EXECUTE PROCEDURE update_timestamp();
+ `);
 };
 
 exports.down = knex => knex.schema.dropTable(tableName);
