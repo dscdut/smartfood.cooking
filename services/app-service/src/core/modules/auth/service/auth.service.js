@@ -1,26 +1,31 @@
-import { DataPersistenceService } from 'packages/restBuilder/core/dataHandler';
 import { pick } from 'lodash';
 import { JwtPayload } from 'core/modules/auth/dto/jwt-sign.dto';
+import { UserDataService } from 'core/modules/user/services/userData.service';
+import { joinUserRoles } from 'core/utils/userFilter';
 import { BcryptService } from './bcrypt.service';
 import { JwtService } from './jwt.service';
 import { UserRepository } from '../../user/user.repository';
 import { UnAuthorizedException } from '../../../../packages/httpException';
 
-class Service extends DataPersistenceService {
+class Service {
     constructor() {
-        super(UserRepository);
+        this.userRepository = UserRepository;
         this.jwtService = JwtService;
         this.bcryptService = BcryptService;
+        this.userDataService = UserDataService;
     }
 
     async login(loginDto) {
-        const user = await this.repository.findByEmail(loginDto.email);
-        if (user && this.bcryptService.compare(loginDto.password, user.password)) {
+        const user = await this.userRepository.findByEmail(loginDto.email);
+
+        const foundUser = joinUserRoles(user);
+        if (user && this.bcryptService.compare(loginDto.password, foundUser.password)) {
             return {
-                user: this.#getUserInfo(user),
-                accessToken: this.jwtService.sign(JwtPayload(user)),
+                user: foundUser,
+                accessToken: this.jwtService.sign(JwtPayload(foundUser)),
             };
         }
+
         throw new UnAuthorizedException('Email or password is incorrect');
     }
 

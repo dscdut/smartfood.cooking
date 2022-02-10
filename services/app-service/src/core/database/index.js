@@ -1,35 +1,19 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable global-require */
-/* eslint-disable import/no-dynamic-require */
-import path from 'path';
-import { glob } from 'glob';
-import mongoose from 'mongoose';
-import { logger } from 'packages/logger';
-import { serial } from 'packages/taskExecution';
-import dbConfig from '../../../mongodb.config.json';
+import knex from 'knex';
+import config from '../config/knexfile.config';
+import { logger } from '../utils';
+import { NODE_ENV } from '../env';
 
-(async () => {
+const connection = knex(config[NODE_ENV]);
+
+export default connection;
+
+export const getTransaction = () => connection.transaction();
+
+export const connectDatabase = async () => {
     try {
-        await mongoose.connect(dbConfig.connectionString, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        logger.info('Database connected successfully');
-
-        const filePaths = glob.sync(path.join(process.cwd(), 'src/core/database/seeds/*'));
-        const tasks = [];
-        filePaths.forEach(async file => {
-            const exportReference = require(file);
-            tasks.push(Object.values(exportReference)[0]);
-        });
-
-        await serial(tasks, async task => {
-            logger.info(`Seeding ${task.name}`);
-            await task.run();
-            logger.info(`${task.name} seeded successfully`);
-        });
+        await connection.raw('SELECT 1');
+        logger.info('Database connection successful');
     } catch (error) {
-        logger.error(error.message);
+        logger.error('Database connection error, please check your connection');
     }
-})();
+};
