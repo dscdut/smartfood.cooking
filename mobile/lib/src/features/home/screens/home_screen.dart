@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/config/router.dart';
-import 'package:mobile/src/core/theme/palatte.dart';
+import 'package:mobile/src/core/theme/palette.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .headline1!
-                          .copyWith(color: Palatte.pink500),
+                          .copyWith(color: Palette.pink500),
                     ),
                     CircleAvatar(
                       backgroundColor: Colors.indigo,
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(color: Palatte.gray400),
+                      .copyWith(color: Palette.gray400),
                 ),
               ),
               SizedBox(
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .headline2!
-                      .copyWith(color: Palatte.pink500),
+                      .copyWith(color: Palette.pink500),
                 ),
               ),
               SizedBox(height: 15.h),
@@ -165,8 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               constraints: BoxConstraints(),
                               icon: Icon(Icons.favorite),
                               color: menuData[index]["isFavorite"] as bool
-                                  ? Palatte.pink500
-                                  : Palatte.backgroundColor,
+                                  ? Palette.pink500
+                                  : Palette.backgroundColor,
                               onPressed: () {
                                 setState(() {
                                   menuData[index]["isFavorite"] =
@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 60.h,
                             width: 120.w,
                             decoration: BoxDecoration(
-                              color: Palatte.backgroundColor,
+                              color: Palette.backgroundColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Column(children: [
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       .textTheme
                                       .bodyText1!
                                       .copyWith(
-                                        color: Palatte.gray500,
+                                        color: Palette.gray500,
                                       ),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Icon(
                                     Icons.schedule,
-                                    color: Palatte.gray400,
+                                    color: Palette.gray400,
                                     size: 16,
                                   ),
                                   SizedBox(width: 2.w),
@@ -217,13 +217,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .textTheme
                                         .bodyText2!
                                         .copyWith(
-                                          color: Palatte.gray400,
+                                          color: Palette.gray400,
                                           fontSize: 12.sp,
                                         ),
                                   ),
                                   VerticalDivider(
                                     thickness: 2,
-                                    color: Palatte.gray400,
+                                    color: Palette.gray400,
                                     endIndent: 7,
                                     indent: 7,
                                     width: 15,
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .textTheme
                                         .bodyText2!
                                         .copyWith(
-                                          color: Palatte.gray400,
+                                          color: Palette.gray400,
                                           fontSize: 12.sp,
                                         ),
                                   )
@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
-                    context, RouteManager.chooseYourMaterial),
+                    context, RouteManager.notFound),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -272,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 250,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: Palatte.orange500,
+                      color: Palette.orange500,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
