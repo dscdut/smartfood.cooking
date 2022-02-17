@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/palatte.dart';
 import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 
 class SelectRecipe extends StatefulWidget {
@@ -14,68 +15,109 @@ class _SelectRecipeState extends State<SelectRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          titleSpacing: 0,
-          leadingWidth: 20.w,
-          leading: Container(),
-          title: Row(
-            children: <Widget>[
-              Container(
-                width: 29.w,
-                height: 29.h,
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(241, 91, 42, 0.2),
-                    shape: BoxShape.circle),
-                child: Center(
-                  child: IconButton(
-                    splashRadius: 0.1,
-                    padding: EdgeInsets.all(0),
-                    iconSize: 22.sp,
-                    icon: Icon(Icons.arrow_back_ios_new),
-                    color: Color.fromRGBO(249, 106, 100, 1),
-                    onPressed: () {
-                      Navigator.pushNamed(context, RouteManager.notFound);
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 65.w,
-              ),
-              Text(
-                'Công thức của bạn',
-                style: TextStyle(
-                    color: Color.fromRGBO(249, 106, 100, 1),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w900),
-              )
-            ],
+      body: SafeArea(
+        child: Container(
+            color: Palatte.backgroundColor,
+            padding: EdgeInsets.only(top: 20.h),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Material(
+                            borderRadius: BorderRadius.circular(20),
+                            elevation: 3,
+                            child: CircleAvatar(
+                              radius: 18,
+                              backgroundColor: Palatte.backgroundColor,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                splashRadius: 24,
+                                icon: Icon(Icons.chevron_left_rounded),
+                                iconSize: 28,
+                                color: Palatte.pink500,
+                                onPressed: () => Navigator.pushNamed(
+                                    context, RouteManager.notFound),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              "Công thức của bạn",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2!
+                                  .copyWith(color: Palatte.pink500),
+                            ),
+                          ),
+                          SizedBox()
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      color: Palatte.backgroundColor,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: 812.w * 0.7,
+                              child: ScrollConfiguration(
+                                  behavior: CustomScroll(),
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.all(0),
+                                    children: suggest.map(listRecipe).toList(),
+                                  ))),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            )),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Palatte.pink500,
+        unselectedItemColor: Colors.black,
+        currentIndex: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home_rounded),
+            label: "Home",
           ),
-        ),
-        body: Container(
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                  height: 812.w * 3 / 4,
-                  width: 375.w,
-                  child: ScrollConfiguration(
-                      behavior: CustomScroll(),
-                      child: Builder(
-                        builder: (context) {
-                          return ListView(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(0),
-                            children: suggest.map(listRecipe).toList(),
-                          );
-                        },
-                      ))),
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_rounded),
+            label: "Search",
           ),
-        ));
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline_rounded),
+            activeIcon: Icon(Icons.add_circle_rounded),
+            label: "Add",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border_rounded),
+            activeIcon: Icon(Icons.favorite_rounded),
+            label: "Favorite",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            activeIcon: Icon(Icons.account_circle_rounded),
+            label: "User",
+          )
+        ],
+      ),
+    );
   }
 
   Widget listRecipe(Recipe val) {
@@ -84,9 +126,8 @@ class _SelectRecipeState extends State<SelectRecipe> {
         Navigator.pushNamed(context, RouteManager.cookRecipe, arguments: val);
       },
       child: Container(
-        height: 155.h,
-        width: 334.w,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 7.h),
+        height: 160.h,
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
         child: Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -98,24 +139,83 @@ class _SelectRecipeState extends State<SelectRecipe> {
             borderRadius: BorderRadius.circular(10.sp),
           ),
           child: Card(
-            color: Colors.white,
+            color: Palatte.backgroundColor,
             elevation: 0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp)),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(10.sp),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.sp),
-                    child: Image.network(val.imageURL,
-                        width: 110.w, height: 110.h, fit: BoxFit.fitHeight),
+                    child: Stack(
+                      alignment: Alignment.topLeft,
+                      children: [
+                        Image.network(val.imageURL,
+                            width: 110.w, height: 110.w, fit: BoxFit.fitHeight),
+                        Container(
+                          width: 110.w,
+                          height: 30.w,
+                          padding: EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: const [
+                                Colors.transparent,
+                                Colors.black54,
+                              ])),
+                          child: Row(
+                            children: <Widget>[
+                              IconButton(
+                                padding: EdgeInsets.all(5),
+                                splashRadius: 0.01,
+                                onPressed: () {
+                                  val.favorited
+                                      ? val.favorited = false
+                                      : val.favorited = true;
+                                },
+                                icon: Icon(Icons.favorite),
+                                color: val.favorited
+                                    ? Colors.red
+                                    : Palatte.backgroundColor,
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellow.shade600,
+                                      size: 20.sp,
+                                    ),
+                                    Text(
+                                      val.favoriteLevel.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .copyWith(
+                                            color: Palatte.backgroundColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10.sp),
+                  padding: EdgeInsets.all(5.sp),
                   width: 195.w,
-                  height: 110.h,
+                  height: 100.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -123,34 +223,28 @@ class _SelectRecipeState extends State<SelectRecipe> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: Text(
                                 val.recipeName,
-                                style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                      color: Palatte.gray500,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               )),
-                          Spacer(),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow.shade600,
-                            size: 15.sp,
-                          ),
-                          Text(val.cookingLevel.toString()),
                         ],
                       ),
-                      Divider(
-                        height: 4.h,
-                        color: Colors.transparent,
-                      ),
+                      Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Container(
-                            width: 25.57.w,
-                            height: 24.h,
+                            width: 28.w,
+                            height: 26.h,
                             decoration: BoxDecoration(
-                                color: Color.fromRGBO(249, 106, 100, 1),
+                                color: Palatte.pink500,
                                 borderRadius: BorderRadius.circular(10.sp)),
                             child: Center(
                               child: IconButton(
@@ -158,7 +252,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                 padding: EdgeInsets.all(0),
                                 iconSize: 20.sp,
                                 icon: Icon(Icons.arrow_forward),
-                                color: Colors.white,
+                                color: Palatte.backgroundColor,
                                 onPressed: () {
                                   Navigator.pushNamed(
                                       context, RouteManager.cookRecipe,
@@ -171,13 +265,41 @@ class _SelectRecipeState extends State<SelectRecipe> {
                       ),
                       Spacer(),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
+                          Icon(
+                            Icons.access_time,
+                            color: Palatte.gray400,
+                          ),
                           Text(
-                            val.cookingTime + ' | ' + val.type,
-                            style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.w500),
-                          )
+                            ' ' + val.cookingTime,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          Text(
+                            '|',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          Icon(
+                            Icons.book_outlined,
+                            color: Palatte.gray400,
+                          ),
+                          Text(
+                            ' ' + val.cookingLevel,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Spacer(),
+                          Spacer(),
+                          Spacer(),
                         ],
                       ),
                     ],
@@ -198,8 +320,8 @@ Ingredient igr2 =
     Ingredient('Đường', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '2');
 Ingredient igr3 =
     Ingredient('Mắm', 'https://tinyurl.com/yrsj7hbm', 'muỗng canh', '1');
-Ingredient igr4 =
-    Ingredient('Hạt nêm Knor', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '4');
+Ingredient igr4 = Ingredient(
+    'Hạt nêm Knor', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '4');
 List<Ingredient> ingredient = [igr1, igr2, igr3, igr4];
 Nutrition nutri1 = Nutrition();
 Nutrition nutri2 = Nutrition();
@@ -210,7 +332,7 @@ Recipe recipe1 = Recipe(
     'Cánh gà chiên mắm',
     'http://imgs.vietnamnet.vn/Images/2016/12/09/08/20161209085123-ga3.jpg',
     4,
-    'Trung bình',
+    'Vừa',
     '1 giờ',
     ingredient,
     nutrition, []);
@@ -218,15 +340,15 @@ Recipe recipe2 = Recipe(
     'Gà luộc',
     'http://cdn.tgdd.vn/Files/2020/08/11/1278766/cach-moi-nhanh-va-de-giup-luoc-ga-khong-nut-da-chat-gon-dep-doc-xong-chi-muon-thu-ngay-202008111016237351.jpg',
     3,
-    'Trung bình',
+    'Dễ',
     '2 giờ',
     ingredient,
     nutrition, []);
 Recipe recipe3 = Recipe(
-    'Gà xé',
+    'Gỏi gà lá chanh chua ngọt',
     'https://cdn.cet.edu.vn/wp-content/uploads/2019/08/goi-ga-xe-phay.jpg',
     3.5,
-    'Trung bình',
+    'Vừa',
     '1 giờ',
     ingredient,
     nutrition, []);
@@ -251,13 +373,14 @@ List<Recipe> suggest = [recipe1, recipe2, recipe3, recipe4, recipe5];
 class Recipe {
   late String recipeName;
   late String imageURL;
-  late double cookingLevel;
-  late String type;
+  late double favoriteLevel;
+  late bool favorited = false;
   late String cookingTime;
+  late String cookingLevel;
   late List<Ingredient> ingredient;
   late List<Nutrition> nutrition;
   late List<CookStep> step;
-  Recipe(this.recipeName, this.imageURL, this.cookingLevel, this.type,
+  Recipe(this.recipeName, this.imageURL, this.favoriteLevel, this.cookingLevel,
       this.cookingTime, this.ingredient, this.nutrition, this.step);
 }
 

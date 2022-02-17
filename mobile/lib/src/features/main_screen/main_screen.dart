@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/core/theme/palatte.dart';
 import 'package:mobile/src/features/food_bank/food_bank.dart';
 import 'package:mobile/src/features/home/screens/home_screen.dart';
 import 'package:mobile/src/features/setting/setting_screen.dart';
@@ -30,30 +31,42 @@ class _MainScreenState extends State<MainScreen> {
           UserScreen(),
           FoodBank(),
           SettingScreen(),
+          SettingScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey.shade300,
+        selectedItemColor: Palatte.pink500,
+        unselectedItemColor: Colors.black,
         currentIndex: currentIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         onTap: (value) => changeIndex(value),
+        iconSize: 30,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home_rounded),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.search_rounded),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline_rounded),
+            activeIcon: Icon(Icons.add_circle_rounded),
+            label: "Add",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border_rounded),
+            activeIcon: Icon(Icons.favorite_rounded),
+            label: "Favorite",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            activeIcon: Icon(Icons.account_circle_rounded),
             label: "User",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.food_bank),
-            label: "My Food",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Setting",
           )
         ],
       ),
