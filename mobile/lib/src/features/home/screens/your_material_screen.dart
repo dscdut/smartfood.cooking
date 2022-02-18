@@ -37,7 +37,7 @@ class YourMaterialScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return Image.network(
-                  "https://url.dscdut.com/Gyhh",
+                  "https://media.self.com/photos/5f189b76c58e27c99fbef9e3/1:1/w_768,c_limit/blackberry-vanilla-french-toast.jpg",
                   key: ValueKey(index),
                 );
               },

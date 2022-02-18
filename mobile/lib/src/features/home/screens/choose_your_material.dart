@@ -4,6 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class ChooseYourMaterial extends StatefulWidget {
@@ -386,12 +387,18 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(
-                              child: Text(
-                                "Tiếp tục",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: Palette.backgroundColor),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.notFound);
+                                },
+                                child: Text(
+                                  'Tiếp tục',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(color: Palette.backgroundColor),
+                                ),
                               ),
                             ),
                           ),
