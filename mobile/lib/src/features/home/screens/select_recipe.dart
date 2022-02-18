@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
-import 'package:mobile/src/core/theme/palatte.dart';
+import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 
 class SelectRecipe extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-            color: Palatte.backgroundColor,
+            color: Palette.backgroundColor,
             padding: EdgeInsets.only(top: 20.h),
             child: Stack(
               alignment: Alignment.bottomCenter,
@@ -35,13 +35,13 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             elevation: 3,
                             child: CircleAvatar(
                               radius: 18,
-                              backgroundColor: Palatte.backgroundColor,
+                              backgroundColor: Palette.backgroundColor,
                               child: IconButton(
                                 padding: EdgeInsets.zero,
                                 splashRadius: 24,
                                 icon: Icon(Icons.chevron_left_rounded),
                                 iconSize: 28,
-                                color: Palatte.pink500,
+                                color: Palette.pink500,
                                 onPressed: () => Navigator.pushNamed(
                                     context, RouteManager.notFound),
                               ),
@@ -53,7 +53,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!
-                                  .copyWith(color: Palatte.pink500),
+                                  .copyWith(color: Palette.pink500),
                             ),
                           ),
                           SizedBox()
@@ -62,7 +62,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     ),
                     Spacer(),
                     Container(
-                      color: Palatte.backgroundColor,
+                      color: Palette.backgroundColor,
                       child: Column(
                         children: [
                           SizedBox(
@@ -84,7 +84,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Palatte.pink500,
+        selectedItemColor: Palette.pink500,
         unselectedItemColor: Colors.black,
         currentIndex: 0,
         showSelectedLabels: false,
@@ -139,7 +139,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
             borderRadius: BorderRadius.circular(10.sp),
           ),
           child: Card(
-            color: Palatte.backgroundColor,
+            color: Palette.backgroundColor,
             elevation: 0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.sp)),
@@ -180,7 +180,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                 icon: Icon(Icons.favorite),
                                 color: val.favorited
                                     ? Colors.red
-                                    : Palatte.backgroundColor,
+                                    : Palette.backgroundColor,
                               ),
                               Spacer(),
                               Padding(
@@ -198,7 +198,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                           .textTheme
                                           .headline4!
                                           .copyWith(
-                                            color: Palatte.backgroundColor,
+                                            color: Palette.backgroundColor,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -230,7 +230,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                     .textTheme
                                     .headline3!
                                     .copyWith(
-                                      color: Palatte.gray500,
+                                      color: Palette.gray500,
                                       fontWeight: FontWeight.bold,
                                     ),
                               )),
@@ -244,7 +244,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             width: 28.w,
                             height: 26.h,
                             decoration: BoxDecoration(
-                                color: Palatte.pink500,
+                                color: Palette.pink500,
                                 borderRadius: BorderRadius.circular(10.sp)),
                             child: Center(
                               child: IconButton(
@@ -252,7 +252,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                 padding: EdgeInsets.all(0),
                                 iconSize: 20.sp,
                                 icon: Icon(Icons.arrow_forward),
-                                color: Palatte.backgroundColor,
+                                color: Palette.backgroundColor,
                                 onPressed: () {
                                   Navigator.pushNamed(
                                       context, RouteManager.cookRecipe,
@@ -268,7 +268,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                         children: <Widget>[
                           Icon(
                             Icons.access_time,
-                            color: Palatte.gray400,
+                            color: Palette.gray400,
                           ),
                           Text(
                             ' ' + val.cookingTime,
@@ -288,7 +288,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           Spacer(),
                           Icon(
                             Icons.book_outlined,
-                            color: Palatte.gray400,
+                            color: Palette.gray400,
                           ),
                           Text(
                             ' ' + val.cookingLevel,

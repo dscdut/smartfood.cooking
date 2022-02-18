@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
-import 'package:mobile/src/core/theme/palatte.dart';
+import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
 
 class CookRecipe extends StatelessWidget {
@@ -14,7 +14,7 @@ class CookRecipe extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Palatte.backgroundColor,
+          color: Palette.backgroundColor,
           padding: EdgeInsets.only(top: 20.h),
           child: Stack(
             alignment: Alignment.bottomCenter,
@@ -32,13 +32,13 @@ class CookRecipe extends StatelessWidget {
                           elevation: 3,
                           child: CircleAvatar(
                             radius: 18.r,
-                            backgroundColor: Palatte.backgroundColor,
+                            backgroundColor: Palette.backgroundColor,
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               splashRadius: 20,
                               icon: Icon(Icons.chevron_left_rounded),
                               iconSize: 28,
-                              color: Palatte.pink500,
+                              color: Palette.pink500,
                               onPressed: () => Navigator.pushNamed(
                                   context, RouteManager.selectRecipe),
                             ),
@@ -50,7 +50,7 @@ class CookRecipe extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2!
-                                .copyWith(color: Palatte.pink500),
+                                .copyWith(color: Palette.pink500),
                           ),
                         ),
                         SizedBox()
@@ -64,7 +64,7 @@ class CookRecipe extends StatelessWidget {
                       child: Column(
                         children: [
                           Container(
-                              color: Palatte.backgroundColor,
+                              color: Palette.backgroundColor,
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.w, vertical: 10.h),
                               width: MediaQuery.of(context).size.height.w,
@@ -120,7 +120,7 @@ class CookRecipe extends StatelessWidget {
                                                   padding: EdgeInsets.all(0),
                                                   onPressed: () {},
                                                   icon: Icon(Icons.favorite),
-                                                  color: Palatte.pink500,
+                                                  color: Palette.pink500,
                                                 ),
                                               )
                                             ],
@@ -158,7 +158,7 @@ class CookRecipe extends StatelessWidget {
                                                       .subtitle1!
                                                       .copyWith(
                                                           fontSize: 16,
-                                                          color: Palatte
+                                                          color: Palette
                                                               .backgroundColor),
                                                 ),
                                                 Spacer(),
@@ -182,7 +182,7 @@ class CookRecipe extends StatelessWidget {
                                                       .subtitle1!
                                                       .copyWith(
                                                           fontSize: 16,
-                                                          color: Palatte
+                                                          color: Palette
                                                               .backgroundColor),
                                                 ),
                                                 Spacer(),
@@ -190,7 +190,7 @@ class CookRecipe extends StatelessWidget {
                                                 Spacer(),
                                                 Icon(
                                                   Icons.star,
-                                                  color: Palatte.yellowStar,
+                                                  color: Palette.yellowStar,
                                                   size: 20.sp,
                                                 ),
                                                 Text(
@@ -201,7 +201,7 @@ class CookRecipe extends StatelessWidget {
                                                       .subtitle1!
                                                       .copyWith(
                                                           fontSize: 16,
-                                                          color: Palatte
+                                                          color: Palette
                                                               .backgroundColor),
                                                 ),
                                               ],
@@ -227,7 +227,7 @@ class CookRecipe extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline3!
-                                            .copyWith(color: Palatte.pink500),
+                                            .copyWith(color: Palette.pink500),
                                       ),
                                       Spacer(),
                                       Text(
@@ -235,7 +235,7 @@ class CookRecipe extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle1!
-                                            .copyWith(color: Palatte.pink400),
+                                            .copyWith(color: Palette.pink400),
                                       ),
                                     ],
                                   ),
@@ -301,11 +301,11 @@ class CookRecipe extends StatelessWidget {
                                                             LinearProgressIndicator(
                                                           minHeight: 6.h,
                                                           backgroundColor:
-                                                              Palatte.pink100,
+                                                              Palette.pink100,
                                                           valueColor:
                                                               AlwaysStoppedAnimation<
                                                                       Color>(
-                                                                  Palatte
+                                                                  Palette
                                                                       .pink500),
                                                           value: 0.6,
                                                         ),
@@ -369,11 +369,11 @@ class CookRecipe extends StatelessWidget {
                                                             LinearProgressIndicator(
                                                           minHeight: 6.h,
                                                           backgroundColor:
-                                                              Palatte.pink100,
+                                                              Palette.pink100,
                                                           valueColor:
                                                               AlwaysStoppedAnimation<
                                                                       Color>(
-                                                                  Palatte
+                                                                  Palette
                                                                       .pink500),
                                                           value: 0.6,
                                                         ),
@@ -437,11 +437,11 @@ class CookRecipe extends StatelessWidget {
                                                             LinearProgressIndicator(
                                                           minHeight: 6.h,
                                                           backgroundColor:
-                                                              Palatte.pink100,
+                                                              Palette.pink100,
                                                           valueColor:
                                                               AlwaysStoppedAnimation<
                                                                       Color>(
-                                                                  Palatte
+                                                                  Palette
                                                                       .pink500),
                                                           value: 0.6,
                                                         ),
@@ -467,7 +467,7 @@ class CookRecipe extends StatelessWidget {
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline3!
-                                      .copyWith(color: Palatte.pink500),
+                                      .copyWith(color: Palette.pink500),
                                 ),
                                 Padding(
                                   padding:
@@ -508,7 +508,7 @@ class CookRecipe extends StatelessWidget {
                           height: 40.h,
                           width: 200.w,
                           decoration: BoxDecoration(
-                            color: Palatte.orange500,
+                            color: Palette.orange500,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(
@@ -517,7 +517,7 @@ class CookRecipe extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.book,
-                                  color: Palatte.backgroundColor,
+                                  color: Palette.backgroundColor,
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -532,7 +532,7 @@ class CookRecipe extends StatelessWidget {
                                             .textTheme
                                             .headline3!
                                             .copyWith(
-                                                color: Palatte.backgroundColor,
+                                                color: Palette.backgroundColor,
                                                 fontWeight: FontWeight.w600),
                                       )
                                     ],
@@ -553,7 +553,7 @@ class CookRecipe extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Palatte.pink500,
+        selectedItemColor: Palette.pink500,
         unselectedItemColor: Colors.black,
         currentIndex: 0,
         showSelectedLabels: false,

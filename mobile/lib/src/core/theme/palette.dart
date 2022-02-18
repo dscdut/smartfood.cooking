@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Palatte {
+class Palette {
   ///Pink100:
   ///
   ///https://www.figma.com/file/rifJcKloniSPG2tdwzIcfo/Smartfood?node-id=111%3A1903

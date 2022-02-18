@@ -50,6 +50,12 @@ class App extends StatelessWidget {
               height: 20 / 16,
               letterSpacing: 0.4,
             ),
+            headline5: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.4,
+              height: 30/16,
+            ),
             subtitle1: TextStyle(
               fontSize: 14,
               height: 16 / 14,
