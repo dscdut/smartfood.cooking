@@ -4,6 +4,7 @@ exports.up = async knex => {
   await knex.schema.createTable(tableName, table => {
     table.increments('id').unsigned().primary();
     table.string('name');
+    table.string('level');
     table.string('description');
     table.dateTime('deleted_at').defaultTo(null);
     table.timestamps(false, true);

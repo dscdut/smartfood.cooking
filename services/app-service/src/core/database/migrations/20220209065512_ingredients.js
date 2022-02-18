@@ -3,7 +3,7 @@ const tableName = 'ingredients';
 exports.up = async knex => {
   await knex.schema.createTable(tableName, table => {
     table.increments('id').unsigned().primary();
-    table.string('name');
+    table.string('name', 1000);
     table.dateTime('deleted_at').defaultTo(null);
     table.timestamps(false, true);
   });
