@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
-                    context, RouteManager.notFound),
+                    context, RouteManager.stepsToCooking),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(

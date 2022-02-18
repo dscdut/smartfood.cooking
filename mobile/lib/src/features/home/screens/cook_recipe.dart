@@ -1,413 +1,617 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/features/home/screens/select_recipe.dart';
 
 class CookRecipe extends StatelessWidget {
   const CookRecipe({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final recipe = ModalRoute.of(context)!.settings.arguments as Recipe;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomStart,
-                  children: [
-                    Image.network(
-                        'https://vietucnews.net/wp-content/uploads/2017/10/food_photography_palm_beach_gardens_florida_parched_pig.jpg'),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, bottom: 20),
-                      child: Text(
-                        'Món ăn 1',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white),
-                      ),
-                    )
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 20),
-              child: Row(
+      body: SafeArea(
+        child: Container(
+          color: Palette.backgroundColor,
+          padding: EdgeInsets.only(top: 20.h),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow[700],
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow[700],
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow[700],
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.grey,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.grey,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dinh dưỡng',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Material(
+                          borderRadius: BorderRadius.circular(20.r),
+                          elevation: 3,
+                          child: CircleAvatar(
+                            radius: 18.r,
+                            backgroundColor: Palette.backgroundColor,
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              splashRadius: 20,
+                              icon: Icon(Icons.chevron_left_rounded),
+                              iconSize: 28,
+                              color: Palette.pink500,
+                              onPressed: () => Navigator.pushNamed(
+                                  context, RouteManager.selectRecipe),
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            recipe.recipeName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline2!
+                                .copyWith(color: Palette.pink500),
+                          ),
+                        ),
+                        SizedBox()
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                  Divider(),
+                  SizedBox(
+                    height: 812.h * 0.777,
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                color: Colors.green.shade300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Đạm',
-                                      style: TextStyle(
-                                        fontSize: 18,
+                          Container(
+                              color: Palette.backgroundColor,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 10.h),
+                              width: MediaQuery.of(context).size.height.w,
+                              child: Stack(
+                                alignment: AlignmentDirectional.topStart,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            blurRadius: 7.r,
+                                            color: Colors.black12)
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      child: Image.network(
+                                        recipe.imageURL,
+                                        fit: BoxFit.fitWidth,
+                                        width: 343.w,
+                                        height: 200.w,
                                       ),
                                     ),
-                                    const Text(
-                                      '50g',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    const Divider(
-                                      height: 5,
-                                      color: Colors.transparent,
-                                    ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 15),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: LinearProgressIndicator(
-                                            minHeight: 7,
-                                            backgroundColor: Colors.grey,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.green.shade700),
-                                            value: 0.7,
+                                  ),
+                                  SizedBox(
+                                    width: 343.w,
+                                    height: 200.w,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: 343.w,
+                                          height: 39.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                top: Radius.circular(20.r),
+                                              ),
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                  colors: const [
+                                                    Colors.transparent,
+                                                    Colors.black54,
+                                                  ])),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: 0.h, right: 13.5.w),
+                                                child: IconButton(
+                                                  padding: EdgeInsets.all(0),
+                                                  onPressed: () {},
+                                                  icon: Icon(Icons.favorite),
+                                                  color: Palette.pink500,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        ))
-                                  ],
-                                ),
-                              )),
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                color: Colors.green.shade300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Protein',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    const Text(
-                                      '80g',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    const Divider(
-                                      height: 5,
-                                      color: Colors.transparent,
-                                    ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 15),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: LinearProgressIndicator(
-                                            minHeight: 7,
-                                            backgroundColor: Colors.grey,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.green.shade700),
-                                            value: 0.7,
+                                        ),
+                                        Spacer(),
+                                        Container(
+                                          width: 343.w,
+                                          height: 39.w,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                bottom: Radius.circular(20.r),
+                                              ),
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.bottomCenter,
+                                                  end: Alignment.topCenter,
+                                                  colors: const [
+                                                    Colors.black54,
+                                                    Colors.transparent,
+                                                  ])),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 21.5.w),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.access_time,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  ' ' + recipe.cookingTime,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1!
+                                                      .copyWith(
+                                                          fontSize: 16,
+                                                          color: Palette
+                                                              .backgroundColor),
+                                                ),
+                                                Spacer(),
+                                                Text(
+                                                  'I',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 24,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Spacer(),
+                                                Icon(
+                                                  Icons.coffee_maker_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  ' ' + recipe.cookingLevel,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1!
+                                                      .copyWith(
+                                                          fontSize: 16,
+                                                          color: Palette
+                                                              .backgroundColor),
+                                                ),
+                                                Spacer(),
+                                                Spacer(),
+                                                Spacer(),
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Palette.yellowStar,
+                                                  size: 20.sp,
+                                                ),
+                                                Text(
+                                                  recipe.favoriteLevel
+                                                      .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1!
+                                                      .copyWith(
+                                                          fontSize: 16,
+                                                          color: Palette
+                                                              .backgroundColor),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ))
-                                  ],
-                                ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               )),
-                          Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                color: Colors.green.shade300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Chất béo',
-                                      style: TextStyle(
-                                        fontSize: 18,
+                          Container(
+                              color: Colors.white,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 15.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Dinh dưỡng',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(color: Palette.pink500),
                                       ),
-                                    ),
-                                    const Text(
-                                      '30g',
-                                      style: TextStyle(
-                                        fontSize: 18,
+                                      Spacer(),
+                                      Text(
+                                        'Xem tất cả',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1!
+                                            .copyWith(color: Palette.pink400),
                                       ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 15.h, bottom: 10.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 0.w),
+                                            child: Container(
+                                              width: 100.w,
+                                              height: 100.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Color.fromRGBO(
+                                                          1, 1, 1, 0.1),
+                                                      blurRadius: 5.r)
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Đạm',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Divider(
+                                                    height: 10.h,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Text(
+                                                    '50g',
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    height: 5.sp,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10.h,
+                                                              horizontal: 10.w),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        child:
+                                                            LinearProgressIndicator(
+                                                          minHeight: 6.h,
+                                                          backgroundColor:
+                                                              Palette.pink100,
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                  Palette
+                                                                      .pink500),
+                                                          value: 0.6,
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )),
+                                        Spacer(),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 0.w),
+                                            child: Container(
+                                              width: 100.w,
+                                              height: 100.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Color.fromRGBO(
+                                                          1, 1, 1, 0.1),
+                                                      blurRadius: 5.r)
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Đạm',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Divider(
+                                                    height: 10.h,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Text(
+                                                    '50g',
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    height: 5.sp,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10.h,
+                                                              horizontal: 10.w),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        child:
+                                                            LinearProgressIndicator(
+                                                          minHeight: 6.h,
+                                                          backgroundColor:
+                                                              Palette.pink100,
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                  Palette
+                                                                      .pink500),
+                                                          value: 0.6,
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )),
+                                        Spacer(),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 0.w),
+                                            child: Container(
+                                              width: 100.w,
+                                              height: 100.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Color.fromRGBO(
+                                                          1, 1, 1, 0.1),
+                                                      blurRadius: 5.r)
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Đạm',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Divider(
+                                                    height: 10.h,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Text(
+                                                    '50g',
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    height: 5.sp,
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10.h,
+                                                              horizontal: 10.w),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        child:
+                                                            LinearProgressIndicator(
+                                                          minHeight: 6.h,
+                                                          backgroundColor:
+                                                              Palette.pink100,
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                  Palette
+                                                                      .pink500),
+                                                          value: 0.6,
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )),
+                                      ],
                                     ),
-                                    const Divider(
-                                      height: 5,
-                                      color: Colors.transparent,
-                                    ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 15),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: LinearProgressIndicator(
-                                            minHeight: 7,
-                                            backgroundColor: Colors.grey,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.green.shade700),
-                                            value: 0.7,
-                                          ),
-                                        ))
-                                  ],
-                                ),
+                                  ),
+                                ],
                               )),
+                          Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Nguyên liệu (' +
+                                      recipe.ingredient.length.toString() +
+                                      ')',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline3!
+                                      .copyWith(color: Palette.pink500),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 15.h, bottom: 0),
+                                  child: SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Column(
+                                        children: recipe.ingredient
+                                            .map(listIngredient)
+                                            .toList(),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Nguyên liệu',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15),
-                    child: SizedBox(
-                        height: 150,
-                        width: MediaQuery.of(context).size.width,
-                        child: ScrollConfiguration(
-                          behavior: CustomScroll(),
-                          child: ListView(
-                            padding: EdgeInsets.all(0),
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.people,
-                                            size: 35,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              'Human',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Text('5'),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: Colors.grey.shade400,
-                                        height: 1,
-                                        thickness: 2,
-                                      )
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.nordic_walking,
-                                            size: 35,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              'Human',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Text('5'),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: Colors.grey.shade400,
-                                        height: 1,
-                                        thickness: 2,
-                                      )
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.water,
-                                            size: 35,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              'Water',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Text('5'),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: Colors.grey.shade400,
-                                        height: 1,
-                                        thickness: 2,
-                                      )
-                                    ],
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.favorite_sharp,
-                                            size: 35,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 15),
-                                            child: Text(
-                                              'Heart',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Text('5'),
-                                        ],
-                                      ),
-                                      Divider(
-                                        color: Colors.grey.shade400,
-                                        height: 1,
-                                        thickness: 2,
-                                      )
-                                    ],
-                                  )),
-                            ],
-                          ),
-                        )),
                   ),
                 ],
               ),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  children: [
-                    Text('Độ khó',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    Spacer(),
-                    Row(
+              SizedBox(
+                height: 100.h,
+                width: double.infinity,
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 0.7,
+                      sigmaY: 0.7,
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow[700],
+                        Container(
+                          color: Colors.white.withOpacity(0),
                         ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow[700],
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow[700],
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.grey,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.grey,
+                        Container(
+                          height: 40.h,
+                          width: 200.w,
+                          decoration: BoxDecoration(
+                            color: Palette.orange500,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.book,
+                                  color: Palette.backgroundColor,
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed(RouteManager.selectRecipe);
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Bắt đầu nấu ăn!',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline3!
+                                            .copyWith(
+                                                color: Palette.backgroundColor,
+                                                fontWeight: FontWeight.w600),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ],
-                    )
-                  ],
-                )),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Center(
-                  child: OutlinedButton(
-                    style:
-                        OutlinedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: () {},
-                    child: Text(
-                      'Bắt đầu',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
-                ))
-          ],
+                ),
+              )
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Palette.pink500,
+        unselectedItemColor: Colors.black,
+        currentIndex: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home_rounded),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search_rounded),
+            label: "Search",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle_outline_rounded),
+            activeIcon: Icon(Icons.add_circle_rounded),
+            label: "Add",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_border_rounded),
+            activeIcon: Icon(Icons.favorite_rounded),
+            label: "Favorite",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_outlined),
+            activeIcon: Icon(Icons.account_circle_rounded),
+            label: "User",
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget listIngredient(Ingredient ingredient) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
+      child: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(ingredient.ingrImageURL),
+            backgroundColor: Colors.grey,
+            radius: 20.sp,
+          ),
+          SizedBox(
+            width: 20.sp,
+          ),
+          Text(
+            ingredient.ingrName,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+          ),
+          Spacer(),
+          Text(
+            ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+          ),
+        ],
       ),
     );
   }
