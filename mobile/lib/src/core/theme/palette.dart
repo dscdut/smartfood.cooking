@@ -80,7 +80,6 @@ class Palette {
   ///
   ///https://www.figma.com/file/rifJcKloniSPG2tdwzIcfo/Smartfood?node-id=111%3A1903
   static const backgroundColor = Colors.white;
-
   ///Support
   ///
   ///
