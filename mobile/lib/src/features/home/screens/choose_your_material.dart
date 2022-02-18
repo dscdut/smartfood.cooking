@@ -4,7 +4,8 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/src/core/theme/palatte.dart';
+import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/palette.dart';
 
 class ChooseYourMaterial extends StatefulWidget {
   const ChooseYourMaterial({Key? key}) : super(key: key);
@@ -146,7 +147,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 splashRadius: 24,
                                 icon: Icon(Icons.chevron_left_rounded),
                                 iconSize: 28,
-                                color: Palatte.pink500,
+                                color: Palette.pink500,
                                 onPressed: () => Navigator.pop(context),
                               ),
                             ),
@@ -156,14 +157,14 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline2!
-                                .copyWith(color: Palatte.pink500),
+                                .copyWith(color: Palette.pink500),
                           ),
                           IconButton(
                             splashRadius: 28,
                             constraints: BoxConstraints(),
                             padding: EdgeInsets.only(right: 5.w),
                             icon: Badge(
-                              badgeColor: Palatte.pink500,
+                              badgeColor: Palette.pink500,
                               badgeContent: Text(
                                 "3",
                                 style: TextStyle(
@@ -179,7 +180,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                               child: Icon(
                                 Icons.kitchen_rounded,
                                 size: 30,
-                                color: Palatte.pink500,
+                                color: Palette.pink500,
                               ),
                             ),
                             onPressed: () {},
@@ -216,7 +217,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 hintStyle: Theme.of(context)
                                     .textTheme
                                     .headline4!
-                                    .copyWith(color: Palatte.gray300),
+                                    .copyWith(color: Palette.gray300),
                                 suffixIcon: Icon(Icons.search),
                               ),
                             ),
@@ -257,7 +258,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 .copyWith(
                                     color: selectedTypeList[index]
                                         ? Colors.white
-                                        : Palatte.gray500),
+                                        : Palette.gray500),
                             selected: selectedTypeList[index],
                             onSelected: (value) => setState(() {
                               if (index == 0 && !selectedTypeList[index]) {
@@ -270,8 +271,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 selectedTypeList[0] = false;
                               }
                             }),
-                            selectedColor: Palatte.pink500,
-                            backgroundColor: Palatte.backgroundColor,
+                            selectedColor: Palette.pink500,
+                            backgroundColor: Palette.backgroundColor,
                             elevation: 3,
                           );
                         },
@@ -316,8 +317,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 padding: EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: selectedMaterialList[index]
-                                      ? Palatte.pink300
-                                      : Palatte.backgroundColor,
+                                      ? Palette.pink300
+                                      : Palette.backgroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Column(
@@ -345,8 +346,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                           .bodyText1!
                                           .copyWith(
                                             color: selectedMaterialList[index]
-                                                ? Palatte.backgroundColor
-                                                : Palatte.gray500,
+                                                ? Palette.backgroundColor
+                                                : Palette.gray500,
                                           ),
                                       child: Text(materialData[index]["name"]!),
                                       textAlign: TextAlign.center,
@@ -382,16 +383,22 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                             height: 40,
                             width: 130,
                             decoration: BoxDecoration(
-                              color: Palatte.orange500,
+                              color: Palette.orange500,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(
-                              child: Text(
-                                "Tiếp tục",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: Palatte.backgroundColor),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(RouteManager.notFound);
+                                },
+                                child: Text(
+                                  'Tiếp tục',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(color: Palette.backgroundColor),
+                                ),
                               ),
                             ),
                           ),
@@ -406,7 +413,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Palatte.pink500,
+          selectedItemColor: Palette.pink500,
           unselectedItemColor: Colors.black,
           currentIndex: 0,
           showSelectedLabels: false,

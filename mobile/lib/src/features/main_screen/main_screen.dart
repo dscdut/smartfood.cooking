@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/core/theme/palatte.dart';
+import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/food_bank/food_bank.dart';
 import 'package:mobile/src/features/home/screens/home_screen.dart';
 import 'package:mobile/src/features/setting/setting_screen.dart';
@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Palatte.pink500,
+        selectedItemColor: Palette.pink500,
         unselectedItemColor: Colors.black,
         currentIndex: currentIndex,
         showSelectedLabels: false,
