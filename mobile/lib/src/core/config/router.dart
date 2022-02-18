@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/src/features/home/screens/choose_your_material.dart';
 import 'package:mobile/src/features/home/screens/cook_recipe.dart';
+import 'package:mobile/src/features/home/screens/done_cooking_screen.dart';
 import 'package:mobile/src/features/home/screens/not_found_screen.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
 import 'package:mobile/src/features/home/screens/steps_to_cooking.dart';
@@ -15,6 +16,7 @@ class RouteManager {
   static const String stepsToCooking = '/stepsToCooking';
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
+  static const String doneCooking = '/doneCooking';
 
   static Map<String, WidgetBuilder> listRoute = {
     mainScreen: (_) => const MainScreen(),
@@ -24,5 +26,6 @@ class RouteManager {
     stepsToCooking: (_) => const StepsToCookingScreen(),
     cookRecipe: (_) => const CookRecipe(),
     selectRecipe: (_) => const SelectRecipe(),
+    doneCooking: (_) => const DoneCookingScreen(),
   };
 }
