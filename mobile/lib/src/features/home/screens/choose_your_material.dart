@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ChooseYourMaterial extends StatefulWidget {
   const ChooseYourMaterial({Key? key}) : super(key: key);
@@ -136,21 +136,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Material(
-                            borderRadius: BorderRadius.circular(20),
-                            elevation: 3,
-                            child: CircleAvatar(
-                              radius: 18,
-                              backgroundColor: Colors.white,
-                              child: IconButton(
-                                padding: EdgeInsets.zero,
-                                splashRadius: 24,
-                                icon: Icon(Icons.chevron_left_rounded),
-                                iconSize: 28,
-                                color: Palette.pink500,
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ),
+                          CustomBackButton(
+                            onPressedFunction: () => Navigator.pop(context),
                           ),
                           Text(
                             "Chọn nguyên liệu",
@@ -218,22 +205,22 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                     .textTheme
                                     .headline4!
                                     .copyWith(color: Palette.gray300),
-                                suffixIcon: Icon(Icons.search),
+                                suffixIcon: Icon(
+                                  PhosphorIcons.magnifyingGlassBold,
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 36.w,
-                          ),
+                          Spacer(),
                           IconButton(
                             padding: EdgeInsets.zero,
                             constraints: BoxConstraints(),
                             splashRadius: 28,
-                            icon:
-                                SvgPicture.asset("assets/icons/scan_icon.svg"),
-                            iconSize: 28,
+                            icon: Icon(PhosphorIcons.scan),
+                            color: Palette.orange500,
+                            iconSize: 36,
                             onPressed: () {},
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -317,7 +304,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 padding: EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: selectedMaterialList[index]
-                                      ? Palette.pink300
+                                      ? Palette.pink400
                                       : Palette.backgroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -336,9 +323,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
+                                    Spacer(),
                                     AnimatedDefaultTextStyle(
                                       duration: Duration(milliseconds: 200),
                                       style: Theme.of(context)
@@ -354,6 +339,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
+                                    Spacer(),
                                   ],
                                 ),
                               ),
@@ -364,87 +350,96 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 100.h,
-                  width: double.infinity,
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 0.7,
-                        sigmaY: 0.7,
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            color: Colors.white.withOpacity(0),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: Palette.orange500,
-                              borderRadius: BorderRadius.circular(20),
+                selectedMaterialList
+                        .where((element) => element == true)
+                        .toList()
+                        .isNotEmpty
+                    ? SizedBox(
+                        height: 100.h,
+                        width: double.infinity,
+                        child: ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 0.7,
+                              sigmaY: 0.7,
                             ),
-                            child: Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteManager.notFound);
-                                },
-                                child: Text(
-                                  'Tiếp tục',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(color: Palette.backgroundColor),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  color: Colors.white.withOpacity(0),
                                 ),
-                              ),
+                                Container(
+                                  height: 40,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                    color: Palette.orange500,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(RouteManager.notFound);
+                                      },
+                                      child: Text(
+                                        'Tiếp tục (${selectedMaterialList.where((element) => element == true).toList().length})',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4!
+                                            .copyWith(
+                                                color: Palette.backgroundColor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                        ),
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Palette.pink500,
-          unselectedItemColor: Colors.black,
-          currentIndex: 0,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          iconSize: 30,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home_rounded),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search_rounded),
-              label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle_outline_rounded),
-              activeIcon: Icon(Icons.add_circle_rounded),
-              label: "Add",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border_rounded),
-              activeIcon: Icon(Icons.favorite_rounded),
-              label: "Favorite",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
-              activeIcon: Icon(Icons.account_circle_rounded),
-              label: "User",
-            )
-          ],
+      ),
+    );
+  }
+}
+
+class CustomBackButton extends StatelessWidget {
+  const CustomBackButton({
+    Key? key,
+    required this.onPressedFunction,
+  }) : super(key: key);
+
+  final VoidCallback onPressedFunction;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 6,
+            color: Palette.shadowColor.withOpacity(0.1),
+            offset: Offset(1, 4),
+          )
+        ],
+      ),
+      child: CircleAvatar(
+        radius: 18,
+        backgroundColor: Colors.white,
+        child: IconButton(
+          padding: EdgeInsets.zero,
+          splashRadius: 24,
+          icon: Icon(PhosphorIcons.caretLeftBold),
+          color: Palette.pink500,
+          iconSize: 20,
+          onPressed: onPressedFunction,
         ),
       ),
     );

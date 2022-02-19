@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DynamicHeightPageView extends StatefulWidget {
   final List<Widget> children;
@@ -18,7 +19,8 @@ class DynamicHeightPageView extends StatefulWidget {
   _DynamicHeightPageViewState createState() => _DynamicHeightPageViewState();
 }
 
-class _DynamicHeightPageViewState extends State<DynamicHeightPageView> with TickerProviderStateMixin {
+class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
+    with TickerProviderStateMixin {
   late List<double> listHeigtOfChildren;
 
   double get _currentHeight => listHeigtOfChildren[widget.indexCurrentPage];
@@ -28,7 +30,6 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView> with Tick
     listHeigtOfChildren = widget.children.map((e) => 0.0).toList();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +43,14 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView> with Tick
             minHeight: 0,
             maxHeight: double.infinity,
             alignment: Alignment.topCenter,
-            child: UpdatedSizeWidget(
-              onSizeChange: (Size size) => setState(() => listHeigtOfChildren[index] = size.height),
-              child: widget.children[index],
-              previousHeight: listHeigtOfChildren[index],
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+              child: UpdatedSizeWidget(
+                onSizeChange: (Size size) =>
+                    setState(() => listHeigtOfChildren[index] = size.height),
+                child: widget.children[index],
+                previousHeight: listHeigtOfChildren[index],
+              ),
             ),
           );
         },
@@ -59,7 +64,12 @@ class UpdatedSizeWidget extends StatelessWidget {
   final ValueChanged<Size> onSizeChange;
   final double previousHeight;
 
-  const UpdatedSizeWidget({Key? key, required this.child, required this.onSizeChange, required this.previousHeight}) : super(key: key);
+  const UpdatedSizeWidget(
+      {Key? key,
+      required this.child,
+      required this.onSizeChange,
+      required this.previousHeight})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

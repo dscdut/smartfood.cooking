@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 15.h),
               SizedBox(
-                height: 150.h,
+                height: 160.h,
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                   itemCount: menuData.length,
@@ -126,8 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Stack(
                       children: [
                         Container(
-                          height: 140.w,
-                          width: 140.w,
+                          height: 150.w,
+                          width: 150.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
@@ -163,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: IconButton(
                               splashRadius: 20,
                               constraints: BoxConstraints(),
-                              icon: Icon(Icons.favorite),
+                              icon: Icon(PhosphorIcons.heartFill),
                               color: menuData[index]["isFavorite"] as bool
                                   ? Palette.pink500
                                   : Palette.backgroundColor,
@@ -182,73 +182,75 @@ class _HomeScreenState extends State<HomeScreen> {
                           right: 10.w,
                           child: Container(
                             padding: EdgeInsets.all(6),
-                            height: 60.h,
+                            height: 65.h,
                             width: 120.w,
                             decoration: BoxDecoration(
                               color: Palette.backgroundColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Column(children: [
-                              Expanded(
-                                child: Text(
-                                  menuData[index]["name"]! as String,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        color: Palette.gray500,
-                                      ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.schedule,
-                                    color: Palette.gray400,
-                                    size: 16,
-                                  ),
-                                  SizedBox(width: 2.w),
-                                  Text(
-                                    "${menuData[index]["time"]} phút",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(
-                                          color: Palette.gray400,
-                                          fontSize: 12.sp,
-                                        ),
-                                  ),
-                                  VerticalDivider(
-                                    thickness: 2,
-                                    color: Palette.gray400,
-                                    endIndent: 7,
-                                    indent: 7,
-                                    width: 15,
-                                  ),
-                                  Baseline(
-                                    baseline: 12,
-                                    baselineType: TextBaseline.alphabetic,
-                                    child: SvgPicture.asset(
-                                      "assets/icons/cook_icon.svg",
-                                      height: 16,
-                                      width: 16,
+                              Spacer(),
+                              Text(
+                                menuData[index]["name"]! as String,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      color: Palette.gray500,
                                     ),
-                                  ),
-                                  SizedBox(width: 2.w),
-                                  Text(
-                                    menuData[index]["level"]! as String,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Spacer(flex: 2),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          PhosphorIcons.clock,
                                           color: Palette.gray400,
-                                          fontSize: 12.sp,
+                                          size: 16,
                                         ),
-                                  )
-                                ],
+                                        SizedBox(width: 2.w),
+                                        Text(
+                                          "${menuData[index]["time"]} phút",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                color: Palette.gray400,
+                                                fontSize: 12.sp,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          PhosphorIcons.cookingPot,
+                                          color: Palette.gray400,
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 2.w),
+                                        Text(
+                                          menuData[index]["level"]! as String,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                color: Palette.gray400,
+                                                fontSize: 12.sp,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               )
                             ]),
                           ),
@@ -263,8 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Spacer(),
               GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, RouteManager.stepsToCooking),
+                onTap: () =>
+                    Navigator.pushNamed(context, RouteManager.chooseYourMaterial),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(

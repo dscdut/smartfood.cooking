@@ -4,6 +4,7 @@ import 'package:mobile/src/features/food_bank/food_bank.dart';
 import 'package:mobile/src/features/home/screens/home_screen.dart';
 import 'package:mobile/src/features/setting/setting_screen.dart';
 import 'package:mobile/src/features/user/user_screen.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -45,27 +46,28 @@ class _MainScreenState extends State<MainScreen> {
         iconSize: 30,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home_rounded),
+            icon: Icon(PhosphorIcons.house),
+            activeIcon: Icon(PhosphorIcons.houseFill),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search_rounded),
+            icon: Icon(PhosphorIcons.magnifyingGlass),
+            activeIcon: Icon(PhosphorIcons.magnifyingGlassFill),
             label: "Search",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline_rounded),
-            activeIcon: Icon(Icons.add_circle_rounded),
+            icon: Icon(PhosphorIcons.plusCircle),
+            activeIcon: Icon(PhosphorIcons.plusCircleFill),
             label: "Add",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border_rounded),
-            activeIcon: Icon(Icons.favorite_rounded),
+            icon: Icon(PhosphorIcons.heart),
+            activeIcon: Icon(PhosphorIcons.heartFill),
             label: "Favorite",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            activeIcon: Icon(Icons.account_circle_rounded),
+            icon: Icon(PhosphorIcons.userCircle),
+            activeIcon: Icon(PhosphorIcons.userCircleFill),
             label: "User",
           )
         ],
