@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DoneCookingScreen extends StatelessWidget {
   const DoneCookingScreen({Key? key}) : super(key: key);
@@ -12,9 +12,10 @@ class DoneCookingScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top + 30.h,
-            left: 16.w,
-            right: 16.w),
+          top: MediaQuery.of(context).padding.top + 40.h,
+          left: 16.w,
+          right: 16.w,
+        ),
         child: Column(
           children: [
             Image.asset(
@@ -36,8 +37,9 @@ class DoneCookingScreen extends StatelessWidget {
                 SizedBox(
                   width: 6.w,
                 ),
-                SvgPicture.asset(
-                  ImagePath.clapHandIcon,
+                Icon(
+                  PhosphorIcons.handsClappingBold,
+                  color: Palette.gray500,
                 ),
               ],
             ),
@@ -63,8 +65,10 @@ class DoneCookingScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(
-                        ImagePath.flameIcon,
+                      Icon(
+                        Icons.local_fire_department_rounded,
+                        color: Palette.orange500,
+                        size: 28,
                       ),
                       SizedBox(
                         width: 6.w,
@@ -116,7 +120,7 @@ class DoneCookingScreen extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               style: TextButton.styleFrom(
-                  fixedSize: Size(210.w, 40.h),
+                  fixedSize: Size(210.w, 45.h),
                   backgroundColor: Palette.orange500,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
@@ -124,7 +128,7 @@ class DoneCookingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.home_outlined,
+                    PhosphorIcons.houseBold,
                     color: Colors.white,
                     size: 25.sp,
                   ),

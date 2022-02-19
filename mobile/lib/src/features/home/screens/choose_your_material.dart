@@ -305,7 +305,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                                 padding: EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: selectedMaterialList[index]
-                                      ? Palette.pink300
+                                      ? Palette.pink400
                                       : Palette.backgroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -351,49 +351,55 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 100.h,
-                  width: double.infinity,
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 0.7,
-                        sigmaY: 0.7,
-                      ),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            color: Colors.white.withOpacity(0),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: Palette.orange500,
-                              borderRadius: BorderRadius.circular(20),
+                selectedMaterialList
+                        .where((element) => element == true)
+                        .toList()
+                        .isNotEmpty
+                    ? SizedBox(
+                        height: 100.h,
+                        width: double.infinity,
+                        child: ClipRect(
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 0.7,
+                              sigmaY: 0.7,
                             ),
-                            child: Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteManager.notFound);
-                                },
-                                child: Text(
-                                  'Tiếp tục',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline4!
-                                      .copyWith(color: Palette.backgroundColor),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  color: Colors.white.withOpacity(0),
                                 ),
-                              ),
+                                Container(
+                                  height: 40,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                    color: Palette.orange500,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed(RouteManager.notFound);
+                                      },
+                                      child: Text(
+                                        'Tiếp tục (${selectedMaterialList.where((element) => element == true).toList().length})',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4!
+                                            .copyWith(
+                                                color: Palette.backgroundColor),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                        ),
+                      )
+                    : SizedBox.shrink(),
               ],
             ),
           ),

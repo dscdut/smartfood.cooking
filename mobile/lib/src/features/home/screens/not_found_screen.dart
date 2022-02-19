@@ -72,7 +72,10 @@ class NotFoundScreen extends StatelessWidget {
                   height: 20.h,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.popAndPushNamed(
+                    context,
+                    RouteManager.chooseYourMaterial,
+                  ),
                   style: TextButton.styleFrom(
                     side: BorderSide(width: 2.0, color: Palette.orange500),
                     fixedSize: Size(210.w, 40.h),
