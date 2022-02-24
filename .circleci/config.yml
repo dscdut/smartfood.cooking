@@ -48,7 +48,7 @@ jobs:
           name: Deploy via ssh
           command: |
               echo Starting to deploy server
-              ssh -v $SSH_USER@$SSH_HOST 'cd ~/smartfood.cooking/services/app-service && git checkout dev-v1.0 && git pull && chmod 777 ./script/deploy.sh && ./script/deploy.sh'
+              ssh -v $SSH_USER@$SSH_HOST 'cd ~/smartfood.cooking/ && git checkout dev-v1.0 && git pull && chmod 777 ./script/deploy.sh && ./script/deploy.sh'
 
 workflows:
   version: 2
