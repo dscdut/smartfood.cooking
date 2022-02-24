@@ -24,7 +24,8 @@ class Repository extends DataRepository {
         'recipes.created_at',
         'recipes.updated_at',
       )
-      .distinct();
+      .groupByRaw('recipes.id, recipes.name')
+      .orderByRaw('count(ingredients.id) desc');
   }
 
   findById(id) {
