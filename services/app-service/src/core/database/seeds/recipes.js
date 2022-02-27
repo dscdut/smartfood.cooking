@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /**
  * @param {import("knex")} knex
  */
@@ -8,7 +9,7 @@ exports.seed = knex => knex('recipes')
     .del()
     .then(async () => {
         let data = [];
-        for (let i = 0; i < recipes.length; i++) {
+        for (let i = 0; i < recipes.length; i += 1) {
             data.push(recipes[i]);
             if ((i % 3000 === 0 && i !== 0) || i === recipes.length - 1) {
                 await knex('recipes').insert(data);

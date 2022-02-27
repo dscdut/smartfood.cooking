@@ -1,4 +1,4 @@
-import { LoginInterceptor } from 'core/modules/auth';
+import { LoginInterceptor, LoginWithGoogleInterceptor } from 'core/modules/auth';
 import { Module } from 'packages/handler/Module';
 import { AuthController } from './auth.controller';
 
@@ -16,4 +16,11 @@ export const AuthResolver = Module.builder()
             body: 'LoginDto',
             controller: AuthController.login,
         },
+        {
+            route: '/login-with-google',
+            method: 'post',
+            interceptors: [LoginWithGoogleInterceptor],
+            body: 'LoginWithGoogleDto',
+            controller: AuthController.loginWithGoogle,
+        }
     ]);
