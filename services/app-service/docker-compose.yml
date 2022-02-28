@@ -6,10 +6,11 @@ networks:
 
 services:
   app:
+    container_name: sc-app
     restart: always
     build: .
     ports:
-      - "3000:3000"
+      - "3000:3008"
     env_file:
       - .env
     volumes:
@@ -23,7 +24,7 @@ services:
       - app-network
     command: sh -c 'yarn && yarn dev'
   db:
-    container_name: mypsql
+    container_name: sc-mypsql
     image: postgres
     restart: always
     env_file:
@@ -33,7 +34,7 @@ services:
     networks:
       - app-network
   pgadmin:
-    container_name: mypgadmin
+    container_name: sc-mypgadmin
     image: dpage/pgadmin4
     restart: always
     env_file:
