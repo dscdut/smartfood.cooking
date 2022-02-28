@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .headline1!
                           .copyWith(color: Palette.pink500),
                     ),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundColor: Colors.indigo,
                       child: Text(
                         "A",
@@ -147,8 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: [
-                                Color(0xff0B0B0B).withOpacity(0.6),
-                                Color(0xffC4C4C4).withOpacity(0),
+                                const Color(0xff0B0B0B).withOpacity(0.6),
+                                const Color(0xffC4C4C4).withOpacity(0),
                               ],
                               stops: const [0, 0.3],
                             ),
@@ -162,8 +162,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(20),
                             child: IconButton(
                               splashRadius: 20,
-                              constraints: BoxConstraints(),
-                              icon: Icon(PhosphorIcons.heartFill),
+                              constraints: const BoxConstraints(),
+                              icon: const Icon(PhosphorIcons.heartFill),
                               color: menuData[index]["isFavorite"] as bool
                                   ? Palette.pink500
                                   : Palette.backgroundColor,
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           left: 10.w,
                           right: 10.w,
                           child: Container(
-                            padding: EdgeInsets.all(6),
+                            padding: const EdgeInsets.all(6),
                             height: 65.h,
                             width: 120.w,
                             decoration: BoxDecoration(
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Column(children: [
-                              Spacer(),
+                              const Spacer(),
                               Text(
                                 menuData[index]["name"]! as String,
                                 style: Theme.of(context)
@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              Spacer(flex: 2),
+                              const Spacer(flex: 2),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 6.w),
                                 child: Row(
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           PhosphorIcons.clock,
                                           color: Palette.gray400,
                                           size: 16,
@@ -231,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           PhosphorIcons.cookingPot,
                                           color: Palette.gray400,
                                           size: 18,
@@ -263,10 +263,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, RouteManager.chooseYourMaterial),
+                onTap: () => Navigator.pushNamed(
+                    context, RouteManager.chooseYourMaterial),
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(

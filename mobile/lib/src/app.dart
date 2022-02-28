@@ -8,7 +8,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       minTextAdapt: true,
       builder: () => MaterialApp(
         builder: (context, widget) {
@@ -21,11 +21,11 @@ class App extends StatelessWidget {
         title: "Smart Food",
         debugShowCheckedModeBanner: false,
         routes: RouteManager.listRoute,
-        initialRoute: RouteManager.mainScreen,
+        initialRoute: RouteManager.userChoice,
         theme: ThemeData(
           brightness: Brightness.light,
           fontFamily: 'Nunito',
-          textTheme: TextTheme(
+          textTheme: const TextTheme(
             headline1: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 32,

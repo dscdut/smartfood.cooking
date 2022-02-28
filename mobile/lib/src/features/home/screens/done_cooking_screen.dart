@@ -37,7 +37,7 @@ class DoneCookingScreen extends StatelessWidget {
                 SizedBox(
                   width: 6.w,
                 ),
-                Icon(
+                const Icon(
                   PhosphorIcons.handsClappingBold,
                   color: Palette.gray500,
                 ),
@@ -54,7 +54,7 @@ class DoneCookingScreen extends StatelessWidget {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 8,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   )
                 ],
                 borderRadius: BorderRadius.circular(20),
@@ -65,7 +65,7 @@ class DoneCookingScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.local_fire_department_rounded,
                         color: Palette.orange500,
                         size: 28,
