@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/choose_your_material.dart';
 import 'package:mobile/src/features/home/widgets/dynamic_height_page_view.dart';
+import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class StepsToCookingScreen extends StatefulWidget {
   const StepsToCookingScreen({Key? key}) : super(key: key);
@@ -129,7 +129,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                     })
                     .values
                     .toList()),
-            Spacer(),
+            const Spacer(),
             indexCurrentPage < listSteps.length - 1
                 ? Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
@@ -145,12 +145,12 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                                     indexCurrentPage = indexCurrentPage - 1);
                                 pageController.previousPage(
                                   curve: Curves.easeIn,
-                                  duration: Duration(milliseconds: 100),
+                                  duration: const Duration(milliseconds: 100),
                                 );
                               }
                             },
                             style: TextButton.styleFrom(
-                                side: BorderSide(
+                                side: const BorderSide(
                                     width: 2.0, color: Palette.pink500),
                                 fixedSize: Size(110.w, 40.h),
                                 shape: RoundedRectangleBorder(
@@ -171,7 +171,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                             });
                             pageController.nextPage(
                               curve: Curves.linear,
-                              duration: Duration(milliseconds: 100),
+                              duration: const Duration(milliseconds: 100),
                             );
                           },
                           style: TextButton.styleFrom(

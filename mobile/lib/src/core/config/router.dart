@@ -7,6 +7,7 @@ import 'package:mobile/src/features/home/screens/select_recipe.dart';
 import 'package:mobile/src/features/home/screens/steps_to_cooking.dart';
 import 'package:mobile/src/features/home/screens/your_material_screen.dart';
 import 'package:mobile/src/features/main_screen/main_screen.dart';
+import 'package:mobile/src/features/user_choice/user_choice_screen.dart';
 
 class RouteManager {
   static const String mainScreen = "/";
@@ -17,6 +18,7 @@ class RouteManager {
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
   static const String doneCooking = '/doneCooking';
+  static const String userChoice = '/userChoice';
 
   static Map<String, WidgetBuilder> listRoute = {
     mainScreen: (_) => const MainScreen(),
@@ -27,5 +29,6 @@ class RouteManager {
     cookRecipe: (_) => const CookRecipe(),
     selectRecipe: (_) => const SelectRecipe(),
     doneCooking: (_) => const DoneCookingScreen(),
+    userChoice: (_) => const UserChoiceScreen(),
   };
 }

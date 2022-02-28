@@ -4,7 +4,7 @@ import 'package:mobile/src/core/config/router.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/choose_your_material.dart';
+import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({Key? key}) : super(key: key);
@@ -77,7 +77,8 @@ class NotFoundScreen extends StatelessWidget {
                     RouteManager.chooseYourMaterial,
                   ),
                   style: TextButton.styleFrom(
-                    side: BorderSide(width: 2.0, color: Palette.orange500),
+                    side:
+                        const BorderSide(width: 2.0, color: Palette.orange500),
                     fixedSize: Size(210.w, 40.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
