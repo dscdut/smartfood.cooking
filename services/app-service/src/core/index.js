@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import './config/restBuilder.config';
 import express from 'express';
 import { SecurityFilter } from 'packages/authModel/core/security/SecurityFilter';
 import { ApiDocument } from 'core/config/swagger.config';
