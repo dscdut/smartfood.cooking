@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/features/user_choice/widget/choose_country_page.dart';
+import 'package:mobile/src/features/user_choice/widget/choose_favorite_food_page.dart';
 import 'package:mobile/src/features/user_choice/widget/item_choice.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -60,9 +62,9 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                     child: Text(
                       "Bỏ qua",
                       style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Palette.gray300,
-                            fontSize: 22.sp,
-                          ),
+                        color: Palette.gray300,
+                        fontSize: 22.sp,
+                      ),
                     ),
                   )
                 ],
@@ -78,6 +80,8 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                     });
                   },
                   children: [
+                    ChooseCountryPage(key: UniqueKey(),),
+                    ChooseFavoriteFoodPage(key: UniqueKey(),),
                     DietPage(key: UniqueKey()),
                     DietPage(key: UniqueKey()),
                     DietPage(key: UniqueKey()),

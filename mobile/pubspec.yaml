@@ -70,6 +70,7 @@ flutter:
     - assets/images/
     - assets/images/decoration/
     - assets/images/logos/
+    - assets/images/foods_drinks/
   #    - assets/icons/
   #    - assets/.env
 
