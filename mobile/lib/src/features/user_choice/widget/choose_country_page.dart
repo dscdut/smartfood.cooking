@@ -92,7 +92,7 @@ class CountryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      overflow: Overflow.visible,
+      clipBehavior: Clip.none,
       children: [
         Image.asset(
           imagePath,

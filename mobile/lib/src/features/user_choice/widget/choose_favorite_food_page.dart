@@ -5,7 +5,7 @@ import 'package:mobile/src/core/theme/palette.dart';
 
 class ChooseFavoriteFoodPage extends StatefulWidget {
 
-  ChooseFavoriteFoodPage({Key? key}) : super(key: key);
+  const ChooseFavoriteFoodPage({Key? key}) : super(key: key);
 
   @override
   State<ChooseFavoriteFoodPage> createState() => _ChooseFavoriteFoodPageState();
@@ -76,7 +76,7 @@ class FavoriteFoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
