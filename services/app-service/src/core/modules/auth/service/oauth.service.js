@@ -1,13 +1,9 @@
-import { OAuth2Client } from 'google-auth-library';
-import { CLIENT_ID } from '../../../env';
+import { adminApp } from '../../../config';
 
 class OAuthServiceImpl {
-    client = new OAuth2Client(CLIENT_ID);
-
     verify = async token => {
-        const ticket = await this.client.verifyIdToken({
+        const ticket = await adminApp.auth().verifyIdToken({
             idToken: token,
-            audience: CLIENT_ID,
         });
         return ticket.getPayload();
     }
