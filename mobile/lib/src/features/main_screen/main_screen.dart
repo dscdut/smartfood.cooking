@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/data/datasources/test.dart';
 import 'package:mobile/src/features/food_bank/food_bank.dart';
 import 'package:mobile/src/features/home/screens/home_screen.dart';
 import 'package:mobile/src/features/setting/setting_screen.dart';
 import 'package:mobile/src/features/user/user_screen.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

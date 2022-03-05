@@ -37,7 +37,6 @@ dependencies:
   dio: ^4.0.4
   cached_network_image: ^3.2.0
   flutter_svg: ^1.0.3
-  flutter_riverpod: ^1.0.3
   flutter_screenutil: ^5.1.1
   badges: ^2.0.2
   phosphor_flutter: ^1.4.0
@@ -45,6 +44,7 @@ dependencies:
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.9
   google_sign_in: ^5.2.4
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
