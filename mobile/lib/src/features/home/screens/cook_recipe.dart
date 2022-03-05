@@ -196,7 +196,7 @@ class CookRecipe extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 15.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                       child: Row(
@@ -219,7 +219,7 @@ class CookRecipe extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 16.h),
+                    SizedBox(height: 15.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                       child: Row(
@@ -447,7 +447,7 @@ class CookRecipe extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context)
-                                    .pushNamed(RouteManager.stepsToCooking);
+                                    .pushNamed(RouteManager.signIn);
                               },
                               child: Row(
                                 children: [

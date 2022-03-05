@@ -4,6 +4,9 @@ import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 import 'package:mobile/src/features/home/screens/done_cooking_screen.dart';
 import 'package:mobile/src/features/home/screens/not_found_screen.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
+import 'package:mobile/src/features/home/screens/sign_in.dart';
+import 'package:mobile/src/features/home/screens/sign_up.dart';
+import 'package:mobile/src/features/home/screens/forgot_password.dart';
 import 'package:mobile/src/features/home/screens/steps_to_cooking.dart';
 import 'package:mobile/src/features/home/screens/your_material_screen.dart';
 import 'package:mobile/src/features/main_screen/main_screen.dart';
@@ -18,7 +21,11 @@ class RouteManager {
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
   static const String doneCooking = '/doneCooking';
+  static const String signIn = '/signIn';
+  static const String signUp = '/signUp';
+  static const String forgotPassword = '/forgotPassword';
   static const String userChoice = '/userChoice';
+
 
   static Map<String, WidgetBuilder> listRoute = {
     mainScreen: (_) => const MainScreen(),
@@ -29,6 +36,9 @@ class RouteManager {
     cookRecipe: (_) => const CookRecipe(),
     selectRecipe: (_) => const SelectRecipe(),
     doneCooking: (_) => const DoneCookingScreen(),
+    signIn: (_)=> const SignIn(),
+    signUp: (_) => SignUp(),
+    forgotPassword: (_) => ForgotPassword(),
     userChoice: (_) => const UserChoiceScreen(),
   };
 }
