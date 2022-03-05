@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/data/datasources/test.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ChooseYourMaterial extends StatefulWidget {
   const ChooseYourMaterial({Key? key}) : super(key: key);
@@ -221,7 +223,9 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                             icon: const Icon(PhosphorIcons.scan),
                             color: Palette.orange500,
                             iconSize: 36,
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<ApiTest>().signInWithGoogle();
+                            },
                           ),
                         ],
                       ),
@@ -410,4 +414,3 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
     );
   }
 }
-

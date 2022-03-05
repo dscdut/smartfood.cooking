@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/user_choice/widget/choose_country_page.dart';
@@ -62,11 +63,11 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                     child: Text(
                       "Bỏ qua",
                       style: Theme.of(context).textTheme.headline3!.copyWith(
-                        color: Palette.gray300,
-                        fontSize: 22.sp,
-                      ),
+                            color: Palette.gray300,
+                            fontSize: 22.sp,
+                          ),
                     ),
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 20.h),
@@ -80,10 +81,12 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                     });
                   },
                   children: [
-                    ChooseCountryPage(key: UniqueKey(),),
-                    ChooseFavoriteFoodPage(key: UniqueKey(),),
-                    DietPage(key: UniqueKey()),
-                    DietPage(key: UniqueKey()),
+                    ChooseCountryPage(
+                      key: UniqueKey(),
+                    ),
+                    ChooseFavoriteFoodPage(
+                      key: UniqueKey(),
+                    ),
                     DietPage(key: UniqueKey()),
                     const AllergicFood(),
                   ],
@@ -97,11 +100,12 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                       curve: Curves.easeIn,
                     );
                   } else {
-                    // TODO : Navigator to main screen
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RouteManager.mainScreen, (route) => false);
                   }
                 },
                 child: Container(
-                  width: 120.w,
+                  width: 130.w,
                   margin: EdgeInsets.only(bottom: 15.h),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
