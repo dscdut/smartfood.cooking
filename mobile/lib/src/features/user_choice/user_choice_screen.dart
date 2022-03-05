@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
+import 'package:mobile/src/core/theme/custom_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/user_choice/widget/choose_country_page.dart';
 import 'package:mobile/src/features/user_choice/widget/choose_favorite_food_page.dart';
@@ -62,10 +63,10 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                     onTap: () {},
                     child: Text(
                       "Bỏ qua",
-                      style: Theme.of(context).textTheme.headline3!.copyWith(
-                            color: Palette.gray300,
-                            fontSize: 22.sp,
-                          ),
+                      style: CustomTheme.headline3.copyWith(
+                        color: Palette.gray300,
+                        fontSize: 22.sp,
+                      ),
                     ),
                   ),
                 ],
@@ -116,10 +117,10 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                       EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
                   child: Text(
                     tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
-                    style: Theme.of(context).textTheme.headline4!.copyWith(
-                          color: Palette.backgroundColor,
-                          fontSize: 20.sp,
-                        ),
+                    style: CustomTheme.headline4.copyWith(
+                      color: Palette.backgroundColor,
+                      fontSize: 20.sp,
+                    ),
                   ),
                 ),
               ),
@@ -168,10 +169,10 @@ class _DietPageState extends State<DietPage> {
       children: [
         Text(
           "Chế độ ăn",
-          style: Theme.of(context).textTheme.headline1!.copyWith(
-                color: Palette.gray500,
-                fontSize: 32.sp,
-              ),
+          style: CustomTheme.headline1.copyWith(
+            color: Palette.gray500,
+            fontSize: 32.sp,
+          ),
         ),
         SizedBox(
           height: 16.h,
@@ -239,10 +240,10 @@ class _AllergicFoodState extends State<AllergicFood> {
           children: [
             Text(
               "Thực phẩm dị ứng",
-              style: Theme.of(context).textTheme.headline1!.copyWith(
-                    color: Palette.gray500,
-                    fontSize: 32.sp,
-                  ),
+              style: CustomTheme.headline1.copyWith(
+                color: Palette.gray500,
+                fontSize: 32.sp,
+              ),
             ),
             IconButton(
               constraints: const BoxConstraints(),
