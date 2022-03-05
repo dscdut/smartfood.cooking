@@ -10,6 +10,7 @@ import 'package:mobile/src/features/home/screens/forgot_password.dart';
 import 'package:mobile/src/features/home/screens/steps_to_cooking.dart';
 import 'package:mobile/src/features/home/screens/your_material_screen.dart';
 import 'package:mobile/src/features/main_screen/main_screen.dart';
+import 'package:mobile/src/features/user_choice/user_choice_screen.dart';
 
 class RouteManager {
   static const String mainScreen = "/";
@@ -23,8 +24,7 @@ class RouteManager {
   static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String forgotPassword = '/forgotPassword';
-
-
+  static const String userChoice = '/userChoice';
 
 
   static Map<String, WidgetBuilder> listRoute = {
@@ -39,6 +39,6 @@ class RouteManager {
     signIn: (_)=> const SignIn(),
     signUp: (_) => SignUp(),
     forgotPassword: (_) => ForgotPassword(),
-
+    userChoice: (_) => const UserChoiceScreen(),
   };
 }

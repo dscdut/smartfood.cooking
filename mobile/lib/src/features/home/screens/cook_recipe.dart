@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/choose_your_material.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
+import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CookRecipe extends StatelessWidget {
@@ -81,10 +81,10 @@ class CookRecipe extends StatelessWidget {
                                     borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(20.r),
                                     ),
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
-                                      colors: const [
+                                      colors: [
                                         Colors.transparent,
                                         Colors.black54,
                                       ],
@@ -92,14 +92,14 @@ class CookRecipe extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: [
-                                      Spacer(),
+                                      const Spacer(),
                                       Padding(
                                         padding: EdgeInsets.only(
                                             top: 0.h, right: 13.5.w),
                                         child: IconButton(
-                                          padding: EdgeInsets.all(0),
+                                          padding: const EdgeInsets.all(0),
                                           onPressed: () {},
-                                          icon: Icon(
+                                          icon: const Icon(
                                             PhosphorIcons.heartFill,
                                           ),
                                           color: Palette.pink500,
@@ -108,18 +108,18 @@ class CookRecipe extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Container(
                                   width: 343.w,
                                   height: 39.w,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.vertical(
                                       bottom: Radius.circular(20),
                                     ),
                                     gradient: LinearGradient(
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
-                                      colors: const [
+                                      colors: [
                                         Colors.black54,
                                         Colors.transparent,
                                       ],
@@ -131,7 +131,7 @@ class CookRecipe extends StatelessWidget {
                                     ),
                                     child: Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           PhosphorIcons.clockBold,
                                           color: Colors.white,
                                         ),
@@ -145,16 +145,16 @@ class CookRecipe extends StatelessWidget {
                                                   color:
                                                       Palette.backgroundColor),
                                         ),
-                                        Spacer(),
-                                        Text(
+                                        const Spacer(),
+                                        const Text(
                                           'I',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 24,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        Spacer(),
-                                        Icon(
+                                        const Spacer(),
+                                        const Icon(
                                           PhosphorIcons.cookingPotBold,
                                           color: Colors.white,
                                         ),
@@ -168,10 +168,10 @@ class CookRecipe extends StatelessWidget {
                                                   color:
                                                       Palette.backgroundColor),
                                         ),
-                                        Spacer(),
-                                        Spacer(),
-                                        Spacer(),
-                                        Icon(
+                                        const Spacer(),
+                                        const Spacer(),
+                                        const Spacer(),
+                                        const Icon(
                                           PhosphorIcons.starFill,
                                           color: Palette.yellowStar,
                                           size: 22,
@@ -208,7 +208,7 @@ class CookRecipe extends StatelessWidget {
                                 .headline3!
                                 .copyWith(color: Palette.pink500),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Text(
                             'Xem tất cả',
                             style: Theme.of(context)
@@ -269,8 +269,9 @@ class CookRecipe extends StatelessWidget {
                                     child: LinearProgressIndicator(
                                       minHeight: 6.h,
                                       backgroundColor: Palette.pink100,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Palette.pink500),
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
+                                              Palette.pink500),
                                       value: 0.6,
                                     ),
                                   ),
@@ -278,7 +279,7 @@ class CookRecipe extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Padding(
                               padding: EdgeInsets.only(right: 0.w),
                               child: Container(
@@ -328,8 +329,8 @@ class CookRecipe extends StatelessWidget {
                                           minHeight: 6.h,
                                           backgroundColor: Palette.pink100,
                                           valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Palette.pink500),
+                                              const AlwaysStoppedAnimation<
+                                                  Color>(Palette.pink500),
                                           value: 0.6,
                                         ),
                                       ),
@@ -337,7 +338,7 @@ class CookRecipe extends StatelessWidget {
                                   ],
                                 ),
                               )),
-                          Spacer(),
+                          const Spacer(),
                           Padding(
                             padding: EdgeInsets.only(right: 0.w),
                             child: Container(
@@ -385,7 +386,7 @@ class CookRecipe extends StatelessWidget {
                                         minHeight: 6.h,
                                         backgroundColor: Palette.pink100,
                                         valueColor:
-                                            AlwaysStoppedAnimation<Color>(
+                                            const AlwaysStoppedAnimation<Color>(
                                                 Palette.pink500),
                                         value: 0.6,
                                       ),
@@ -439,7 +440,7 @@ class CookRecipe extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               PhosphorIcons.cookingPotBold,
                               color: Palette.backgroundColor,
                             ),
@@ -493,7 +494,7 @@ class CookRecipe extends StatelessWidget {
             ingredient.ingrName,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),

@@ -6,5 +6,5 @@ import { AuthResolver } from './auth/auth.resolver';
 import { RecipeResolver } from './recipe/recipe.resolver';
 
 export const ModuleResolver = HandlerResolver.builder()
-  .addSwaggerBuilder(ApiDocument)
-  .addModule([AuthResolver, UserResolver, MediaResolver, RecipeResolver]);
+    .addSwaggerBuilder(ApiDocument)
+    .addModule([AuthResolver, UserResolver, MediaResolver, RecipeResolver]);

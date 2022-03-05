@@ -1,33 +1,28 @@
+import { DataPersistenceService } from 'packages/restBuilder/core/dataHandler/data.persistence.service';
 import { RecipeRepository } from '../recipe.repository';
 import { Optional } from '../../../utils';
-import {
-  NotFoundException,
-  DuplicateException,
-  BadRequestException,
-} from '../../../../packages/httpException';
+import { NotFoundException } from '../../../../packages/httpException';
 
-class Service {
-  constructor() {
-    this.repository = RecipeRepository;
-  }
+class Service extends DataPersistenceService {
+    constructor() {
+        super(RecipeRepository);
+    }
 
-  async findByIngredientsId(ingredientsId) {
-    const data = Optional.of(
-      await this.repository.findByIngredientsId(ingredientsId),
-    )
-      .throwIfNotPresent(new NotFoundException())
-      .get();
+    async findByIngredientsId(ingredientsId) {
+        const data = Optional.of(await this.repository.findByIngredientsId(ingredientsId))
+            .throwIfNotPresent(new NotFoundException())
+            .get();
 
-    return data;
-  }
+        return data;
+    }
 
-  async findById(id) {
-    const data = Optional.of(await this.repository.findById(id))
-      .throwIfNotPresent(new NotFoundException())
-      .get();
+    async findById(id) {
+        const data = Optional.of(await this.repository.findById(id))
+            .throwIfNotPresent(new NotFoundException())
+            .get();
 
-    return data;
-  }
+        return data;
+    }
 }
 
 export const RecipeService = new Service();
