@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
           child: ListView(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             color: Palette.backgroundColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -32,14 +32,14 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.person,
                     color: Palette.gray300,
                   ),
                   hintText: 'Email hoặc tên đăng nhập',
                   endingIconButton: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.check_box_outline_blank,
                         color: Colors.white,
                       )),
@@ -48,13 +48,13 @@ class _SignInState extends State<SignIn> {
                   height: 40.h,
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.lock,
                     color: Palette.gray300,
                   ),
                   hintText: 'Mật khẩu',
                   endingIconButton: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove_red_eye,
                       color: Palette.gray400,
                     ),
@@ -64,7 +64,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 Row(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: TextButton(
@@ -84,7 +84,7 @@ class _SignInState extends State<SignIn> {
                   ],
                 ),
                 Container(
-                    margin: EdgeInsets.only(bottom: 25, top: 10),
+                    margin: const EdgeInsets.only(bottom: 25, top: 10),
                     width: 135.w,
                     height: 39.h,
                     decoration: BoxDecoration(
@@ -161,7 +161,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(21),
+                  margin: const EdgeInsets.all(21),
                   width: 279.w,
                   height: 45.h,
                   decoration: BoxDecoration(
@@ -201,7 +201,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(21),
+                  margin: const EdgeInsets.all(21),
                   width: 279.w,
                   height: 45.h,
                   decoration: BoxDecoration(

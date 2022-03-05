@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +36,7 @@ class App extends StatelessWidget {
           title: "Smart Food",
           debugShowCheckedModeBanner: false,
           routes: RouteManager.listRoute,
-          initialRoute: RouteManager.userChoice,
+          initialRoute: RouteManager.signIn,
           theme: ThemeData(
             brightness: Brightness.light,
             fontFamily: 'Nunito',

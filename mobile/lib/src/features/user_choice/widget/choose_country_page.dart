@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
+import 'package:mobile/src/core/theme/custom_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class ChooseCountryPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ChooseCountryPageState extends State<ChooseCountryPage> {
       children: [
         Text(
           "Chọn vùng miền",
-          style: Theme.of(context).textTheme.headline1!.copyWith(
+          style: CustomTheme.headline1.copyWith(
             color: Palette.gray500,
             fontSize: 32.sp,
           ),
@@ -86,45 +87,42 @@ class CountryCard extends StatelessWidget {
   final bool isChosen;
 
   const CountryCard({
-    Key? key, required this.imagePath, required this.title, this.isChosen = false,
+    Key? key,
+    required this.imagePath,
+    required this.title,
+    this.isChosen = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Image.asset(
-          imagePath,
-          width: 140.w,
-          height: 124.h,
-          fit: BoxFit.cover,
-        ),
-        Positioned(
-          top: 95.h,
-          left: 8.w,
-          child: Container(
-            decoration: BoxDecoration(
+    return Stack(clipBehavior: Clip.none, children: [
+      Image.asset(
+        imagePath,
+        width: 140.w,
+        height: 124.h,
+        fit: BoxFit.cover,
+      ),
+      Positioned(
+        top: 95.h,
+        left: 8.w,
+        child: Container(
+          decoration: BoxDecoration(
               color: isChosen ? Palette.pink500 : Colors.white,
-              border: Border.all(
-                color: Palette.pink500,
-                width: 2.0
-              ),
-              borderRadius: BorderRadius.circular(20)
-            ),
-            width: 120.w,
-            height: 40.h,
-            child: Center(
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.headline4?.copyWith(
-                  color: isChosen ? Colors.white : Palette.gray500
-                ),
-              ),
+              border: Border.all(color: Palette.pink500, width: 2.0),
+              borderRadius: BorderRadius.circular(20)),
+          width: 120.w,
+          height: 40.h,
+          child: Center(
+            child: Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  ?.copyWith(color: isChosen ? Colors.white : Palette.gray500),
             ),
           ),
-        )
-      ]
-    );
+        ),
+      )
+    ]);
   }
 }

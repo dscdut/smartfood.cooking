@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/custom_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/sign_in.dart';
+import 'package:mobile/src/features/authentication/sign_in.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _SignUpState extends State<SignUp> {
           child: ListView(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             color: Palette.backgroundColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,14 +48,14 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.person,
                     color: Palette.gray300,
                   ),
                   hintText: 'Email',
                   endingIconButton: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.check_box_outline_blank,
                         color: Colors.white,
                       )),
@@ -63,13 +64,13 @@ class _SignUpState extends State<SignUp> {
                   height: 40.h,
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.lock,
                     color: Palette.gray300,
                   ),
                   hintText: 'Mật khẩu',
                   endingIconButton: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove_red_eye,
                       color: Palette.gray400,
                     ),
@@ -80,13 +81,13 @@ class _SignUpState extends State<SignUp> {
                   height: 40.h,
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.lock,
                     color: Palette.gray300,
                   ),
                   hintText: 'Xác nhận lại mật khẩu',
                   endingIconButton: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.remove_red_eye,
                       color: Palette.gray400,
                     ),
@@ -103,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.resolveWith(getColor),
                         value: isChecked,
-                        shape: CircleBorder(
+                        shape: const CircleBorder(
                             side: BorderSide(color: Palette.pink500)),
                         onChanged: (bool? value) {
                           setState(() {
@@ -113,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Text(
                         'Tôi đồng ý với điều khoản của',
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                        style: CustomTheme.headline5.copyWith(
                             color: Palette.gray400,
                             fontSize: 14.5.sp,
                             fontWeight: FontWeight.w500),
@@ -134,7 +135,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(bottom: 25, top: 25),
+                    margin: const EdgeInsets.only(bottom: 25, top: 25),
                     width: 135.w,
                     height: 45.h,
                     decoration: BoxDecoration(
