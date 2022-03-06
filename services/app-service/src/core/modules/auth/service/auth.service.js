@@ -46,7 +46,7 @@ class Service {
         if (!user) {
             user = await this.userService.createOneWithGoogleAccount(CreateUserWithGoogleDto(userInfo));
         }
-        // do u understand ?
+
         const accessToken = this.jwtService.sign({ email: userInfo.email, userId: user.id });
         return { email: user.email, username: user.username, accessToken };
     };
