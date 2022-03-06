@@ -33,7 +33,7 @@ class Service {
         }
 
         throw new UnAuthorizedException('Email or password is incorrect');
-    }
+    };
 
     #getUserInfo = user => pick(user, ['_id', 'email', 'username', 'roles']);
 
@@ -42,17 +42,14 @@ class Service {
             .throwIfNotPresent(new UnAuthorizedException('Invalid token'))
             .get();
 
-        let user;
-        const isUserExist = await this.userRepository.findByEmail(userInfo.email);
-        if (isUserExist) {
-            user = isUserExist;
-        } else {
-            user = await UserService.createOneWithGoogleAccount(CreateUserWithGoogleDto(userInfo));
+        let user = await this.userRepository.findByEmail(userInfo.email);
+        if (!user) {
+            user = await this.userService.createOneWithGoogleAccount(CreateUserWithGoogleDto(userInfo));
         }
 
         const accessToken = this.jwtService.sign({ email: userInfo.email, userId: user._id });
         return { email: userInfo.email, username: user.username, accessToken };
-    }
+    };
 }
 
 export const AuthService = new Service();
