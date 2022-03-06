@@ -6,13 +6,13 @@ class Repository extends DataRepository {
             .whereNull('users.deleted_at')
             .where('users.email', '=', email)
             .select(
-                'users.id',
-                'users.username',
-                'users.email',
-                'users.password',
-                { createdAt: 'users.created_at' },
-                { updatedAt: 'users.updated_at' },
-                { deletedAt: 'users.deleted_at' },
+                'id',
+                'username',
+                'email',
+                'password',
+                { createdAt: 'created_at' },
+                { updatedAt: 'updated_at' },
+                { deletedAt: 'deleted_at' },
             )
             .first();
     }
