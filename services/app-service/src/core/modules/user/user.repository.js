@@ -13,7 +13,8 @@ class Repository extends DataRepository {
                 { createdAt: 'users.created_at' },
                 { updatedAt: 'users.updated_at' },
                 { deletedAt: 'users.deleted_at' },
-            );
+            )
+            .first();
     }
 
     findById(id) {
