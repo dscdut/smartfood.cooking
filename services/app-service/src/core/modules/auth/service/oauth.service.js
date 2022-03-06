@@ -1,10 +1,7 @@
 import { adminApp } from '../../../config';
 
 class OAuthServiceImpl {
-    verify = async token => {
-        const ticket = await adminApp.auth().verifyIdToken(token);
-        return ticket;
-    }
+    verify = async token => adminApp.auth().verifyIdToken(token);
 }
 
 export const OAuthService = new OAuthServiceImpl();

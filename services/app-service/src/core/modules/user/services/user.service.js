@@ -47,6 +47,24 @@ class Service {
         return createdUser[0];
     }
 
+    async createOneWithGoogleAccount(createUserDto) {
+        const trx = await getTransaction();
+        Optional.of(
+            await this.repository.findByEmail(createUserDto.email),
+        ).throwIfPresent(new DuplicateException('Email is being used'));
+
+        let createdUser;
+        try {
+            createdUser = await this.repository.insert(createUserDto, trx);
+        } catch (error) {
+            await trx.rollback();
+            this.logger.error(error.message);
+            return null;
+        }
+        trx.commit();
+        return createdUser[0];
+    }
+
     async findById(id) {
         const data = Optional.of(await this.repository.findById(id))
             .throwIfNotPresent(new NotFoundException())

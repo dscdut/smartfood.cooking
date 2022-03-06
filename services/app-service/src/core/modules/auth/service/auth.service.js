@@ -7,7 +7,7 @@ import { BcryptService } from './bcrypt.service';
 import { JwtService } from './jwt.service';
 import { UserService } from '../../user/services/user.service';
 import { UserRepository } from '../../user/user.repository';
-import { InternalServerException, UnAuthorizedException } from '../../../../packages/httpException';
+import { UnAuthorizedException } from '../../../../packages/httpException';
 import { CreateUserWithGoogleDto } from '../../user/dto';
 
 class Service {
@@ -38,7 +38,6 @@ class Service {
 
     async loginWithGoogle(token) {
         let userInfo;
-
         try {
             userInfo = await this.oAuthService.verify(token);
         } catch (error) {
@@ -46,12 +45,12 @@ class Service {
         }
 
         let user;
-
         const isUserExist = await this.userRepository.findByEmail(userInfo.email);
+
         if (isUserExist) {
             user = isUserExist;
         } else {
-            user = await this.userService.createOneSafety(CreateUserWithGoogleDto(userInfo), () => new InternalServerException('Getting internal error during create new user'));
+            user = await this.userService.createOneWithGoogleAccount(CreateUserWithGoogleDto(userInfo));
         }
         const accessToken = this.jwtService.sign({ email: userInfo.email, userId: user._id });
         return { email: userInfo.email, username: user.username, accessToken };
