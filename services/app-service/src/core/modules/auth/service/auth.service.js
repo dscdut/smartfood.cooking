@@ -9,6 +9,7 @@ import { UserService } from '../../user/services/user.service';
 import { UserRepository } from '../../user/user.repository';
 import { UnAuthorizedException } from '../../../../packages/httpException';
 import { CreateUserWithGoogleDto } from '../../user/dto';
+import { Optional } from '../../../utils';
 
 class Service {
     constructor() {
@@ -37,21 +38,19 @@ class Service {
     #getUserInfo = user => pick(user, ['_id', 'email', 'username', 'roles']);
 
     async loginWithGoogle(token) {
-        let userInfo;
-        try {
-            userInfo = await this.oAuthService.verify(token);
-        } catch (error) {
-            throw new UnAuthorizedException('Invalid token');
-        }
+        const userInfo = Optional.of(await this.oAuthService.verify(token))
+            .throwIfNotPresent(new UnAuthorizedException('Invalid token'))
+            .get();
 
         let user;
         const isUserExist = await this.userRepository.findByEmail(userInfo.email);
 
-        if (isUserExist) {
+        if (isUserExist.length) {
             user = isUserExist;
         } else {
             user = await this.userService.createOneWithGoogleAccount(CreateUserWithGoogleDto(userInfo));
         }
+
         const accessToken = this.jwtService.sign({ email: userInfo.email, userId: user._id });
         return { email: userInfo.email, username: user.username, accessToken };
     }
