@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/custom_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
@@ -156,7 +157,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                 Container(
                   padding: EdgeInsets.all(5.sp),
                   width: 195.w,
-                  height: 100.w,
+                  height: 105.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -216,10 +217,9 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             color: Palette.gray400,
                           ),
                           Text(' ' + val.cookingTime,
-                              style: Theme.of(context).textTheme.headline4!),
+                              style: CustomTheme.headline4),
                           const Spacer(),
-                          Text('|',
-                              style: Theme.of(context).textTheme.headline4!),
+                          Text('|', style: CustomTheme.headline4),
                           const Spacer(),
                           const Icon(
                             PhosphorIcons.cookingPotBold,

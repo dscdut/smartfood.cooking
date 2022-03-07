@@ -58,4 +58,5 @@ serviceAccount.json
 *.crt
 
 # vscode
-/.vscode/
+.vscode/
+
