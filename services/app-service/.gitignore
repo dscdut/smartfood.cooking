@@ -55,5 +55,8 @@ jspm_packages/
 
 # certificate and key files
 serviceAccount.json
-
 *.crt
+
+# vscode
+.vscode/
+
