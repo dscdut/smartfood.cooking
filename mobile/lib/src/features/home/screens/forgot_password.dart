@@ -19,7 +19,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           child: ListView(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             color: Palette.backgroundColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,14 +65,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   height: 70.h,
                 ),
                 CustomTextField(
-                  leadingIcon: Icon(
+                  leadingIcon: const Icon(
                     Icons.person,
                     color: Palette.gray300,
                   ),
                   hintText: 'Email bạn đã đăng ký',
                   endingIconButton: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.check_box_outline_blank,
                         color: Colors.white,
                       )),

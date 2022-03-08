@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/custom_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/choose_your_material.dart';
 import 'package:mobile/src/features/home/screens/cook_recipe.dart';
+import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectRecipe extends StatefulWidget {
@@ -39,7 +40,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             .copyWith(color: Palette.pink500),
                       ),
                     ),
-                    SizedBox()
+                    const SizedBox()
                   ],
                 ),
               ),
@@ -87,7 +88,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Stack(
@@ -98,11 +99,11 @@ class _SelectRecipeState extends State<SelectRecipe> {
                         Container(
                           width: 110.w,
                           height: 30.w,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
-                              colors: const [
+                              colors: [
                                 Colors.transparent,
                                 Colors.black54,
                               ],
@@ -111,21 +112,21 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           child: Row(
                             children: [
                               IconButton(
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 splashRadius: 0.01,
                                 onPressed: () {
                                   val.favorited
                                       ? val.favorited = false
                                       : val.favorited = true;
                                 },
-                                icon: Icon(PhosphorIcons.heartFill),
+                                icon: const Icon(PhosphorIcons.heartFill),
                                 color: val.favorited
                                     ? Palette.pink500
                                     : Palette.backgroundColor,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Padding(
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -178,7 +179,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -192,9 +193,9 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             child: Center(
                               child: IconButton(
                                 splashRadius: 0.1,
-                                padding: EdgeInsets.all(0),
+                                padding: const EdgeInsets.all(0),
                                 iconSize: 20.sp,
-                                icon: Icon(PhosphorIcons.arrowRightBold),
+                                icon: const Icon(PhosphorIcons.arrowRightBold),
                                 color: Palette.backgroundColor,
                                 onPressed: () {
                                   Navigator.pushNamed(
@@ -208,20 +209,19 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           )
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         children: <Widget>[
-                          Icon(
+                          const Icon(
                             PhosphorIcons.clockBold,
                             color: Palette.gray400,
                           ),
                           Text(' ' + val.cookingTime,
-                              style: Theme.of(context).textTheme.headline4!),
-                          Spacer(),
-                          Text('|',
-                              style: Theme.of(context).textTheme.headline4!),
-                          Spacer(),
-                          Icon(
+                              style: CustomTheme.headline4),
+                          const Spacer(),
+                          Text('|', style: CustomTheme.headline4),
+                          const Spacer(),
+                          const Icon(
                             PhosphorIcons.cookingPotBold,
                             color: Palette.gray400,
                           ),
@@ -232,9 +232,9 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                 .headline4!
                                 .copyWith(fontWeight: FontWeight.bold),
                           ),
-                          Spacer(),
-                          Spacer(),
-                          Spacer(),
+                          const Spacer(),
+                          const Spacer(),
+                          const Spacer(),
                         ],
                       ),
                     ],

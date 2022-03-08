@@ -10,6 +10,7 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "ignorePatterns": "*.json",
     "plugins": ["prettier"],
     "parser": "babel-eslint",
     "parserOptions": {

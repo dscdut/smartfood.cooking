@@ -52,3 +52,11 @@ jspm_packages/
 .fusebox/
 
 .idea/
+
+# certificate and key files
+serviceAccount.json
+*.crt
+
+# vscode
+.vscode/
+

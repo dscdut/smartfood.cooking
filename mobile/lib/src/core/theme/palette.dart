@@ -86,6 +86,11 @@ class Palette {
   ///
   static const yellowStar = Color(0xffFFE13A);
 
+  ///Support Color / Info
+  ///
+  ///
+  static const infoColor = Color(0xff5166DB);
+
   ///Shadow
   ///
   ///recommend use with opacity(0.1)
