@@ -4,6 +4,7 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
+import 'package:mobile/src/features/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -347,66 +348,3 @@ class CookRecipe extends StatelessWidget {
   }
 }
 
-class NutritionCard extends StatelessWidget {
-  const NutritionCard({
-    Key? key,
-    required this.nameNutrition,
-    required this.valueNutrition,
-  }) : super(key: key);
-
-  final String nameNutrition;
-  final String valueNutrition;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100.w,
-      height: 100.h,
-      padding: EdgeInsets.symmetric(vertical: 14.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.r),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Palette.shadowColor.withOpacity(0.1),
-            blurRadius: 12,
-            offset: const Offset(0, 3),
-          )
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            nameNutrition,
-            style: CustomTextTheme.subtitle1.copyWith(
-              color: Palette.gray500,
-              fontSize: 17.sp,
-            ),
-          ),
-          Text(
-            valueNutrition,
-            style: CustomTextTheme.bodyText1.copyWith(
-              color: Palette.gray400,
-              fontSize: 15.sp,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: LinearProgressIndicator(
-                minHeight: 6.h,
-                backgroundColor: Palette.pink100,
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  Palette.pink500,
-                ),
-                value: 0.6,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
