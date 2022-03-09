@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class ChooseFavoriteFoodPage extends StatefulWidget {
@@ -38,8 +38,8 @@ class _ChooseFavoriteFoodPageState extends State<ChooseFavoriteFoodPage> {
 
   void onTapFavoriteFoodCard(int index) {
     setState(() {
-      listCheckChosen = List.filled(9, false);
-      listCheckChosen[index] = true;
+      // listCheckChosen = List.filled(9, false);
+      listCheckChosen[index] = !listCheckChosen[index];
     });
   }
 
@@ -50,7 +50,7 @@ class _ChooseFavoriteFoodPageState extends State<ChooseFavoriteFoodPage> {
       children: [
         Text(
           "Món ăn yêu thích",
-          style: CustomTheme.headline1.copyWith(
+          style: CustomTextTheme.headline1.copyWith(
             color: Palette.gray500,
             fontSize: 32.sp,
           ),
@@ -62,8 +62,8 @@ class _ChooseFavoriteFoodPageState extends State<ChooseFavoriteFoodPage> {
           child: GridView(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 20.h,
-              crossAxisSpacing: 20.w,
+              mainAxisSpacing: 15.h,
+              crossAxisSpacing: 15.w,
             ),
             children: List<Widget>.generate(9, (index) {
               return GestureDetector(
@@ -89,43 +89,75 @@ class FavoriteFoodCard extends StatelessWidget {
   final String title;
   final bool isChosen;
 
-  const FavoriteFoodCard(
-      {Key? key,
-      required this.imagePath,
-      required this.title,
-      this.isChosen = false})
-      : super(key: key);
+  const FavoriteFoodCard({
+    Key? key,
+    required this.imagePath,
+    required this.title,
+    this.isChosen = false,
+  }) : super(key: key);
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.selected,
+    };
+    if (!states.any(interactiveStates.contains)) {
+      return Palette.gray300;
+    }
+    return Palette.pink500;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(
+          margin: EdgeInsets.all(3.h),
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4,
+                offset: const Offset(0, 1),
+                color: Palette.shadowColor.withOpacity(0.1),
+              ),
+            ],
+            color: Palette.backgroundColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isChosen ? Palette.pink500 : Colors.white,
+              width: 2.w,
+            ),
           ),
-        ],
-        color: isChosen ? Palette.pink400 : Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            imagePath,
-            height: 68.h,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                imagePath,
+                height: 68.h,
+              ),
+              Text(
+                title,
+                style: CustomTextTheme.headline4.copyWith(
+                  color: Palette.gray500,
+                  fontSize: 14.sp,
+                ),
+              )
+            ],
           ),
-          Text(
-            title,
-            style: CustomTheme.headline4.copyWith(
-                color: isChosen ? Colors.white : Palette.gray500,
-                fontSize: 16.sp),
-          )
-        ],
-      ),
+        ),
+        Positioned(
+          top: -6.h,
+          right: -6.h,
+          child: Checkbox(
+            checkColor: Colors.white,
+            fillColor: MaterialStateProperty.resolveWith(getColor),
+            value: isChosen,
+            shape: const CircleBorder(),
+            onChanged: (bool? value) {},
+          ),
+        ),
+      ],
     );
   }
 }

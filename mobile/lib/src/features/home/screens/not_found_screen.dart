@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
@@ -39,9 +40,7 @@ class NotFoundScreen extends StatelessWidget {
               children: [
                 Text(
                   "Rất tiếc! Hệ thống không tìm được món ăn với nguyên liệu bạn cung cấp.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1!
+                  style: CustomTextTheme.subtitle1
                       .copyWith(color: Palette.pink500, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
@@ -62,19 +61,18 @@ class NotFoundScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Công thức tương tự",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white),
+                    style:
+                        CustomTextTheme.headline4.copyWith(color: Colors.white),
                   ),
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
                 TextButton(
-                  onPressed: () => Navigator.popAndPushNamed(
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
                     context,
                     RouteManager.chooseYourMaterial,
+                    ModalRoute.withName(RouteManager.mainScreen),
                   ),
                   style: TextButton.styleFrom(
                     side:
@@ -86,9 +84,7 @@ class NotFoundScreen extends StatelessWidget {
                   ),
                   child: Text(
                     "Chỉnh sửa danh sách",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
+                    style: CustomTextTheme.headline4
                         .copyWith(color: Palette.gray500),
                   ),
                 ),

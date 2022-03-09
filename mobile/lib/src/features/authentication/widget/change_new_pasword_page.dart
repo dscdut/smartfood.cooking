@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -36,7 +36,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
         Center(
           child: Text(
             "Khôi phục mật khẩu",
-            style: CustomTheme.headline2.copyWith(
+            style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
             ),
@@ -61,7 +61,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               BoxShadow(
                 blurRadius: 5,
                 color: Palette.shadowColor.withOpacity(0.1),
-                offset: const Offset(0, 4),
+                offset: const Offset(1, 3),
               ),
             ],
             borderRadius: BorderRadius.circular(25.r),
@@ -75,7 +75,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               ),
               hintText: "Nhập mật khẩu mới",
               border: InputBorder.none,
-              hintStyle: CustomTheme.subtitle2.copyWith(
+              hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
                 fontSize: 16.sp,
               ),
@@ -93,7 +93,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               contentPadding: EdgeInsets.only(right: 8.w),
             ),
             textAlignVertical: TextAlignVertical.center,
-            style: CustomTheme.headline6.copyWith(
+            style: CustomTextTheme.headline6.copyWith(
               color: Palette.gray500,
               fontSize: 18.sp,
             ),
@@ -118,7 +118,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               BoxShadow(
                 blurRadius: 5,
                 color: Palette.shadowColor.withOpacity(0.1),
-                offset: const Offset(0, 4),
+                offset: const Offset(1, 3),
               ),
             ],
             borderRadius: BorderRadius.circular(25.r),
@@ -132,7 +132,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               ),
               hintText: "Xác nhận lại mật khẩu mới",
               border: InputBorder.none,
-              hintStyle: CustomTheme.subtitle2.copyWith(
+              hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
                 fontSize: 16.sp,
               ),
@@ -150,7 +150,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               contentPadding: EdgeInsets.only(right: 8.w),
             ),
             textAlignVertical: TextAlignVertical.center,
-            style: CustomTheme.headline6.copyWith(
+            style: CustomTextTheme.headline6.copyWith(
               color: Palette.gray500,
               fontSize: 18.sp,
             ),
@@ -175,7 +175,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
               ),
               child: Text(
                 "Hoàn thành",
-                style: CustomTheme.headline4.copyWith(
+                style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,
                 ),

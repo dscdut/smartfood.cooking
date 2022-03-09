@@ -5,7 +5,11 @@ import 'package:mobile/src/app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-    const App(),
-  );
+  // runApp(
+  //   DevicePreview(
+  //     enabled: !kReleaseMode,
+  //     builder: (context) => const App(), // Wrap your app
+  //   ),
+  // );
+  runApp(const App());
 }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/constant/image_path.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/features/home/widgets/diet_mode_card.dart';
+import 'package:mobile/src/features/home/widgets/menu_button.dart';
+import 'package:mobile/src/features/home/widgets/menu_recipe_card.dart';
+import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "isFavorite": false,
     },
     {
-      "name": "Mì tôm",
+      "name": "Gỏi gà lá chanh chua ngọt",
       "time": "10",
       "level": "Dễ",
       "imageUrl": "https://photo-cms-kienthuc.zadn.vn/"
@@ -48,21 +55,43 @@ class _HomeScreenState extends State<HomeScreen> {
     {
       "name": "Mì quảng tôm thịt trứng",
       "time": "30",
-      "level": "Vừa",
+      "level": "T.bình",
       "imageUrl": "https://cdn.cet.edu.vn/"
           "wp-content/uploads/2021/04/to-mi-quang.jpg",
       "isFavorite": false,
     },
   ];
-
+  final dietModeData = [
+    {
+      "modeName": "Eat Clean",
+      "joinedCount": "2.5",
+      "menu": "3",
+      "imageUrl":
+          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+    },
+    {
+      "modeName": "cho người béo phì",
+      "joinedCount": "1.5",
+      "menu": "3",
+      "imageUrl":
+          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+    },
+    {
+      "modeName": "cho người tập Gym",
+      "joinedCount": "6.9",
+      "menu": "3",
+      "imageUrl":
+          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 22.0.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        child: ScrollConfiguration(
+          behavior: NoShowLimitScroll(),
+          child: ListView(
+            padding: EdgeInsets.symmetric(vertical: 22.0.h),
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 14.0.w),
@@ -71,10 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       "Xin chào, A",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline1!
-                          .copyWith(color: Palette.pink500),
+                      style: CustomTextTheme.headline1.copyWith(
+                        color: Palette.pink500,
+                        fontSize: 32.sp,
+                      ),
                     ),
                     const CircleAvatar(
                       backgroundColor: Colors.indigo,
@@ -90,200 +119,141 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 9.h,
+                height: 2.h,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                 child: Text(
                   "Hôm nay bạn muốn nấu món gì?",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(color: Palette.gray400),
+                  style: CustomTextTheme.headline4.copyWith(
+                    color: Palette.gray400,
+                    fontSize: 20.sp,
+                  ),
                 ),
               ),
               SizedBox(
-                height: 9.h,
+                height: 32.h,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  MenuButton(
+                    menuName: 'Tủ lạnh\nbạn có gì?',
+                    onMenuAction: () => Navigator.pushNamed(
+                      context,
+                      RouteManager.chooseYourMaterial,
+                    ),
+                    child: SvgPicture.asset(
+                      ImagePath.fridgeIcon,
+                      height: 32.h,
+                      width: 32.h,
+                    ),
+                  ),
+                  MenuButton(
+                    menuName: 'Công thức\nSmartfood',
+                    onMenuAction: () {},
+                    child: const Icon(
+                      PhosphorIcons.forkKnifeBold,
+                      color: Palette.yellowStar,
+                    ),
+                  ),
+                  MenuButton(
+                    menuName: 'Tạo\nthực đơn',
+                    onMenuAction: () {},
+                    child: const Icon(
+                      PhosphorIcons.calendarPlusBold,
+                      color: Palette.infoColor,
+                    ),
+                  ),
+                  MenuButton(
+                    menuName: 'Tính\ncalories',
+                    onMenuAction: () {},
+                    child: const Icon(
+                      PhosphorIcons.fireFill,
+                      color: Palette.orange500,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 28.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                 child: Text(
                   "Công thức hôm nay",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline2!
-                      .copyWith(color: Palette.pink500),
+                  style: CustomTextTheme.headline2.copyWith(
+                    color: Palette.pink500,
+                    fontSize: 30.sp,
+                  ),
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 8.h),
               SizedBox(
-                height: 160.h,
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 14.0.w),
-                  itemCount: menuData.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Container(
-                          height: 150.w,
-                          width: 150.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: Image.network(
-                                menuData[index]["imageUrl"]! as String,
-                              ).image,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: 140.w,
-                          width: 140.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                const Color(0xff0B0B0B).withOpacity(0.6),
-                                const Color(0xffC4C4C4).withOpacity(0),
-                              ],
-                              stops: const [0, 0.3],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Material(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
-                            child: IconButton(
-                              splashRadius: 20,
-                              constraints: const BoxConstraints(),
-                              icon: const Icon(PhosphorIcons.heartFill),
-                              color: menuData[index]["isFavorite"] as bool
-                                  ? Palette.pink500
-                                  : Palette.backgroundColor,
-                              onPressed: () {
-                                setState(() {
-                                  menuData[index]["isFavorite"] =
-                                      !(menuData[index]["isFavorite"] as bool);
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 5.h,
-                          left: 10.w,
-                          right: 10.w,
-                          child: Container(
-                            padding: const EdgeInsets.all(6),
-                            height: 65.h,
-                            width: 120.w,
-                            decoration: BoxDecoration(
-                              color: Palette.backgroundColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(children: [
-                              const Spacer(),
-                              Text(
-                                menuData[index]["name"]! as String,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      color: Palette.gray500,
-                                    ),
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const Spacer(flex: 2),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 6.w),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          PhosphorIcons.clock,
-                                          color: Palette.gray400,
-                                          size: 16,
-                                        ),
-                                        SizedBox(width: 2.w),
-                                        Text(
-                                          "${menuData[index]["time"]} phút",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                color: Palette.gray400,
-                                                fontSize: 12.sp,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          PhosphorIcons.cookingPot,
-                                          color: Palette.gray400,
-                                          size: 18,
-                                        ),
-                                        SizedBox(width: 2.w),
-                                        Text(
-                                          menuData[index]["level"]! as String,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                color: Palette.gray400,
-                                                fontSize: 12.sp,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ]),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: 25.w);
-                  },
+                height: 220.h,
+                child: ScrollConfiguration(
+                  behavior: NoShowLimitScroll(),
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                    itemCount: menuData.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return MenuRecipeCard(
+                        imageUrl: menuData[index]["imageUrl"] as String,
+                        isFavorite: menuData[index]["isFavorite"] as bool,
+                        level: menuData[index]["level"] as String,
+                        recipeName: menuData[index]["name"] as String,
+                        timeNeed: menuData[index]["time"] as String,
+                        onMenuCardAction: () {},
+                        onFavoriteAction: () {
+                          setState(() {
+                            menuData[index]["isFavorite"] =
+                                !(menuData[index]["isFavorite"] as bool);
+                          });
+                        },
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 26.w);
+                    },
+                  ),
                 ),
               ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, RouteManager.chooseYourMaterial),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 250,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Palette.orange500,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      "Tủ lạnh bạn hôm nay có gì?",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4!
-                          .copyWith(color: Colors.white),
-                    ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.0.w),
+                child: Text(
+                  "Chế độ ăn",
+                  style: CustomTextTheme.headline2.copyWith(
+                    color: Palette.pink500,
+                    fontSize: 30.sp,
+                  ),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              SizedBox(
+                height: 240.h,
+                child: ScrollConfiguration(
+                  behavior: NoShowLimitScroll(),
+                  child: ListView.separated(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                    itemCount: dietModeData.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return DietModeCard(
+                        imageUrl: dietModeData[index]["imageUrl"] as String,
+                        joinedCount:
+                            dietModeData[index]["joinedCount"] as String,
+                        modeName: dietModeData[index]["modeName"] as String,
+                        noMenu: dietModeData[index]["menu"] as String,
+                        onTapAction: () {},
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 25.w);
+                    },
                   ),
                 ),
               ),
@@ -294,3 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+
+
