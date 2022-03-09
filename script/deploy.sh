@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-
-pm2 restart smartfood
+cd ~/smartfood.cooking/services/app-service/ && yarn && pm2 restart smartfood
