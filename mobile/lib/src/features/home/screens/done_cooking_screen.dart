@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -18,8 +19,11 @@ class DoneCookingScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(
-              ImagePath.doneCookingCat,
+            SizedBox(
+              height: 0.5.sh,
+              child: Image.asset(
+                ImagePath.doneCookingCat,
+              ),
             ),
             SizedBox(
               height: 32.h,
@@ -29,10 +33,10 @@ class DoneCookingScreen extends StatelessWidget {
               children: [
                 Text(
                   "Chúc mừng bạn đã hoàn thành món ăn",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4
-                      ?.copyWith(color: Palette.gray500),
+                  style: CustomTextTheme.headline4.copyWith(
+                    color: Palette.gray500,
+                    fontSize: 18.sp,
+                  ),
                 ),
                 SizedBox(
                   width: 6.w,
@@ -75,10 +79,8 @@ class DoneCookingScreen extends StatelessWidget {
                       ),
                       Text(
                         "Lượng Calo bạn đã tiêu thụ",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4
-                            ?.copyWith(color: Palette.orange500),
+                        style: CustomTextTheme.headline4.copyWith(
+                            color: Palette.orange500, fontSize: 17.sp),
                       )
                     ],
                   ),
@@ -104,10 +106,10 @@ class DoneCookingScreen extends StatelessWidget {
                   ),
                   Text(
                     "32%",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        ?.copyWith(color: Palette.gray500),
+                    style: CustomTextTheme.subtitle1.copyWith(
+                      color: Palette.gray500,
+                      fontSize: 15.sp,
+                    ),
                   )
                 ],
               ),
@@ -137,10 +139,10 @@ class DoneCookingScreen extends StatelessWidget {
                   ),
                   Text(
                     "Quay về trang chủ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white),
+                    style: CustomTextTheme.headline4.copyWith(
+                      color: Palette.backgroundColor,
+                      fontSize: 17.sp,
+                    ),
                   ),
                 ],
               ),

@@ -38,7 +38,6 @@ class _CustomTooltipState extends State<CustomTooltip>
     _size = renderBox.size;
     final offset = renderBox.localToGlobal(Offset.zero);
     _offset = offset;
-    print(_offset.dx);
   }
 
   OverlayEntry _makeOverlay() {
@@ -102,7 +101,6 @@ class _CustomTooltipState extends State<CustomTooltip>
         _controller.forward();
       },
       onLongPressEnd: (detail) async {
-        // overlayEntry!.remove();
         await Future.delayed(const Duration(milliseconds: 300))
             .then((value) => _controller.reverse());
         await Future.delayed(const Duration(milliseconds: 100))

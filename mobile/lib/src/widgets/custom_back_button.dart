@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
     Key? key,
@@ -22,7 +21,7 @@ class CustomBackButton extends StatelessWidget {
           BoxShadow(
             blurRadius: 6,
             color: Palette.shadowColor.withOpacity(0.1),
-            offset: const Offset(1, 4),
+            offset: const Offset(0, 1),
           )
         ],
       ),

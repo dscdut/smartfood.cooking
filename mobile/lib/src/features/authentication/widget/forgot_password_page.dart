@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -26,7 +26,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         Center(
           child: Text(
             "Quên mật khẩu",
-            style: CustomTheme.headline2.copyWith(
+            style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
             ),
@@ -42,7 +42,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             "vào bên dưới để được hướng dẫn "
             "khôi phục lại mật khẩu.",
             textAlign: TextAlign.center,
-            style: CustomTheme.subtitle2.copyWith(
+            style: CustomTextTheme.subtitle2.copyWith(
               color: Palette.gray500,
               fontSize: 16.sp,
             ),
@@ -80,13 +80,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               hintText: "Email đã đăng ký",
               border: InputBorder.none,
-              hintStyle: CustomTheme.subtitle2.copyWith(
+              hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
                 fontSize: 16.sp,
               ),
               contentPadding: EdgeInsets.only(right: 28.w),
             ),
-            style: CustomTheme.subtitle2.copyWith(
+            style: CustomTextTheme.subtitle2.copyWith(
               color: Palette.gray500,
               fontSize: 18.sp,
             ),
@@ -98,13 +98,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               children: [
                 TextSpan(
                   text: "Nhớ lại mật khẩu? ",
-                  style: CustomTheme.bodyText3.copyWith(
+                  style: CustomTextTheme.bodyText3.copyWith(
                     fontSize: 15.sp,
                   ),
                 ),
                 TextSpan(
                   text: "Đăng nhập ngay",
-                  style: CustomTheme.bodyText1.copyWith(
+                  style: CustomTextTheme.bodyText1.copyWith(
                     color: Palette.pink500,
                     fontSize: 15.sp,
                   ),
@@ -133,7 +133,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               child: Text(
                 "Tiếp tục",
-                style: CustomTheme.headline4.copyWith(
+                style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,
                 ),

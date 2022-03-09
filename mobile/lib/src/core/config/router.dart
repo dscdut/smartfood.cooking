@@ -13,7 +13,7 @@ import 'package:mobile/src/features/main_screen/main_screen.dart';
 import 'package:mobile/src/features/user_choice/user_choice_screen.dart';
 
 class RouteManager {
-  static const String mainScreen = "/";
+  static const String mainScreen = "/main";
   static const String notFound = "/notFound";
   static const String yourMaterial = "/yourMaterial";
   static const String chooseYourMaterial = '/chooseYourMaterial';
@@ -21,7 +21,7 @@ class RouteManager {
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
   static const String doneCooking = '/doneCooking';
-  static const String signIn = '/signIn';
+  static const String signIn = '/';
   static const String signUp = '/signUp';
   static const String forgotPassword = '/forgotPassword';
   static const String userChoice = '/userChoice';

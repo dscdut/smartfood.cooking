@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "905874024931",
-    "project_id": "smartfood-cooking-8abad",
-    "storage_bucket": "smartfood-cooking-8abad.appspot.com"
+    "project_number": "133017922113",
+    "project_id": "smartfood-cooking-1d276",
+    "storage_bucket": "smartfood-cooking-1d276.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905874024931:android:1396c2819e307f452058d6",
+        "mobilesdk_app_id": "1:133017922113:android:5c52f8ad47ffdc446ef4c0",
         "android_client_info": {
           "package_name": "com.dscdut.smartfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "905874024931-tffg8pqcv2arcq7tj7rv9nc3mi6hsomo.apps.googleusercontent.com",
+          "client_id": "133017922113-jqkpa1pr19nkc38jbsnei5e639ue571g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dscdut.smartfood",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "905874024931-ddtkvn6endjlv7ujl292ss0gli6ajtqr.apps.googleusercontent.com",
+          "client_id": "133017922113-s4q3rlr3thfiv1psdj00lsa7p4mkh1fq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC5J0-9tSX9xw8ltsO3WRK-8Mfaa0iupD8"
+          "current_key": "AIzaSyDfWCaIC1S4wvZPCnNfuM_rilMkZuk9WtI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "905874024931-ddtkvn6endjlv7ujl292ss0gli6ajtqr.apps.googleusercontent.com",
+              "client_id": "133017922113-s4q3rlr3thfiv1psdj00lsa7p4mkh1fq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

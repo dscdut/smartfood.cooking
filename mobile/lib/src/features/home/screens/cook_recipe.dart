@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/home/screens/select_recipe.dart';
+import 'package:mobile/src/features/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
+import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CookRecipe extends StatelessWidget {
@@ -29,10 +32,10 @@ class CookRecipe extends StatelessWidget {
                     ),
                     Text(
                       recipe.recipeName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline2!
-                          .copyWith(color: Palette.pink500),
+                      style: CustomTextTheme.headline2.copyWith(
+                        color: Palette.pink500,
+                        fontSize: 26.sp,
+                      ),
                     ),
                     SizedBox(width: 22.w),
                   ],
@@ -54,8 +57,9 @@ class CookRecipe extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20.r),
                               boxShadow: [
                                 BoxShadow(
-                                  blurRadius: 7.r,
+                                  blurRadius: 8,
                                   color: Palette.shadowColor.withOpacity(0.1),
+                                  offset: const Offset(0, 3),
                                 )
                               ],
                             ),
@@ -92,17 +96,19 @@ class CookRecipe extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: [
-                                      const Spacer(),
                                       Padding(
                                         padding: EdgeInsets.only(
-                                            top: 0.h, right: 13.5.w),
+                                          top: 0.h,
+                                          left: 8.w,
+                                        ),
                                         child: IconButton(
-                                          padding: const EdgeInsets.all(0),
+                                          splashRadius: 24,
+                                          padding: EdgeInsets.zero,
                                           onPressed: () {},
                                           icon: const Icon(
                                             PhosphorIcons.heartFill,
                                           ),
-                                          color: Palette.pink500,
+                                          color: Palette.orange500,
                                         ),
                                       )
                                     ],
@@ -137,21 +143,20 @@ class CookRecipe extends StatelessWidget {
                                         ),
                                         Text(
                                           ' ' + recipe.cookingTime,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
+                                          style: CustomTextTheme.bodyText1
                                               .copyWith(
-                                                  fontSize: 16,
+                                                  fontSize: 14.sp,
                                                   color:
                                                       Palette.backgroundColor),
                                         ),
                                         const Spacer(),
                                         const Text(
-                                          'I',
+                                          '|',
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 24,
-                                              fontWeight: FontWeight.bold),
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         const Spacer(),
                                         const Icon(
@@ -160,13 +165,11 @@ class CookRecipe extends StatelessWidget {
                                         ),
                                         Text(
                                           ' ' + recipe.cookingLevel,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
+                                          style: CustomTextTheme.bodyText1
                                               .copyWith(
-                                                  fontSize: 16,
-                                                  color:
-                                                      Palette.backgroundColor),
+                                            fontSize: 14.sp,
+                                            color: Palette.backgroundColor,
+                                          ),
                                         ),
                                         const Spacer(),
                                         const Spacer(),
@@ -176,15 +179,14 @@ class CookRecipe extends StatelessWidget {
                                           color: Palette.yellowStar,
                                           size: 22,
                                         ),
+                                        SizedBox(width: 2.w),
                                         Text(
                                           recipe.favoriteLevel.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle1!
+                                          style: CustomTextTheme.bodyText1
                                               .copyWith(
-                                                  fontSize: 16,
-                                                  color:
-                                                      Palette.backgroundColor),
+                                            fontSize: 14.sp,
+                                            color: Palette.backgroundColor,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -203,18 +205,18 @@ class CookRecipe extends StatelessWidget {
                         children: [
                           Text(
                             'Dinh dưỡng',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline3!
-                                .copyWith(color: Palette.pink500),
+                            style: CustomTextTheme.headline3.copyWith(
+                              color: Palette.gray500,
+                              fontSize: 21.sp,
+                            ),
                           ),
                           const Spacer(),
                           Text(
                             'Xem tất cả',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(color: Palette.pink400),
+                            style: CustomTextTheme.bodyText1.copyWith(
+                              color: Palette.pink300,
+                              fontSize: 14.sp,
+                            ),
                           ),
                         ],
                       ),
@@ -223,178 +225,17 @@ class CookRecipe extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 100.w,
-                            height: 100.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Palette.shadowColor.withOpacity(0.1),
-                                  blurRadius: 5.r,
-                                )
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Đạm',
-                                  style: TextStyle(
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Divider(
-                                  height: 10.h,
-                                  color: Colors.transparent,
-                                ),
-                                Text(
-                                  '50g',
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                  ),
-                                ),
-                                Divider(
-                                  height: 5.sp,
-                                  color: Colors.transparent,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10.h, horizontal: 10.w),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    child: LinearProgressIndicator(
-                                      minHeight: 6.h,
-                                      backgroundColor: Palette.pink100,
-                                      valueColor:
-                                          const AlwaysStoppedAnimation<Color>(
-                                              Palette.pink500),
-                                      value: 0.6,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          NutritionCard(
+                              nameNutrition: 'Đạm', valueNutrition: '50g'),
+                          NutritionCard(
+                            nameNutrition: "Chất béo",
+                            valueNutrition: '50g',
                           ),
-                          const Spacer(),
-                          Padding(
-                              padding: EdgeInsets.only(right: 0.w),
-                              child: Container(
-                                width: 100.w,
-                                height: 100.h,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          Palette.shadowColor.withOpacity(0.1),
-                                      blurRadius: 5.r,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Chất béo',
-                                      style: TextStyle(
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Divider(
-                                      height: 10.h,
-                                      color: Colors.transparent,
-                                    ),
-                                    Text(
-                                      '50g',
-                                      style: TextStyle(
-                                        fontSize: 16.sp,
-                                      ),
-                                    ),
-                                    Divider(
-                                      height: 5.sp,
-                                      color: Colors.transparent,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 10.w),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        child: LinearProgressIndicator(
-                                          minHeight: 6.h,
-                                          backgroundColor: Palette.pink100,
-                                          valueColor:
-                                              const AlwaysStoppedAnimation<
-                                                  Color>(Palette.pink500),
-                                          value: 0.6,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                          const Spacer(),
-                          Padding(
-                            padding: EdgeInsets.only(right: 0.w),
-                            child: Container(
-                              width: 100.w,
-                              height: 100.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.r),
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color:
-                                          Palette.shadowColor.withOpacity(0.1),
-                                      blurRadius: 5.r)
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Protein',
-                                    style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Divider(
-                                    height: 10.h,
-                                    color: Colors.transparent,
-                                  ),
-                                  Text(
-                                    '50g',
-                                    style: TextStyle(
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                  Divider(
-                                    height: 5.sp,
-                                    color: Colors.transparent,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10.h, horizontal: 10.w),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      child: LinearProgressIndicator(
-                                        minHeight: 6.h,
-                                        backgroundColor: Palette.pink100,
-                                        valueColor:
-                                            const AlwaysStoppedAnimation<Color>(
-                                                Palette.pink500),
-                                        value: 0.6,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          NutritionCard(
+                            nameNutrition: "Protein",
+                            valueNutrition: '50g',
                           ),
                         ],
                       ),
@@ -406,19 +247,19 @@ class CookRecipe extends StatelessWidget {
                         'Nguyên liệu (' +
                             recipe.ingredient.length.toString() +
                             ')',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3!
-                            .copyWith(color: Palette.pink500),
+                        style: CustomTextTheme.headline3.copyWith(
+                          color: Palette.gray500,
+                          fontSize: 21.sp,
+                        ),
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 8.h,
                     ),
                     SizedBox(
                       height: 180.h,
                       child: ScrollConfiguration(
-                        behavior: CustomScroll(),
+                        behavior: NoShowLimitScroll(),
                         child: ListView(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           children:
@@ -445,20 +286,16 @@ class CookRecipe extends StatelessWidget {
                               color: Palette.backgroundColor,
                             ),
                             TextButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(RouteManager.signIn);
-                              },
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamed(RouteManager.stepsToCooking),
                               child: Row(
                                 children: [
                                   Text(
                                     'Bắt đầu nấu ăn!',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3!
-                                        .copyWith(
-                                          color: Palette.backgroundColor,
-                                        ),
+                                    style: CustomTextTheme.headline4.copyWith(
+                                      color: Palette.backgroundColor,
+                                      fontSize: 18.sp,
+                                    ),
                                   )
                                 ],
                               ),
@@ -481,23 +318,29 @@ class CookRecipe extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(ingredient.ingrImageURL),
-            backgroundColor: Colors.grey,
-            radius: 20.sp,
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(ingredient.ingrImageURL),
+              ),
+              SizedBox(width: 12.w),
+              Text(
+                ingredient.ingrName,
+                style: CustomTextTheme.subtitle1.copyWith(
+                  color: Palette.gray500,
+                  fontSize: 17.sp,
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            width: 20.sp,
-          ),
-          Text(
-            ingredient.ingrName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
-          ),
-          const Spacer(),
           Text(
             ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+            style: CustomTextTheme.bodyText1.copyWith(
+              color: Palette.gray400,
+              fontSize: 15.sp,
+            ),
           ),
         ],
       ),
@@ -505,10 +348,3 @@ class CookRecipe extends StatelessWidget {
   }
 }
 
-class CustomScroll extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
-}
