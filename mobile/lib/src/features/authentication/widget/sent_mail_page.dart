@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class SentMailPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SentMailPageState extends State<SentMailPage> {
         Center(
           child: Text(
             "Đã gửi email cho bạn",
-            style: CustomTheme.headline2.copyWith(
+            style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
             ),
@@ -40,7 +40,7 @@ class _SentMailPageState extends State<SentMailPage> {
           "Chúng tôi đã gửi đến một liên kết đặt lại mật khẩu "
           "tới abc***23@gmail.com",
           textAlign: TextAlign.center,
-          style: CustomTheme.subtitle2.copyWith(
+          style: CustomTextTheme.subtitle2.copyWith(
             color: Palette.gray500,
             fontSize: 16.sp,
           ),
@@ -58,13 +58,13 @@ class _SentMailPageState extends State<SentMailPage> {
               children: [
                 TextSpan(
                   text: "Không nhận được email? ",
-                  style: CustomTheme.bodyText3.copyWith(
+                  style: CustomTextTheme.bodyText3.copyWith(
                     fontSize: 15.sp,
                   ),
                 ),
                 TextSpan(
                   text: "Gửi lại ngay",
-                  style: CustomTheme.bodyText1.copyWith(
+                  style: CustomTextTheme.bodyText1.copyWith(
                     color: Palette.pink500,
                     fontSize: 15.sp,
                   ),
@@ -93,7 +93,7 @@ class _SentMailPageState extends State<SentMailPage> {
               ),
               child: Text(
                 "Quay lại đăng nhập",
-                style: CustomTheme.headline4.copyWith(
+                style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,
                 ),

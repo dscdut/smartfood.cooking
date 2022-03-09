@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/user_choice/widget/custom_tooltip.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -44,7 +44,7 @@ class ItemChoice extends StatelessWidget {
                     SizedBox(width: 7.w),
                     Text(
                       itemTitle,
-                      style: CustomTheme.headline4.copyWith(
+                      style: CustomTextTheme.headline4.copyWith(
                         color: isSelected ? Palette.pink500 : Palette.gray500,
                         fontSize: 18.sp,
                       ),

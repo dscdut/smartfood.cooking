@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/screens/cook_recipe.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
+import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SelectRecipe extends StatefulWidget {
@@ -34,10 +34,8 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     Center(
                       child: Text(
                         "Công thức của bạn",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline2!
-                            .copyWith(color: Palette.pink500),
+                        style: CustomTextTheme.headline2
+                            .copyWith(color: Palette.pink500, fontSize: 26.sp),
                       ),
                     ),
                     const SizedBox()
@@ -47,7 +45,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
               SizedBox(height: 20.h),
               Expanded(
                 child: ScrollConfiguration(
-                  behavior: CustomScroll(),
+                  behavior: NoShowLimitScroll(),
                   child: ListView(
                     children: suggest.map(listRecipe).toList(),
                   ),
@@ -86,7 +84,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: ClipRRect(
@@ -95,10 +93,11 @@ class _SelectRecipeState extends State<SelectRecipe> {
                       alignment: Alignment.topLeft,
                       children: [
                         Image.network(val.imageURL,
-                            width: 110.w, height: 110.w, fit: BoxFit.fitHeight),
+                            width: 110.w, height: 110.w, fit: BoxFit.cover),
                         Container(
                           width: 110.w,
                           height: 30.w,
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.bottomCenter,
@@ -110,42 +109,38 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             ),
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                padding: const EdgeInsets.all(5),
-                                splashRadius: 0.01,
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                                splashRadius: 24,
                                 onPressed: () {
-                                  val.favorited
-                                      ? val.favorited = false
-                                      : val.favorited = true;
+                                  setState(() {
+                                    val.favorited = !val.favorited;
+                                  });
                                 },
                                 icon: const Icon(PhosphorIcons.heartFill),
                                 color: val.favorited
-                                    ? Palette.pink500
+                                    ? Palette.orange500
                                     : Palette.backgroundColor,
                               ),
-                              const Spacer(),
-                              Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.yellow.shade600,
-                                      size: 20.sp,
+                              Row(
+                                children: [
+                                  Icon(
+                                    PhosphorIcons.starFill,
+                                    color: Palette.yellowStar,
+                                    size: 20.sp,
+                                  ),
+                                  SizedBox(width: 2.w),
+                                  Text(
+                                    val.favoriteLevel.toString(),
+                                    style: CustomTextTheme.headline4.copyWith(
+                                      color: Palette.backgroundColor,
+                                      fontWeight: FontWeight.w800,
                                     ),
-                                    Text(
-                                      val.favoriteLevel.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline4!
-                                          .copyWith(
-                                            color: Palette.backgroundColor,
-                                            fontWeight: FontWeight.w800,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               )
                             ],
                           ),
@@ -168,13 +163,10 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             flex: 2,
                             child: Text(
                               val.recipeName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline3!
-                                  .copyWith(
-                                    color: Palette.gray500,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: CustomTextTheme.headline3.copyWith(
+                                color: Palette.gray500,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -187,8 +179,8 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             width: 28.w,
                             height: 26.h,
                             decoration: BoxDecoration(
-                              color: Palette.pink500,
-                              borderRadius: BorderRadius.circular(8),
+                              color: Palette.orange500,
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
                               child: IconButton(
@@ -197,13 +189,11 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                 iconSize: 20.sp,
                                 icon: const Icon(PhosphorIcons.arrowRightBold),
                                 color: Palette.backgroundColor,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteManager.cookRecipe,
-                                    arguments: val,
-                                  );
-                                },
+                                onPressed: () => Navigator.pushNamed(
+                                  context,
+                                  RouteManager.cookRecipe,
+                                  arguments: val,
+                                ),
                               ),
                             ),
                           )
@@ -211,26 +201,32 @@ class _SelectRecipeState extends State<SelectRecipe> {
                       ),
                       const Spacer(),
                       Row(
-                        children: <Widget>[
+                        children: [
                           const Icon(
                             PhosphorIcons.clockBold,
                             color: Palette.gray400,
                           ),
-                          Text(' ' + val.cookingTime,
-                              style: CustomTheme.headline4),
-                          const Spacer(),
-                          Text('|', style: CustomTheme.headline4),
-                          const Spacer(),
-                          const Icon(
+                          Text(
+                            ' ' + val.cookingTime,
+                            style: CustomTextTheme.bodyText1.copyWith(
+                              color: Palette.gray400,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                            child: Text('|', style: CustomTextTheme.headline4),
+                          ),
+                          Icon(
                             PhosphorIcons.cookingPotBold,
                             color: Palette.gray400,
+                            size: 24.sp,
                           ),
                           Text(
                             ' ' + val.cookingLevel,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline4!
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: CustomTextTheme.bodyText1.copyWith(
+                              color: Palette.gray400,
+                              fontSize: 14.sp,
+                            ),
                           ),
                           const Spacer(),
                           const Spacer(),

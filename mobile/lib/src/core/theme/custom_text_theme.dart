@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTheme {
+class CustomTextTheme {
   static final headline1 = TextStyle(
     fontWeight: FontWeight.w800,
     fontSize: 32.sp,
@@ -10,7 +10,7 @@ class CustomTheme {
   );
   static final headline2 = TextStyle(
     fontSize: 24.sp,
-    height: 28 / 24,
+    height: 28.sp / 24.sp,
     fontWeight: FontWeight.w800,
     letterSpacing: 0.1,
   );

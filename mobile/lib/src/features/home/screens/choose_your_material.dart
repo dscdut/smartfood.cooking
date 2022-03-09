@@ -1,12 +1,12 @@
-import 'dart:ui';
-
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/data/datasources/test.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
+import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -100,8 +100,8 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
     },
     {
       "name": "Hành lá",
-      "imageUrl": "https://zicxa.com/vi/"
-          "uploads/news/hanh-la-ky-gi-(1).jpg"
+      "imageUrl": "https://vinmec-prod.s3.amazonaws.com/images"
+          "/20200719_014811_613311_8-loi-ich-suc-khoe-.max-1800x1800.jpg"
     },
     {
       "name": "Bánh đa phở",
@@ -125,291 +125,336 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(top: 20.0.h),
-            child: Stack(
-              alignment: Alignment.bottomCenter,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomBackButton(
-                            onPressedFunction: () => Navigator.pop(context),
-                          ),
-                          Text(
-                            "Chọn nguyên liệu",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline2!
-                                .copyWith(color: Palette.pink500),
-                          ),
-                          IconButton(
-                            splashRadius: 28,
-                            constraints: const BoxConstraints(),
-                            padding: EdgeInsets.only(right: 5.w),
-                            icon: Badge(
-                              badgeColor: Palette.pink500,
-                              badgeContent: const Text(
-                                "3",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              position: BadgePosition.topEnd(
-                                top: -10,
-                                end: -10,
-                              ),
-                              child: const Icon(
-                                Icons.kitchen_rounded,
-                                size: 30,
-                                color: Palette.pink500,
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomBackButton(
+                        onPressedFunction: () => Navigator.pop(context),
                       ),
-                    ),
-                    SizedBox(height: 17.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 40.h,
-                            width: 280.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                      Text(
+                        "Chọn nguyên liệu",
+                        style: CustomTextTheme.headline2
+                            .copyWith(color: Palette.pink500, fontSize: 26.sp),
+                      ),
+                      IconButton(
+                        splashRadius: 28.r,
+                        constraints: const BoxConstraints(),
+                        padding: EdgeInsets.only(right: 5.w),
+                        icon: Badge(
+                          badgeColor: Palette.pink500,
+                          badgeContent: Text(
+                            selectedMaterialList
+                                .where((element) => element == true)
+                                .toList()
+                                .length
+                                .toString(),
+                            style: TextStyle(
                               color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color(0xff063336).withOpacity(0.1),
-                                  blurRadius: 6,
-                                  offset: const Offset(3, 3),
-                                )
-                              ],
-                            ),
-                            child: TextField(
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: InputDecoration(
-                                isCollapsed: true,
-                                contentPadding: const EdgeInsets.only(left: 14),
-                                border: InputBorder.none,
-                                hintText: "Tủ lạnh bạn hôm nay có gì!",
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .headline4!
-                                    .copyWith(color: Palette.gray300),
-                                suffixIcon: const Icon(
-                                  PhosphorIcons.magnifyingGlassBold,
-                                ),
-                              ),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
-                          const Spacer(),
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            splashRadius: 28,
-                            icon: const Icon(PhosphorIcons.scan),
-                            color: Palette.orange500,
-                            iconSize: 36,
-                            onPressed: () {
-                              context.read<ApiTest>().signInWithGoogle();
+                          animationType: BadgeAnimationType.scale,
+                          position: BadgePosition.topEnd(
+                            top: -10.h,
+                            end: -10.h,
+                          ),
+                          child: Icon(
+                            Icons.kitchen_rounded,
+                            size: 32.sp,
+                            color: Palette.pink500,
+                          ),
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 17.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 40.h,
+                        width: 280.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Palette.shadowColor.withOpacity(0.1),
+                              blurRadius: 12,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                        ),
+                        child: TextField(
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            isCollapsed: true,
+                            contentPadding: EdgeInsets.only(left: 14.w),
+                            border: InputBorder.none,
+                            hintText: "Tủ lạnh bạn hôm nay có gì!",
+                            hintStyle: CustomTextTheme.headline4
+                                .copyWith(color: Palette.gray300),
+                            suffixIcon: const Icon(
+                              PhosphorIcons.magnifyingGlassBold,
+                              color: Palette.gray300,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        splashRadius: 28.r,
+                        icon: const Icon(PhosphorIcons.scan),
+                        color: Palette.orange500,
+                        iconSize: 36.sp,
+                        onPressed: () {
+                          context.read<ApiTest>().signInWithGoogle();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                SizedBox(
+                  height: 50.h,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    itemCount: typeMaterialList.length,
+                    itemBuilder: (context, index) {
+                      return ChoiceChip(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        label: Text(typeMaterialList[index]),
+                        labelStyle: CustomTextTheme.subtitle1.copyWith(
+                            color: selectedTypeList[index]
+                                ? Colors.white
+                                : Palette.gray500),
+                        selected: selectedTypeList[index],
+                        onSelected: (value) => setState(() {
+                          if (index == 0 && !selectedTypeList[index]) {
+                            selectedTypeList = List<bool>.filled(
+                                typeMaterialList.length, false,
+                                growable: false)
+                              ..first = true;
+                          } else if (index != 0) {
+                            selectedTypeList[index] = value;
+                            selectedTypeList[0] = false;
+                          }
+                        }),
+                        selectedColor: Palette.pink500,
+                        backgroundColor: Palette.backgroundColor,
+                        elevation: 2,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(width: 12.w);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                Expanded(
+                  child: ScrollConfiguration(
+                    behavior: NoShowLimitScroll(),
+                    child: GridView.builder(
+                      itemCount: materialData.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                      ),
+                      itemBuilder: (context, index) {
+                        return MaterialCard(
+                          imageUrl: materialData[index]["imageUrl"]!,
+                          materialName: materialData[index]["name"]!,
+                          isSelected: selectedMaterialList[index],
+                          onMaterialTap: () => setState(
+                            () {
+                              selectedMaterialList[index] =
+                                  !selectedMaterialList[index];
                             },
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                        itemCount: typeMaterialList.length,
-                        itemBuilder: (context, index) {
-                          return ChoiceChip(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            label: Text(typeMaterialList[index]),
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .copyWith(
-                                    color: selectedTypeList[index]
-                                        ? Colors.white
-                                        : Palette.gray500),
-                            selected: selectedTypeList[index],
-                            onSelected: (value) => setState(() {
-                              if (index == 0 && !selectedTypeList[index]) {
-                                selectedTypeList = List<bool>.filled(
-                                    typeMaterialList.length, false,
-                                    growable: false)
-                                  ..first = true;
-                              } else if (index != 0) {
-                                selectedTypeList[index] = value;
-                                selectedTypeList[0] = false;
-                              }
-                            }),
-                            selectedColor: Palette.pink500,
-                            backgroundColor: Palette.backgroundColor,
-                            elevation: 3,
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return SizedBox(width: 12.w);
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                        itemCount: materialData.length,
-                        padding: EdgeInsets.only(
-                          left: 16.0.w,
-                          right: 16.0.w,
-                          top: 10.h,
-                          bottom: 30.h,
-                        ),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 21.w,
-                          crossAxisSpacing: 21.h,
-                        ),
-                        itemBuilder: (context, index) {
-                          return Material(
-                            elevation: 3,
-                            borderRadius: BorderRadius.circular(10),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(10),
-                              onTap: () {
-                                setState(() {
-                                  selectedMaterialList[index] =
-                                      !selectedMaterialList[index];
-                                });
-                              },
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                height: 100.h,
-                                width: 100.h,
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  color: selectedMaterialList[index]
-                                      ? Palette.pink400
-                                      : Palette.backgroundColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 56.h,
-                                      width: 88.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          image: Image.network(
-                                            materialData[index]["imageUrl"]!,
-                                          ).image,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    AnimatedDefaultTextStyle(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                            color: selectedMaterialList[index]
-                                                ? Palette.backgroundColor
-                                                : Palette.gray500,
-                                          ),
-                                      child: Text(materialData[index]["name"]!),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const Spacer(),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-                selectedMaterialList
+                GestureDetector(
+                  onTap: () {
+                    if (selectedMaterialList
                         .where((element) => element == true)
                         .toList()
-                        .isNotEmpty
-                    ? SizedBox(
-                        height: 100.h,
-                        width: double.infinity,
-                        child: ClipRect(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(
-                              sigmaX: 0.7,
-                              sigmaY: 0.7,
-                            ),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  color: Colors.white.withOpacity(0),
-                                ),
-                                Container(
-                                  height: 40,
-                                  width: 130,
-                                  decoration: BoxDecoration(
-                                    color: Palette.orange500,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Center(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context)
-                                            .pushNamed(RouteManager.notFound);
-                                      },
-                                      child: Text(
-                                        'Tiếp tục (${selectedMaterialList.where((element) => element == true).toList().length})',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .copyWith(
-                                                color: Palette.backgroundColor),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        .isNotEmpty) {
+                      Navigator.pushNamed(
+                        context,
+                        RouteManager.notFound,
+                      );
+                    }
+                  },
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        top: 18.h,
+                        bottom: 24.h,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: !selectedMaterialList
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty
+                            ? Palette.orange300
+                            : Palette.orange500,
+                      ),
+                      child: Text(
+                        "Tiếp tục ${selectedMaterialList.where((element) => element == true).toList().isEmpty ? "" : (selectedMaterialList.where((element) => element == true).toList().length)}",
+                        style: CustomTextTheme.headline4.copyWith(
+                          color: Palette.backgroundColor,
+                          fontSize: 18.sp,
                         ),
-                      )
-                    : const SizedBox.shrink(),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MaterialCard extends StatelessWidget {
+  const MaterialCard({
+    Key? key,
+    required this.isSelected,
+    required this.imageUrl,
+    required this.materialName,
+    required this.onMaterialTap,
+  }) : super(key: key);
+  final bool isSelected;
+  final String imageUrl;
+  final String materialName;
+  final VoidCallback onMaterialTap;
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.selected,
+    };
+    if (!states.any(interactiveStates.contains)) {
+      return Palette.backgroundColor;
+    }
+    return Palette.pink500;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onMaterialTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 100.h,
+            width: 100.h,
+            decoration: BoxDecoration(
+              color: Palette.backgroundColor,
+              border: isSelected
+                  ? Border.all(
+                      width: 2.w,
+                      color: Palette.pink500,
+                    )
+                  : null,
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  offset: const Offset(0, 1),
+                  color: Palette.shadowColor.withOpacity(0.1),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(12.r),
+                      ),
+                      image: DecorationImage(
+                        image: Image.network(
+                          imageUrl,
+                        ).image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 5.0.w,
+                      vertical: 3.h,
+                    ),
+                    child: Center(
+                      child: Text(
+                        materialName,
+                        style: CustomTextTheme.bodyText1.copyWith(
+                          color: Palette.gray500,
+                          fontSize: 13.sp,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 12.h,
+            right: 12.w,
+            child: Checkbox(
+              checkColor: Colors.white,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              value: isSelected,
+              shape: const CircleBorder(),
+              side:
+                  const BorderSide(width: 1.5, color: Palette.backgroundColor),
+              onChanged: (bool? value) {},
+            ),
+          ),
+        ],
       ),
     );
   }

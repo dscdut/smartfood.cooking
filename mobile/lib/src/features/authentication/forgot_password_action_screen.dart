@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
-import 'package:mobile/src/core/theme/custom_theme.dart';
+import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/features/authentication/widget/change_new_pasword_page.dart';
 import 'package:mobile/src/features/authentication/widget/forgot_password_page.dart';
@@ -80,7 +80,7 @@ class _ForgotPasswordActionScreenState
                 Center(
                   child: Text(
                     "Bạn cần trợ giúp?",
-                    style: CustomTheme.subtitle1.copyWith(
+                    style: CustomTextTheme.subtitle1.copyWith(
                       color: Palette.gray500,
                       fontSize: 16.sp,
                     ),
