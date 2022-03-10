@@ -1,17 +1,11 @@
 import Joi from 'joi';
 
-const MONGOOSE_ID_OBJECT_FORMAT = /^[0-9a-fA-F]{24}$/;
-
 const DATE_YYYY_MM_DD_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
 
 // Required from 6-30 char, contains special char
 const PWD_FORMAT = /^[a-zA-Z0-9\d@$!%*?&]{6,30}$/;
 
 export class JoiUtils {
-    static objectId() {
-        return Joi.string().regex(MONGOOSE_ID_OBJECT_FORMAT);
-    }
-
     static optionalString() {
         return Joi
             .string()
@@ -47,9 +41,9 @@ export class JoiUtils {
         return Joi.array().items(JoiUtils.optionalString()).min(1);
     }
 
-    static ObjectIds() {
+    static positiveNumberIds() {
         return Joi.array().items(
-            this.objectId()
+            JoiUtils.positiveNumber()
         );
     }
 }
