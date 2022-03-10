@@ -1,4 +1,5 @@
 import { RequestTransformer } from 'packages/restBuilder/core/requestTransformer';
+import { GetRecipesByIngredientsDto } from 'core/modules/recipe/dto/get-recipes-by-ingredients.dto';
 import { RecipeService } from '../../modules/recipe/services/recipe.service';
 import { ValidHttpResponse } from '../../../packages/handler/response/validHttp.response';
 import searchRecipeSchema from './query/searchRecipe.schema.json';
@@ -9,7 +10,7 @@ class Controller {
     }
 
     findByIngredientsId = async req => {
-        const data = await this.service.findByIngredientsId(req.body.ids);
+        const data = await this.service.findByIngredientsId(GetRecipesByIngredientsDto(req.body).ids);
         return ValidHttpResponse.toOkResponse(data);
     };
 
