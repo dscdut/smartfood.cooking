@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 
-class ApiTest {
+class FirebaseService {
   final FirebaseAuth authService;
   final GoogleSignIn googleSignIn;
   final Client http;
-  ApiTest(this.authService, this.googleSignIn, this.http);
+  FirebaseService({required this.authService, required this.googleSignIn, required this.http});
 
   Future<void> signInWithGoogle() async {
     final googleUser = await googleSignIn.signIn();

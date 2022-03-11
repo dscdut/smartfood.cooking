@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mobile/src/features/home/screens/choose_your_material.dart';
-import 'package:mobile/src/features/home/screens/cook_recipe.dart';
-import 'package:mobile/src/features/home/screens/done_cooking_screen.dart';
-import 'package:mobile/src/features/home/screens/not_found_screen.dart';
-import 'package:mobile/src/features/home/screens/select_recipe.dart';
-import 'package:mobile/src/features/authentication/sign_in.dart';
-import 'package:mobile/src/features/authentication/sign_up.dart';
-import 'package:mobile/src/features/authentication/forgot_password_action_screen.dart';
-import 'package:mobile/src/features/home/screens/steps_to_cooking.dart';
-import 'package:mobile/src/features/home/screens/your_material_screen.dart';
-import 'package:mobile/src/features/main_screen/main_screen.dart';
-import 'package:mobile/src/features/user_choice/user_choice_screen.dart';
+import 'package:mobile/src/modules/home/screens/choose_your_material.dart';
+import 'package:mobile/src/modules/home/screens/cook_recipe.dart';
+import 'package:mobile/src/modules/home/screens/done_cooking_screen.dart';
+import 'package:mobile/src/modules/home/screens/not_found_screen.dart';
+import 'package:mobile/src/modules/home/screens/select_recipe.dart';
+import 'package:mobile/src/modules/authentication/screen/sign_in.dart';
+import 'package:mobile/src/modules/authentication/screen/sign_up.dart';
+import 'package:mobile/src/modules/authentication/screen/forgot_password_action_screen.dart';
+import 'package:mobile/src/modules/home/screens/steps_to_cooking.dart';
+import 'package:mobile/src/modules/home/screens/your_material_screen.dart';
+import 'package:mobile/src/modules/main_screen/main_screen.dart';
+import 'package:mobile/src/modules/user_choice/user_choice_screen.dart';
 
 class RouteManager {
   static const String mainScreen = "/main";

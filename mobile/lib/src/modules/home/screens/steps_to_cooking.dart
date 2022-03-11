@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/widgets/dynamic_height_page_view.dart';
+import 'package:mobile/src/modules/home/widgets/dynamic_height_page_view.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class StepsToCookingScreen extends StatefulWidget {
