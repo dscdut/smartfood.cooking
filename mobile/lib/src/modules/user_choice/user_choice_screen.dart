@@ -5,10 +5,10 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/user_choice/widget/allergic_food_page.dart';
-import 'package:mobile/src/features/user_choice/widget/choose_region_page.dart';
-import 'package:mobile/src/features/user_choice/widget/choose_favorite_food_page.dart';
-import 'package:mobile/src/features/user_choice/widget/diet_page.dart';
+import 'package:mobile/src/modules/user_choice/widget/allergic_food_page.dart';
+import 'package:mobile/src/modules/user_choice/widget/choose_region_page.dart';
+import 'package:mobile/src/modules/user_choice/widget/choose_favorite_food_page.dart';
+import 'package:mobile/src/modules/user_choice/widget/diet_page.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 

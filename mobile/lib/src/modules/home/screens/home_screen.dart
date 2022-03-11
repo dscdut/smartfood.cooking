@@ -5,9 +5,9 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/widgets/diet_mode_card.dart';
-import 'package:mobile/src/features/home/widgets/menu_button.dart';
-import 'package:mobile/src/features/home/widgets/menu_recipe_card.dart';
+import 'package:mobile/src/modules/home/widgets/diet_mode_card.dart';
+import 'package:mobile/src/modules/home/widgets/menu_button.dart';
+import 'package:mobile/src/modules/home/widgets/menu_recipe_card.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

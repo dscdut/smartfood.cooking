@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/home/widgets/material_card.dart';
+import 'package:mobile/src/data/repositories/ingredient_repository.dart';
+import 'package:mobile/src/modules/home/screens/test_screen.dart';
+import 'package:mobile/src/modules/home/widgets/material_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ChooseYourMaterial extends StatefulWidget {
   const ChooseYourMaterial({Key? key}) : super(key: key);
@@ -173,7 +176,10 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                             color: Palette.pink500,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TestScreen())),
                       ),
                     ],
                   ),
@@ -221,8 +227,7 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                         icon: const Icon(PhosphorIcons.scan),
                         color: Palette.orange500,
                         iconSize: 36.sp,
-                        onPressed: () {
-                        },
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -298,15 +303,15 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (selectedMaterialList
-                        .where((element) => element == true)
-                        .toList()
-                        .isNotEmpty) {
-                      Navigator.pushNamed(
-                        context,
-                        RouteManager.notFound,
-                      );
-                    }
+                    // if (selectedMaterialList
+                    //     .where((element) => element == true)
+                    //     .toList()
+                    //     .isNotEmpty) {
+                    //   Navigator.pushNamed(
+                    //     context,
+                    //     RouteManager.notFound,
+                    //   );
+                    // }
                   },
                   child: Center(
                     child: Container(
@@ -345,4 +350,3 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
     );
   }
 }
-

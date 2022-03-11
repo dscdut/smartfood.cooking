@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/food_bank/food_bank.dart';
-import 'package:mobile/src/features/home/screens/home_screen.dart';
-import 'package:mobile/src/features/setting/setting_screen.dart';
-import 'package:mobile/src/features/user/user_screen.dart';
+import 'package:mobile/src/modules/food_bank/food_bank.dart';
+import 'package:mobile/src/modules/home/screens/home_screen.dart';
+import 'package:mobile/src/modules/setting/setting_screen.dart';
+import 'package:mobile/src/modules/user/user_screen.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class MainScreen extends StatefulWidget {

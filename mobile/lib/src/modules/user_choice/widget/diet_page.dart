@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/user_choice/widget/item_choice.dart';
+import 'package:mobile/src/modules/user_choice/widget/item_choice.dart';
 
 
 class DietPage extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/datasources/test.dart';
+import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +82,7 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: TextFormField(
                         controller: emailTextController,
-                        // obscureText: showNewChanged,
+                    
                         decoration: InputDecoration(
                           icon: const Icon(
                             PhosphorIcons.user,
@@ -316,7 +316,7 @@ class _SignInState extends State<SignIn> {
                           ],
                         ),
                         onPressed: () =>
-                            context.read<ApiTest>().signInWithGoogle(),
+                            context.read<FirebaseService>().signInWithGoogle(),
                       ),
                     ),
                     Container(
