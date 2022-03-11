@@ -37,6 +37,6 @@ void initDependences() {
   ///ChangeNotifier
   ///
   ///
-  s1.registerLazySingleton<IngredientProvider>(
+  s1.registerFactory<IngredientProvider>(
       () => IngredientProvider(repository: s1()));
 }

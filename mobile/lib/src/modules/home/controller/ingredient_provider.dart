@@ -22,12 +22,15 @@ class IngredientProvider with ChangeNotifier {
   Future<void> getListIngredient() async {
     try {
       status = LoadingStatus.loading;
+      notifyListeners();
       listIngredient = await repository.getListIngredients();
+      log(listIngredient.toString());
       if (listIngredient.isEmpty) {
         status = LoadingStatus.error;
       } else {
         status = LoadingStatus.idle;
       }
+      notifyListeners();
     } catch (e) {
       log(e.toString());
     }

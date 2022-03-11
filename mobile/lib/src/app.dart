@@ -17,6 +17,7 @@ class App extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => s1<IngredientProvider>(),
+            lazy: false,
           ),
         ],
         child: MaterialApp(
