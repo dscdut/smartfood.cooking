@@ -1,50 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
+import 'package:provider/provider.dart';
 
-class ChooseFavoriteFoodPage extends StatefulWidget {
+class ChooseFavoriteFoodPage extends StatelessWidget {
   const ChooseFavoriteFoodPage({Key? key}) : super(key: key);
 
   @override
-  State<ChooseFavoriteFoodPage> createState() => _ChooseFavoriteFoodPageState();
-}
-
-class _ChooseFavoriteFoodPageState extends State<ChooseFavoriteFoodPage> {
-  final List<String> listImagePath = [
-    ImagePath.traditionalKoreanFoodImage,
-    ImagePath.noodleImage,
-    ImagePath.soupImage,
-    ImagePath.grilledImage,
-    ImagePath.vegetarianDishImage,
-    ImagePath.vegetableImage,
-    ImagePath.drinkImage,
-    ImagePath.cakeImage,
-    ImagePath.friedImage
-  ];
-  final List<String> listTitle = [
-    "Lẩu",
-    "Bún-Mì-Phở",
-    "Cháo",
-    "Nướng",
-    "Món chay",
-    "Rau củ",
-    "Thức uống",
-    "Bánh ngọt",
-    "Chiên"
-  ];
-  List<bool> listCheckChosen = List.filled(9, false);
-
-  void onTapFavoriteFoodCard(int index) {
-    setState(() {
-      // listCheckChosen = List.filled(9, false);
-      listCheckChosen[index] = !listCheckChosen[index];
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final userChoiceProvider = context.read<UserChoiceProvider>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,13 +34,15 @@ class _ChooseFavoriteFoodPageState extends State<ChooseFavoriteFoodPage> {
             children: List<Widget>.generate(9, (index) {
               return GestureDetector(
                 onTap: () {
-                  onTapFavoriteFoodCard(index);
+                  userChoiceProvider.onTapFavoriteFoodCard(index);
                 },
-                child: FavoriteFoodCard(
-                  imagePath: listImagePath[index],
-                  title: listTitle[index],
-                  isChosen: listCheckChosen[index],
-                ),
+                child: Consumer<UserChoiceProvider>(builder: (_, provider, __) {
+                  return FavoriteFoodCard(
+                    imagePath: provider.listImagePathFavoriteFood[index],
+                    title: provider.listNameFavoriteFood[index],
+                    isChosen: provider.listCheckChosenFavoriteFood[index],
+                  );
+                }),
               );
             }),
           ),
@@ -112,7 +80,6 @@ class FavoriteFoodCard extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Container(
-          margin: EdgeInsets.all(3.h),
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             boxShadow: [
@@ -147,14 +114,17 @@ class FavoriteFoodCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -6.h,
-          right: -6.h,
-          child: Checkbox(
-            checkColor: Colors.white,
-            fillColor: MaterialStateProperty.resolveWith(getColor),
-            value: isChosen,
-            shape: const CircleBorder(),
-            onChanged: (bool? value) {},
+          top: -3.h,
+          right: -3.h,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Checkbox(
+              checkColor: Colors.white,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              value: isChosen,
+              shape: const CircleBorder(),
+              onChanged: (bool? value) {},
+            ),
           ),
         ),
       ],

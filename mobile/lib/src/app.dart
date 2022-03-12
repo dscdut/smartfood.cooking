@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/di/injector.dart';
 import 'package:mobile/src/modules/home/controller/ingredient_provider.dart';
+import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -16,9 +17,13 @@ class App extends StatelessWidget {
       builder: () => MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => s1<IngredientProvider>(),
+            create: (context) => getIt<IngredientProvider>(),
             lazy: false,
           ),
+          ChangeNotifierProvider(
+            create: (_) => getIt<UserChoiceProvider>(),
+            lazy: true,
+          )
         ],
         child: MaterialApp(
           builder: (context, widget) {
@@ -32,7 +37,7 @@ class App extends StatelessWidget {
           title: "Smart Food",
           debugShowCheckedModeBanner: false,
           routes: RouteManager.listRoute,
-          initialRoute: RouteManager.mainScreen,
+          initialRoute: RouteManager.signIn,
           theme: ThemeData(
             brightness: Brightness.light,
             fontFamily: 'Nunito',
