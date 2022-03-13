@@ -4,6 +4,7 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/di/injector.dart';
 import 'package:mobile/src/modules/home/controller/ingredient_provider.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
+import 'modules/choice_your_ingredients/controller/choice_your_ingredients_provider.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -22,6 +23,10 @@ class App extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => getIt<UserChoiceProvider>(),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => getIt<ChoiceYourIngredientsProvider>(),
             lazy: true,
           )
         ],
