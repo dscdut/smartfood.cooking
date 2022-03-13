@@ -37,143 +37,146 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, bottom: 10.0.h),
-          child: Column(
-            children: [
-              Center(
-                child: SvgPicture.asset(
-                  ImagePath.smartfoodLogoSvg,
-                  height: 110.h,
-                  width: 110.h,
-                ),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: 16.0.w,
+          right: 16.0.w,
+          bottom: 10.0.h,
+          top: 30.0.h,
+        ),
+        child: Column(
+          children: [
+            Center(
+              child: SvgPicture.asset(
+                ImagePath.smartfoodLogoSvg,
+                height: 110.h,
+                width: 110.h,
               ),
-              SizedBox(height: 8.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomBackButton(
-                    onPressedFunction: () {
-                      pageController.previousPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeOut,
-                      );
-                    },
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      "Bỏ qua",
-                      style: CustomTextTheme.headline3.copyWith(
-                        color: Palette.gray300,
-                        fontSize: 22.sp,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              Expanded(
-                child: ScrollConfiguration(
-                  behavior: NoShowLimitScroll(),
-                  child: PageView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: pageController,
-                    onPageChanged: (value) {
-                      setState(() {
-                        tabController.index = value;
-                      });
-                    },
-                    children: [
-                      ChooseRegionPage(
-                        key: UniqueKey(),
-                      ),
-                      ChooseFavoriteFoodPage(
-                        key: UniqueKey(),
-                      ),
-                      DietPage(key: UniqueKey()),
-                      const AllergicFoodPage(),
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (tabController.index + 1 < 4) {
-                    pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
+            ),
+            SizedBox(height: 8.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomBackButton(
+                  onPressedFunction: () {
+                    pageController.previousPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeOut,
                     );
-                  } else {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RouteManager.mainScreen, (route) => false);
-                  }
-                },
-                child: Center(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      top: 32.h,
-                      bottom: 24.h,
+                  },
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    "Bỏ qua",
+                    style: CustomTextTheme.headline3.copyWith(
+                      color: Palette.gray300,
+                      fontSize: 22.sp,
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.w,
-                      vertical: 10.h,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Expanded(
+              child: ScrollConfiguration(
+                behavior: NoShowLimitScroll(),
+                child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pageController,
+                  onPageChanged: (value) {
+                    setState(() {
+                      tabController.index = value;
+                    });
+                  },
+                  children: [
+                    ChooseRegionPage(
+                      key: UniqueKey(),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: Palette.orange500,
+                    ChooseFavoriteFoodPage(
+                      key: UniqueKey(),
                     ),
-                    child: Text(
-                      tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
-                      style: CustomTextTheme.headline4.copyWith(
-                        color: Palette.backgroundColor,
-                        fontSize: 18.sp,
-                      ),
+                    DietPage(key: UniqueKey()),
+                    const AllergicFoodPage(),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (tabController.index + 1 < 4) {
+                  pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                } else {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RouteManager.mainScreen, (route) => false);
+                }
+              },
+              child: Center(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 32.h,
+                    bottom: 24.h,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+                    color: Palette.orange500,
+                  ),
+                  child: Text(
+                    tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
+                    style: CustomTextTheme.headline4.copyWith(
+                      color: Palette.backgroundColor,
+                      fontSize: 18.sp,
                     ),
                   ),
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     if (tabController.index + 1 < 4) {
-              //       pageController.nextPage(
-              //         duration: const Duration(milliseconds: 300),
-              //         curve: Curves.easeIn,
-              //       );
-              //     } else {
-              //       Navigator.pushNamedAndRemoveUntil(
-              //           context, RouteManager.mainScreen, (route) => false);
-              //     }
-              //   },
-              //   child: Container(
-              //     margin: EdgeInsets.only(bottom: 15.h),
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //       color: Palette.orange500,
-              //       borderRadius: BorderRadius.circular(20.r),
-              //     ),
-              //     padding:
-              //         EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
-              //     child: Text(
-              //       tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
-              //       style: CustomTextTheme.headline4.copyWith(
-              //         color: Palette.backgroundColor,
-              //         fontSize: 20.sp,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Center(
-                child: TabPageSelector(
-                  controller: tabController,
-                  color: Palette.pink100,
-                  selectedColor: Palette.pink500,
-                  indicatorSize: 10.0.r,
-                ),
+            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     if (tabController.index + 1 < 4) {
+            //       pageController.nextPage(
+            //         duration: const Duration(milliseconds: 300),
+            //         curve: Curves.easeIn,
+            //       );
+            //     } else {
+            //       Navigator.pushNamedAndRemoveUntil(
+            //           context, RouteManager.mainScreen, (route) => false);
+            //     }
+            //   },
+            //   child: Container(
+            //     margin: EdgeInsets.only(bottom: 15.h),
+            //     alignment: Alignment.center,
+            //     decoration: BoxDecoration(
+            //       color: Palette.orange500,
+            //       borderRadius: BorderRadius.circular(20.r),
+            //     ),
+            //     padding:
+            //         EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
+            //     child: Text(
+            //       tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
+            //       style: CustomTextTheme.headline4.copyWith(
+            //         color: Palette.backgroundColor,
+            //         fontSize: 20.sp,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Center(
+              child: TabPageSelector(
+                controller: tabController,
+                color: Palette.pink100,
+                selectedColor: Palette.pink500,
+                indicatorSize: 10.0.r,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

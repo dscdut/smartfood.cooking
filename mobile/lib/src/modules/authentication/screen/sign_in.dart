@@ -43,8 +43,7 @@ class _SignInState extends State<SignIn> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: SafeArea(
-            child: ListView(
+        body: ListView(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -82,7 +81,6 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: TextFormField(
                         controller: emailTextController,
-                    
                         decoration: InputDecoration(
                           icon: const Icon(
                             PhosphorIcons.user,
@@ -363,7 +361,7 @@ class _SignInState extends State<SignIn> {
               ),
             )
           ],
-        )),
+        ),
       ),
     );
   }
