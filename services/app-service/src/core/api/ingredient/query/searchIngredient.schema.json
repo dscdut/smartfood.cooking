@@ -1,27 +1,29 @@
 {
-    "main": [
-      "id",
-      "name",
-      { "createdAt": "created_at" },
-      { "updatedAt": "updated_at" },
-      { "deletedAt": "deleted_at" }
+  "main": [
+    "id",
+    "name",
+    "ingredients_categories.category_id",
+    { "createdAt": "created_at" },
+    { "updatedAt": "updated_at" },
+    { "deletedAt": "deleted_at" }
+  ],
+  "associates": [
+    ["ingredients_categories", "ingredients.id", "ingredients_categories.ingredient_id"]
+  ],
+  "notDeleted": ["ingredients"],
+  "locks": {
+    "filters": [
+      { "name": "ingredients.name" },
+      { "createdAt": "ingredients.created_at" },
+      { "updatedAt": "ingredients.updated_at" }
     ],
-    "associates": [
-    ],
-    "notDeleted": ["ingredients"],
-    "locks": {
-      "filters": [
-        { "name": "ingredients.name" },
-        { "createdAt": "ingredients.created_at" },
-        { "updatedAt": "ingredients.updated_at" }
-      ],
-      "sorts": [
-        { "id": "ingredients.id" },
-        { "name": "ingredients.name" },
-        { "createdAt": "ingredients.created_at" },
-        { "updatedAt": "ingredients.updated_at" }
-      ]
-    },
-    "searchCriteria": ["name"]
-  }
+    "sorts": [
+      { "id": "ingredients.id" },
+      { "name": "ingredients.name" },
+      { "createdAt": "ingredients.created_at" },
+      { "updatedAt": "ingredients.updated_at" }
+    ]
+  },
+  "searchCriteria": ["name"]
+}
   
