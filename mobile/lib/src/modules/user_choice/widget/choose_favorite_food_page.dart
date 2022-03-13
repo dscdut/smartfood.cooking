@@ -10,7 +10,6 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userChoiceProvider = context.read<UserChoiceProvider>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,18 +31,16 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
               crossAxisSpacing: 15.w,
             ),
             children: List<Widget>.generate(9, (index) {
-              return GestureDetector(
-                onTap: () {
-                  userChoiceProvider.onTapFavoriteFoodCard(index);
-                },
-                child: Consumer<UserChoiceProvider>(builder: (_, provider, __) {
-                  return FavoriteFoodCard(
+              return Consumer<UserChoiceProvider>(builder: (_, provider, __) {
+                return InkWell(
+                  onTap: () => provider.onTapFavoriteFoodCard(index),
+                  child: FavoriteFoodCard(
                     imagePath: provider.listImagePathFavoriteFood[index],
                     title: provider.listNameFavoriteFood[index],
                     isChosen: provider.listCheckChosenFavoriteFood[index],
-                  );
-                }),
-              );
+                  ),
+                );
+              });
             }),
           ),
         )

@@ -23,7 +23,7 @@ class ItemChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTapFunction,
       child: Column(
         children: [
