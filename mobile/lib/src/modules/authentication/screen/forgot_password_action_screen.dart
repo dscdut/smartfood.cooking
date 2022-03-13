@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/features/authentication/widget/change_new_pasword_page.dart';
-import 'package:mobile/src/features/authentication/widget/forgot_password_page.dart';
-import 'package:mobile/src/features/authentication/widget/sent_mail_page.dart';
+import 'package:mobile/src/modules/authentication/widget/change_new_pasword_page.dart';
+import 'package:mobile/src/modules/authentication/widget/forgot_password_page.dart';
+import 'package:mobile/src/modules/authentication/widget/sent_mail_page.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class ForgotPasswordActionScreen extends StatefulWidget {
