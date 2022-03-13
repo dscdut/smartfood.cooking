@@ -2,33 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 import 'package:mobile/src/modules/user_choice/widget/item_choice.dart';
+import 'package:provider/provider.dart';
 
-
-class DietPage extends StatefulWidget {
-  const DietPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<DietPage> createState() => _DietPageState();
-}
-
-class _DietPageState extends State<DietPage> {
-  final listDiet = [
-    "Eat Clean",
-    "Keto",
-    "Low carb/ Das",
-    "Thuần chay",
-    "Chế độ ăn cho người béo phì",
-    "Chế độ ăn cho người thiếu cân",
-    "Không theo chế độ ăn"
-  ];
-
-  int currentSelected = 0;
+class DietPage extends StatelessWidget {
+  const DietPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final int listLength =
+        context.read<UserChoiceProvider>().listNameDiet.length;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,18 +29,18 @@ class _DietPageState extends State<DietPage> {
         ),
         Expanded(
           child: ListView.separated(
-            itemCount: listDiet.length,
+            itemCount: listLength,
             itemBuilder: (context, index) {
-              return ItemChoice(
-                isSelected: currentSelected == index,
-                itemTitle: listDiet[index],
-                onTapFunction: () {
-                  setState(() {
-                    currentSelected = index;
-                  });
-                },
-                isNeedHelpTooltip: !(index == listDiet.length - 1),
-              );
+              return Consumer<UserChoiceProvider>(builder: (_, provider, __) {
+                return ItemChoice(
+                  isSelected: provider.currentIndex == index,
+                  itemTitle: provider.listNameDiet[index],
+                  onTapFunction: () {
+                    provider.onTapDietItem(index);
+                  },
+                  isNeedHelpTooltip: !(index == listLength - 1),
+                );
+              });
             },
             separatorBuilder: (context, index) {
               return SizedBox(height: 18.h);

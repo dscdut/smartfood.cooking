@@ -6,37 +6,40 @@ import 'package:mobile/src/data/datasources/api/base_api.dart';
 import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 import 'package:mobile/src/modules/home/controller/ingredient_provider.dart';
+import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 
-final s1 = GetIt.instance;
+final GetIt getIt = GetIt.instance;
 
 void initDependences() {
   ///External + Http + Firebase
-  s1.registerLazySingleton(() => GoogleSignIn());
-  s1.registerLazySingleton(() => FirebaseAuth.instance);
-  s1.registerLazySingleton(() => Client());
+  getIt.registerLazySingleton(() => GoogleSignIn());
+  getIt.registerLazySingleton(() => FirebaseAuth.instance);
+  getIt.registerLazySingleton(() => Client());
 
   ///Datasource
   ///
   ///
-  s1.registerLazySingleton<FirebaseService>(
+  getIt.registerLazySingleton<FirebaseService>(
     () => FirebaseService(
-      authService: s1(),
-      googleSignIn: s1(),
-      http: s1(),
+      authService: getIt(),
+      googleSignIn: getIt(),
+      http: getIt(),
     ),
   );
 
-  s1.registerLazySingleton<BaseApi>(() => BaseApi(http: s1()));
+  getIt.registerLazySingleton<BaseApi>(() => BaseApi(http: getIt()));
 
   ///Repository
   ///
   ///
-  s1.registerLazySingleton<IngredientRepository>(
-      () => IngredientRepository(baseApi: s1()));
+  getIt.registerLazySingleton<IngredientRepository>(
+      () => IngredientRepository(baseApi: getIt()));
 
   ///ChangeNotifier
   ///
   ///
-  s1.registerFactory<IngredientProvider>(
-      () => IngredientProvider(repository: s1()));
+  getIt.registerFactory<IngredientProvider>(
+      () => IngredientProvider(repository: getIt()));
+
+  getIt.registerFactory<UserChoiceProvider>(() => UserChoiceProvider());
 }
