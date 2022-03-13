@@ -3,26 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
+import 'package:provider/provider.dart';
 
-class ChooseRegionPage extends StatefulWidget {
+class ChooseRegionPage extends StatelessWidget {
   const ChooseRegionPage({Key? key}) : super(key: key);
 
   @override
-  State<ChooseRegionPage> createState() => _ChooseRegionPageState();
-}
-
-class _ChooseRegionPageState extends State<ChooseRegionPage> {
-  List<bool> listCheckChosen = List.filled(3, false);
-
-  void onTapRegionCard(index) {
-    setState(() {
-      listCheckChosen = List.filled(3, false);
-      listCheckChosen[index] = true;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final userChoiceProvider = context.read<UserChoiceProvider>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,22 +31,30 @@ class _ChooseRegionPageState extends State<ChooseRegionPage> {
           children: [
             GestureDetector(
               onTap: () {
-                onTapRegionCard(0);
+                userChoiceProvider.onTapRegionCard(0);
               },
-              child: RegionCard(
-                imagePath: ImagePath.foodNorthImage,
-                title: "Miền Bắc",
-                isChosen: listCheckChosen[0],
+              child: Consumer<UserChoiceProvider>(
+                builder: (context, provider, child) {
+                  return RegionCard(
+                    imagePath: ImagePath.foodNorthImage,
+                    title: "Miền Bắc",
+                    isChosen: provider.listCheckChosenRegion[0],
+                  );
+                },
               ),
             ),
             GestureDetector(
               onTap: () {
-                onTapRegionCard(1);
+                userChoiceProvider.onTapRegionCard(1);
               },
-              child: RegionCard(
-                imagePath: ImagePath.foodCentralImage,
-                title: "Miền Trung",
-                isChosen: listCheckChosen[1],
+              child: Consumer<UserChoiceProvider>(
+                builder: (context, provider, child) {
+                  return RegionCard(
+                    imagePath: ImagePath.foodCentralImage,
+                    title: "Miền Trung",
+                    isChosen: provider.listCheckChosenRegion[1],
+                  );
+                },
               ),
             ),
           ],
@@ -67,12 +65,16 @@ class _ChooseRegionPageState extends State<ChooseRegionPage> {
         Center(
           child: GestureDetector(
             onTap: () {
-              onTapRegionCard(2);
+              userChoiceProvider.onTapRegionCard(2);
             },
-            child: RegionCard(
-              imagePath: ImagePath.foodSouthImage,
-              title: "Miền Nam",
-              isChosen: listCheckChosen[2],
+            child: Consumer<UserChoiceProvider>(
+              builder: (context, provider, child) {
+                return RegionCard(
+                  imagePath: ImagePath.foodSouthImage,
+                  title: "Miền Nam",
+                  isChosen: provider.listCheckChosenRegion[2],
+                );
+              },
             ),
           ),
         ),
@@ -146,12 +148,15 @@ class RegionCard extends StatelessWidget {
         Positioned(
           right: 0,
           top: -5.h,
-          child: Checkbox(
-            checkColor: Colors.white,
-            fillColor: MaterialStateProperty.resolveWith(getColor),
-            value: isChosen,
-            shape: const CircleBorder(),
-            onChanged: (bool? value) {},
+          child: IgnorePointer(
+            ignoring: true,
+            child: Checkbox(
+              checkColor: Colors.white,
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              value: isChosen,
+              shape: const CircleBorder(),
+              onChanged: (bool? value) {},
+            ),
           ),
         ),
       ],
