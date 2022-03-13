@@ -10,7 +10,7 @@ exports.up = async knex => {
             .inTable('recipes')
             .onDelete('CASCADE')
             .notNullable();
-        table.string('content');
+        table.string('content', 1250);
         table.integer('order').unsigned();
         table.dateTime('deleted_at').defaultTo(null);
         table.timestamps(false, true);
