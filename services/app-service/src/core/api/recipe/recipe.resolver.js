@@ -23,7 +23,7 @@ export const RecipeResolver = Module.builder()
             method: 'post',
             interceptors: [GetRecipesByIngredientsInterceptor],
             body: 'GetRecipesByIngredientsDto',
-            controller: RecipeController.findByIngredientsId,
+            controller: RecipeController.findByIngredientIds,
             preAuthorization: false,
         },
         {

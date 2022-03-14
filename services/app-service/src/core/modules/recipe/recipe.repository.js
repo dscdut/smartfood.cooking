@@ -1,7 +1,7 @@
 import { DataRepository } from 'packages/restBuilder/core/dataHandler/data.repository';
 
 class Repository extends DataRepository {
-    findByIngredientsId(ingredientsId) {
+    findByIngredientIds(ingredientsId) {
         return this.query()
             .innerJoin('recipes_ingredients', 'recipes.id', 'recipes_ingredients.recipe_id')
             .innerJoin('ingredients', 'recipes_ingredients.ingredient_id', 'ingredients.id')
@@ -21,7 +21,11 @@ class Repository extends DataRepository {
     }
 
     findById(id) {
-        return this.query().whereNull('recipes.deleted_at').where('recipes.id', '=', id).select();
+        return this.query()
+            .whereNull('recipes.deleted_at')
+            .where('recipes.id', '=', id)
+            .select()
+            .first();
     }
 }
 
