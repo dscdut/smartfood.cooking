@@ -7,8 +7,8 @@ exports.up = async knex => {
             .notNullable();
         table.integer('ingredient_id').unsigned().references('id').inTable('ingredients')
             .notNullable();
-        table.string('value').nullable();
-        table.string('unit');
+        table.string('value', 1000).nullable();
+        table.string('unit', 1000);
 
         table.primary(['recipe_id', 'ingredient_id']);
     });

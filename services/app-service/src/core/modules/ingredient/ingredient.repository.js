@@ -15,6 +15,18 @@ class Repository extends DataRepository {
                 'ingredients.updated_at',
             );
     }
+
+    findByRecipeId(recipeId) {
+        return this.query()
+            .innerJoin('recipes_ingredients', 'recipes_ingredients.ingredient_id', 'ingredients.id')
+            .whereNull('ingredients.deleted_at')
+            .where('recipes_ingredients.recipe_id', recipeId)
+            .select(
+                'ingredients.name',
+                'recipes_ingredients.value',
+                'recipes_ingredients.unit',
+            );
+    }
 }
 
 export const IngredientRepository = new Repository('ingredients');

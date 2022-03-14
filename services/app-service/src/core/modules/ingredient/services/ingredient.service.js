@@ -15,6 +15,14 @@ class Service extends DataPersistenceService {
 
         return data;
     }
+
+    async findByRecipeId(recipeId) {
+        const data = Optional.of(await this.repository.findByRecipeId(recipeId))
+            .throwIfNotPresent(new NotFoundException())
+            .get();
+
+        return data;
+    }
 }
 
 export const IngredientService = new Service();
