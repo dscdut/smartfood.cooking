@@ -5,7 +5,7 @@ class Repository extends DataRepository {
         return this.query()
             .whereNull('deleted_at')
             .where('recipe_id', recipeId)
-            .select('content')
+            .select('content', 'order')
             .orderBy('order');
     }
 }

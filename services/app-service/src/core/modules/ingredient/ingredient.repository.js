@@ -1,7 +1,7 @@
 import { DataRepository } from 'packages/restBuilder/core/dataHandler/data.repository';
 
 class Repository extends DataRepository {
-    findByCategoriesId(categoriesId) {
+    findByCategoriesId(categoriesId, pagination) {
         return this.query()
             .innerJoin('ingredients_categories', 'ingredients_categories.ingredient_id', 'ingredients.id')
             .whereNull('ingredients.deleted_at')
@@ -13,7 +13,9 @@ class Repository extends DataRepository {
                 'ingredients.deleted_at',
                 'ingredients.created_at',
                 'ingredients.updated_at',
-            );
+            )
+            .limit(pagination.size)
+            .offset(pagination.offset);
     }
 
     findByRecipeId(recipeId) {

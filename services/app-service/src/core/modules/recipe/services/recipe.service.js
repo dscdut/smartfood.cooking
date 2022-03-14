@@ -24,8 +24,9 @@ class Service extends DataPersistenceService {
         const data = Optional.of(await this.repository.findById(id))
             .throwIfNotPresent(new NotFoundException())
             .get();
-        data[0].ingredients = await this.ingredientService.findByRecipeId(id);
-        data[0].steps = await this.recipeStepService.findByRecipeId(id);
+
+        data.ingredients = await this.ingredientService.findByRecipeId(id);
+        data.steps = await this.recipeStepService.findByRecipeId(id);
 
         return data;
     }

@@ -9,8 +9,12 @@ class Controller {
         this.service = IngredientService;
     }
 
-    findByCategoriesId = async req => {
-        const data = await this.service.findByCategoriesId(GetIngredientsByCategoriesDto(req.body).ids);
+    findByCategoryIds = async req => {
+        const reqTransformed = new RequestTransformer(req.query, searchIngredientSchema);
+        const data = await this.service.findByCategoryIds(
+            GetIngredientsByCategoriesDto(req.body).ids,
+            reqTransformed.content.pagination
+        );
         return ValidHttpResponse.toOkResponse(data);
     };
 

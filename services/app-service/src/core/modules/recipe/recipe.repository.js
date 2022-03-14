@@ -21,7 +21,11 @@ class Repository extends DataRepository {
     }
 
     findById(id) {
-        return this.query().whereNull('recipes.deleted_at').where('recipes.id', '=', id).select();
+        return this.query()
+            .whereNull('recipes.deleted_at')
+            .where('recipes.id', '=', id)
+            .select()
+            .first();
     }
 }
 

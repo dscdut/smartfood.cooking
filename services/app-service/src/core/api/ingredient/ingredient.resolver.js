@@ -19,6 +19,6 @@ export const IngredientResolver = Module.builder()
             route: '/categories',
             method: 'post',
             params: DefaultQueryCriteriaDocument,
-            controller: IngredientController.findByCategoriesId,
+            controller: IngredientController.findByCategoryIds,
         },
     ]);

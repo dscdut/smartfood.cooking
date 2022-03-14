@@ -9,8 +9,8 @@ class Controller {
         this.service = RecipeService;
     }
 
-    findByIngredientsId = async req => {
-        const data = await this.service.findByIngredientsId(GetRecipesByIngredientsDto(req.body).ids);
+    findByIngredientIds = async req => {
+        const data = await this.service.findByIngredientIds(GetRecipesByIngredientsDto(req.body).ids);
         return ValidHttpResponse.toOkResponse(data);
     };
 
