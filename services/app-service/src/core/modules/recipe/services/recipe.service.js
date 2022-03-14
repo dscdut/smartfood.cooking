@@ -12,8 +12,8 @@ class Service extends DataPersistenceService {
         this.recipeStepService = RecipeStepService;
     }
 
-    async findByIngredientsId(ingredientsId) {
-        const data = Optional.of(await this.repository.findByIngredientsId(ingredientsId))
+    async findByIngredientIds(ingredientsId) {
+        const data = Optional.of(await this.repository.findByIngredientIds(ingredientsId))
             .throwIfNotPresent(new NotFoundException())
             .get();
 

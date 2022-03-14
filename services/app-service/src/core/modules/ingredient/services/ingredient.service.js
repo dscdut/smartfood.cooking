@@ -8,8 +8,8 @@ class Service extends DataPersistenceService {
         super(IngredientRepository);
     }
 
-    async findByCategoriesId(categoriesId, pagination) {
-        const data = Optional.of(await this.repository.findByCategoriesId(categoriesId, pagination))
+    async findByCategoryIds(categoriesId, pagination) {
+        const data = Optional.of(await this.repository.findByCategoryIds(categoriesId, pagination))
             .throwIfNotPresent(new NotFoundException())
             .get();
 
