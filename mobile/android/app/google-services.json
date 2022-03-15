@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "133017922113-c505rpmgqemg0hd8n5mfh0sku8elu9rt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dscdut.smartfood",
+            "certificate_hash": "e0f5e0f8ff7fd725ca6eafe4beb8af33ee224d40"
+          }
+        },
+        {
           "client_id": "133017922113-jqkpa1pr19nkc38jbsnei5e639ue571g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

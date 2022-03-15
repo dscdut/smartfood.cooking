@@ -6,7 +6,7 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
+import 'package:mobile/src/modules/authentication/controllers/sign_in_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +40,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final signInProvider = context.read<SignInProvider>();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -82,7 +83,6 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: TextFormField(
                         controller: emailTextController,
-                    
                         decoration: InputDecoration(
                           icon: const Icon(
                             PhosphorIcons.user,
@@ -195,10 +195,9 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.pushReplacementNamed(
-                        context,
-                        RouteManager.userChoice,
-                      ),
+                      onTap: () async {
+                        await signInProvider.onTapSigninWithGoogle();
+                      },
                       child: Center(
                         child: Container(
                           margin: EdgeInsets.only(
@@ -315,8 +314,9 @@ class _SignInState extends State<SignIn> {
                             )
                           ],
                         ),
-                        onPressed: () =>
-                            context.read<FirebaseService>().signInWithGoogle(),
+                        onPressed: () async {
+                          await signInProvider.onTapSigninWithGoogle();
+                        },
                       ),
                     ),
                     Container(
