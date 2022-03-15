@@ -6,7 +6,7 @@ import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/modules/home/screens/test_screen.dart';
 import 'package:mobile/src/modules/home/widgets/material_card.dart';
-import 'package:mobile/src/modules/choice_your_ingredients/controller/choice_your_ingredients_provider.dart';
+import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

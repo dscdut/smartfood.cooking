@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mobile/src/modules/home/screens/choose_your_material.dart';
+import 'package:mobile/src/modules/home/screens/choose_your_ingredient.dart';
 import 'package:mobile/src/modules/home/screens/cook_recipe.dart';
 import 'package:mobile/src/modules/home/screens/done_cooking_screen.dart';
 import 'package:mobile/src/modules/home/screens/not_found_screen.dart';
