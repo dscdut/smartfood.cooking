@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/data/model/recipe.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -15,8 +16,17 @@ class SelectRecipe extends StatefulWidget {
 }
 
 class _SelectRecipeState extends State<SelectRecipe> {
+  late List<Recipe> listFound;
+
+  @override
+  void didChangeDependencies() {
+    listFound = ModalRoute.of(context)!.settings.arguments as List<Recipe>;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(listFound);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -47,7 +57,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                 child: ScrollConfiguration(
                   behavior: NoShowLimitScroll(),
                   child: ListView(
-                    children: suggest.map(listRecipe).toList(),
+                    children: listFound.map(listRecipe).toList(),
                   ),
                 ),
               )
@@ -92,8 +102,11 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     child: Stack(
                       alignment: Alignment.topLeft,
                       children: [
-                        Image.network(val.imageURL,
-                            width: 110.w, height: 110.w, fit: BoxFit.cover),
+                        Image.network(
+                            "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
+                            width: 110.w,
+                            height: 110.w,
+                            fit: BoxFit.cover),
                         Container(
                           width: 110.w,
                           height: 30.w,
@@ -112,19 +125,18 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                                splashRadius: 24,
-                                onPressed: () {
-                                  setState(() {
-                                    val.favorited = !val.favorited;
-                                  });
-                                },
-                                icon: const Icon(PhosphorIcons.heartFill),
-                                color: val.favorited
-                                    ? Palette.orange500
-                                    : Palette.backgroundColor,
-                              ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                  splashRadius: 24,
+                                  onPressed: () {
+                                    // setState(() {
+                                    //   val.favorited = !val.favorited;
+                                    // });
+                                  },
+                                  icon: const Icon(PhosphorIcons.heartFill),
+                                  color: Palette.orange500
+                                  // : Palette.backgroundColor,
+                                  ),
                               Row(
                                 children: [
                                   Icon(
@@ -134,7 +146,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                                   ),
                                   SizedBox(width: 2.w),
                                   Text(
-                                    val.favoriteLevel.toString(),
+                                    0.1.toString(),
                                     style: CustomTextTheme.headline4.copyWith(
                                       color: Palette.backgroundColor,
                                       fontWeight: FontWeight.w800,
@@ -162,7 +174,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           Expanded(
                             flex: 2,
                             child: Text(
-                              val.recipeName,
+                              val.nameRecipe,
                               style: CustomTextTheme.headline3.copyWith(
                                 color: Palette.gray500,
                                 fontWeight: FontWeight.bold,
@@ -207,7 +219,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             color: Palette.gray400,
                           ),
                           Text(
-                            ' ' + val.cookingTime,
+                            ' 30p',
                             style: CustomTextTheme.bodyText1.copyWith(
                               color: Palette.gray400,
                             ),
@@ -222,7 +234,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             size: 24.sp,
                           ),
                           Text(
-                            ' ' + val.cookingLevel,
+                            ' ' + val.level,
                             style: CustomTextTheme.bodyText1.copyWith(
                               color: Palette.gray400,
                               fontSize: 14.sp,
@@ -243,99 +255,4 @@ class _SelectRecipeState extends State<SelectRecipe> {
       ),
     );
   }
-}
-
-Ingredient igr1 =
-    Ingredient('Thịt gà', 'https://tinyurl.com/yrsj7hbm', 'con', '1');
-Ingredient igr2 =
-    Ingredient('Đường', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '2');
-Ingredient igr3 =
-    Ingredient('Mắm', 'https://tinyurl.com/yrsj7hbm', 'muỗng canh', '1');
-Ingredient igr4 = Ingredient(
-    'Hạt nêm Knor', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '4');
-List<Ingredient> ingredient = [igr1, igr2, igr3, igr4];
-Nutrition nutri1 = Nutrition();
-Nutrition nutri2 = Nutrition();
-Nutrition nutri3 = Nutrition();
-List<Nutrition> nutrition = [nutri1, nutri2, nutri3];
-
-Recipe recipe1 = Recipe(
-    'Cánh gà chiên mắm',
-    'http://imgs.vietnamnet.vn/Images/2016/12/09/08/20161209085123-ga3.jpg',
-    4,
-    'Vừa',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe2 = Recipe(
-    'Gà luộc',
-    'http://cdn.tgdd.vn/Files/2020/08/11/1278766/cach-moi-nhanh-va-de-giup-luoc-ga-khong-nut-da-chat-gon-dep-doc-xong-chi-muon-thu-ngay-202008111016237351.jpg',
-    3,
-    'Dễ',
-    '2 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe3 = Recipe(
-    'Gỏi gà lá chanh chua ngọt',
-    'https://cdn.cet.edu.vn/wp-content/uploads/2019/08/goi-ga-xe-phay.jpg',
-    3.5,
-    'Vừa',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe4 = Recipe(
-    'Gà hầm thuốc bắc',
-    'https://st.quantrimang.com/photos/image/2020/10/14/ga-ham-thuoc-bac-2.jpg',
-    4.5,
-    'Khó',
-    '3 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe5 = Recipe(
-    'Gỏi gà',
-    'https://image-us.eva.vn/upload/2-2019/images/2019-06-06/1559789758-596-thumbnail.jpg',
-    2.5,
-    'Dễ',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-List<Recipe> suggest = [recipe1, recipe2, recipe3, recipe4, recipe5];
-
-class Recipe {
-  late String recipeName;
-  late String imageURL;
-  late double favoriteLevel;
-  late bool favorited = true;
-  late String cookingTime;
-  late String cookingLevel;
-  late List<Ingredient> ingredient;
-  late List<Nutrition> nutrition;
-  late List<CookStep> step;
-  Recipe(this.recipeName, this.imageURL, this.favoriteLevel, this.cookingLevel,
-      this.cookingTime, this.ingredient, this.nutrition, this.step);
-}
-
-class Ingredient {
-  late String ingrName;
-  late String ingrImageURL;
-  late String ingrUnit;
-  late String inghrQuantity;
-  Ingredient(
-      this.ingrName, this.ingrImageURL, this.ingrUnit, this.inghrQuantity);
-}
-
-class Nutrition {
-  late String nutriName;
-  late String nutriUnit;
-  late String nutriQuantity;
-  Nutrition() {
-    nutriName = 'Canxi';
-    nutriUnit = 'miligram';
-    nutriQuantity = '50';
-  }
-}
-
-class CookStep {
-  String stepName = '';
-  String stepDescription = '';
 }

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/modules/home/screens/select_recipe.dart';
+import 'package:mobile/src/data/model/recipe.dart';
 import 'package:mobile/src/modules/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
@@ -31,7 +31,7 @@ class CookRecipe extends StatelessWidget {
                       onPressedFunction: () => Navigator.pop(context),
                     ),
                     Text(
-                      recipe.recipeName,
+                      recipe.nameRecipe,
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 26.sp,
@@ -66,7 +66,8 @@ class CookRecipe extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.r),
                               child: Image.network(
-                                recipe.imageURL,
+                            "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
+                                
                                 fit: BoxFit.fitWidth,
                                 width: 343.w,
                                 height: 200.w,
@@ -142,7 +143,7 @@ class CookRecipe extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          ' ' + recipe.cookingTime,
+                                          ' ' + recipe.level,
                                           style: CustomTextTheme.bodyText1
                                               .copyWith(
                                                   fontSize: 14.sp,
@@ -164,7 +165,7 @@ class CookRecipe extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                         Text(
-                                          ' ' + recipe.cookingLevel,
+                                          ' ' + recipe.level,
                                           style: CustomTextTheme.bodyText1
                                               .copyWith(
                                             fontSize: 14.sp,
@@ -181,7 +182,7 @@ class CookRecipe extends StatelessWidget {
                                         ),
                                         SizedBox(width: 2.w),
                                         Text(
-                                          recipe.favoriteLevel.toString(),
+                                          recipe.level.toString(),
                                           style: CustomTextTheme.bodyText1
                                               .copyWith(
                                             fontSize: 14.sp,
@@ -244,9 +245,7 @@ class CookRecipe extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                       child: Text(
-                        'Nguyên liệu (' +
-                            recipe.ingredient.length.toString() +
-                            ')',
+                        'Nguyên liệu ',
                         style: CustomTextTheme.headline3.copyWith(
                           color: Palette.gray500,
                           fontSize: 21.sp,
@@ -263,7 +262,7 @@ class CookRecipe extends StatelessWidget {
                         child: ListView(
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           children:
-                              recipe.ingredient.map(listIngredient).toList(),
+                            [Container(height: 300,color: Colors.red,)]
                         ),
                       ),
                     ),
@@ -314,37 +313,37 @@ class CookRecipe extends StatelessWidget {
     );
   }
 
-  Widget listIngredient(Ingredient ingredient) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(ingredient.ingrImageURL),
-              ),
-              SizedBox(width: 12.w),
-              Text(
-                ingredient.ingrName,
-                style: CustomTextTheme.subtitle1.copyWith(
-                  color: Palette.gray500,
-                  fontSize: 17.sp,
-                ),
-              ),
-            ],
-          ),
-          Text(
-            ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
-            style: CustomTextTheme.bodyText1.copyWith(
-              color: Palette.gray400,
-              fontSize: 15.sp,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget listIngredient(Ingredient ingredient) {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(vertical: 10.h),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Row(
+  //           children: [
+  //             CircleAvatar(
+  //               backgroundImage: NetworkImage(ingredient.ingrImageURL),
+  //             ),
+  //             SizedBox(width: 12.w),
+  //             Text(
+  //               ingredient.ingrName,
+  //               style: CustomTextTheme.subtitle1.copyWith(
+  //                 color: Palette.gray500,
+  //                 fontSize: 17.sp,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         Text(
+  //           ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
+  //           style: CustomTextTheme.bodyText1.copyWith(
+  //             color: Palette.gray400,
+  //             fontSize: 15.sp,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 

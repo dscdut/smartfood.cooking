@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
-class MaterialCard extends StatelessWidget {
-  const MaterialCard({
+class IngredientCard extends StatelessWidget {
+  const IngredientCard({
     Key? key,
     required this.isSelected,
     required this.imageUrl,
@@ -31,7 +31,7 @@ class MaterialCard extends StatelessWidget {
     return GestureDetector(
       onTap: onMaterialTap,
       child: Stack(
-        alignment: Alignment.center,
+        alignment: Alignment.topRight,
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
@@ -97,8 +97,8 @@ class MaterialCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 12.h,
-            right: 12.w,
+            top: -8,
+            right: -8,
             child: IgnorePointer(
               ignoring: true,
               child: Checkbox(

@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ScrollConfiguration(
         behavior: NoShowLimitScroll(),
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 22.0.h),
+          padding: EdgeInsets.symmetric(vertical: 40.0.h),
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.0.w),
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   menuName: 'Tủ lạnh\nbạn có gì?',
                   onMenuAction: () => Navigator.pushNamed(
                     context,
-                    RouteManager.chooseYourMaterial,
+                    RouteManager.chooseYourIngredient
                   ),
                   child: SvgPicture.asset(
                     ImagePath.fridgeIcon,

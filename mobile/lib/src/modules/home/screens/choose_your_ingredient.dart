@@ -4,26 +4,42 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
-import 'package:mobile/src/modules/home/screens/test_screen.dart';
-import 'package:mobile/src/modules/home/widgets/material_card.dart';
+import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
+import 'package:mobile/src/modules/home/widgets/ingredient_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
-import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
+import 'package:mobile/src/widgets/loading_circle.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ChooseYourMaterial extends StatefulWidget {
-  const ChooseYourMaterial({Key? key}) : super(key: key);
+class ChooseYourIngredient extends StatefulWidget {
+  const ChooseYourIngredient({Key? key}) : super(key: key);
 
   @override
-  State<ChooseYourMaterial> createState() => _ChooseYourMaterialState();
+  State<ChooseYourIngredient> createState() => _ChooseYourIngredientState();
 }
 
-class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
+class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() async {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        await context
+            .read<ChoiceYourIngredientsProvider>()
+            .loadMoreIngredientData();
+        // print("end list");
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final choiceYourIngredientsProvider =
         context.read<ChoiceYourIngredientsProvider>();
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -51,32 +67,32 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                         splashRadius: 28.r,
                         constraints: const BoxConstraints(),
                         padding: EdgeInsets.only(right: 5.w),
-                        icon: Badge(
-                          badgeColor: Palette.pink500,
-                          badgeContent: Text(
-                            choiceYourIngredientsProvider
-                                .countSelectedMaterial(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          animationType: BadgeAnimationType.scale,
-                          position: BadgePosition.topEnd(
-                            top: -10.h,
-                            end: -10.h,
-                          ),
-                          child: Icon(
-                            Icons.kitchen_rounded,
-                            size: 32.sp,
-                            color: Palette.pink500,
-                          ),
+                        icon: Consumer<ChoiceYourIngredientsProvider>(
+                          builder: (context, provider, child) {
+                            return Badge(
+                              badgeColor: Palette.pink500,
+                              badgeContent: Text(
+                                provider.countSelectedMaterial(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              animationType: BadgeAnimationType.scale,
+                              position: BadgePosition.topEnd(
+                                top: -10.h,
+                                end: -10.h,
+                              ),
+                              child: Icon(
+                                Icons.kitchen_rounded,
+                                size: 32.sp,
+                                color: Palette.pink500,
+                              ),
+                            );
+                          },
                         ),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const TestScreen())),
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -146,17 +162,14 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          label: Text(choiceYourIngredientsProvider
-                              .typeMaterialList[index]),
+                          label: Text(provider.typeMaterialList[index]),
                           labelStyle: CustomTextTheme.subtitle1.copyWith(
-                              color: choiceYourIngredientsProvider
-                                      .selectedTypeList[index]
+                              color: provider.selectedTypeList[index]
                                   ? Colors.white
                                   : Palette.gray500),
-                          selected: choiceYourIngredientsProvider
-                              .selectedTypeList[index],
-                          onSelected: (value) => choiceYourIngredientsProvider
-                              .onSelected(value, index),
+                          selected: provider.selectedTypeList[index],
+                          onSelected: (value) =>
+                              provider.onSelected(value, index),
                           selectedColor: Palette.pink500,
                           backgroundColor: Palette.backgroundColor,
                           elevation: 2,
@@ -172,76 +185,123 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                   height: 12.h,
                 ),
                 Expanded(
-                  child: ScrollConfiguration(
-                    behavior: NoShowLimitScroll(),
-                    child: GridView.builder(
-                      itemCount:
-                          choiceYourIngredientsProvider.materialData.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Consumer<ChoiceYourIngredientsProvider>(
-                          builder: (_, provider, __) {
-                            return MaterialCard(
-                              imageUrl: choiceYourIngredientsProvider
-                                  .materialData[index]["imageUrl"]!,
-                              materialName: choiceYourIngredientsProvider
-                                  .materialData[index]["name"]!,
-                              isSelected: choiceYourIngredientsProvider
-                                  .selectedMaterialList[index],
-                              onMaterialTap: () => choiceYourIngredientsProvider
-                                  .onTapIngredientsCard(index),
-                            );
-                          },
+                  child: Consumer<ChoiceYourIngredientsProvider>(
+                    builder: (_, provider, __) {
+                      final status = provider.status;
+                      if (status == LoadingStatus.loading) {
+                        return const LoadingCircle();
+                      } else if (status == LoadingStatus.error) {
+                        return const Center(
+                          child: Icon(PhosphorIcons.warning),
                         );
-                      },
-                    ),
+                      }
+                      // return ScrollConfiguration(
+                      //   behavior: NoShowLimitScroll(),
+                      //   child: GridView.builder(
+                      //     padding: EdgeInsets.zero,
+                      //     controller: _scrollController,
+                      //     itemCount: choiceYourIngredientsProvider
+                      //             .ingredientData.length +
+                      //         1,
+                      //     gridDelegate:
+                      //         const SliverGridDelegateWithFixedCrossAxisCount(
+                      //       crossAxisCount: 3,
+                      //     ),
+                      //     itemBuilder: (context, index) {
+                      //       if (index ==
+                      //           choiceYourIngredientsProvider
+                      //               .ingredientData.length) {
+                      //         return provider.isLoadingMore
+                      //             ? const LoadingCircle()
+                      //             : const SizedBox();
+                      //       }
+                      //       return IngredientCard(
+                      //         imageUrl:
+                      //             "https://blogs.biomedcentral.com/on-medicine/wp-"
+                      //             "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
+                      //             "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
+                      //         materialName: provider.ingredientData[index].name,
+                      //         isSelected: provider.selectedIngredientList[index],
+                      //         onMaterialTap: () => choiceYourIngredientsProvider
+                      //             .onTapIngredientsCard(index),
+                      //       );
+                      //     },
+                      //   ),
+                      // );
+                      return SingleChildScrollView(
+                        controller: _scrollController,
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: Center(
+                          child: Wrap(
+                            runSpacing: 40.h,
+                            spacing: 35.w,
+                            alignment: WrapAlignment.center,
+                            children: List.generate(
+                                provider.ingredientFilterData.length + 1,
+                                (index) {
+                              if (index ==
+                                  provider.ingredientFilterData.length) {
+                                return provider.isLoadingMore
+                                    ? const LoadingCircle()
+                                    : const SizedBox();
+                              }
+                              return IngredientCard(
+                                imageUrl:
+                                    "https://blogs.biomedcentral.com/on-medicine/wp-"
+                                    "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
+                                    "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
+                                materialName:
+                                    provider.ingredientFilterData[index].name,
+                                isSelected:
+                                    provider.selectedIngredientList[index],
+                                onMaterialTap: () =>
+                                    provider.onTapIngredientsCard(index),
+                              );
+                            }),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    // if (selectedMaterialList
-                    //     .where((element) => element == true)
-                    //     .toList()
-                    //     .isNotEmpty) {
-                    //   Navigator.pushNamed(
-                    //     context,
-                    //     RouteManager.notFound,
-                    //   );
-                    // }
-                  },
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        top: 18.h,
-                        bottom: 24.h,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 24.w,
-                        vertical: 10.h,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        color: !choiceYourIngredientsProvider
-                                .selectedMaterialList
-                                .where((element) => element == true)
-                                .toList()
-                                .isNotEmpty
-                            ? Palette.orange300
-                            : Palette.orange500,
-                      ),
-                      child: Text(
-                        "Tiếp tục ${choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().isEmpty ? "" : (choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().length)}",
-                        style: CustomTextTheme.headline4.copyWith(
-                          color: Palette.backgroundColor,
-                          fontSize: 18.sp,
+                Consumer<ChoiceYourIngredientsProvider>(
+                    builder: (context, provider, child) {
+                  return GestureDetector(
+                    onTap: () {
+                      context
+                          .read<RecipeProvider>()
+                          .findRecipe(context, listId: [123]);
+                    },
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          top: 18.h,
+                          bottom: 24.h,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.w,
+                          vertical: 10.h,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          color: !provider.selectedIngredientList
+                                  .where((element) => element == true)
+                                  .toList()
+                                  .isNotEmpty
+                              ? Palette.orange300
+                              : Palette.orange500,
+                        ),
+                        child: Text(
+                          "Tiếp tục ${provider.selectedIngredientList.where((element) => element == true).toList().isEmpty ? "" : (choiceYourIngredientsProvider.selectedIngredientList.where((element) => element == true).toList().length)}",
+                          style: CustomTextTheme.headline4.copyWith(
+                            color: Palette.backgroundColor,
+                            fontSize: 18.sp,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
           ),

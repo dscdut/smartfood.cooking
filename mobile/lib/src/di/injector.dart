@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:mobile/src/data/datasources/api/base_api.dart';
 import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
+import 'package:mobile/src/data/repositories/recipe_repository.dart';
 import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
-import 'package:mobile/src/modules/home/controller/ingredient_provider.dart';
 import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 
@@ -36,17 +36,18 @@ void initDependences() {
   ///
   getIt.registerLazySingleton<IngredientRepository>(
       () => IngredientRepository(baseApi: getIt()));
+  getIt.registerLazySingleton<RecipeRepository>(
+      () => RecipeRepository(baseApi: getIt()));
 
   ///ChangeNotifier
   ///
   ///
-  getIt.registerFactory<IngredientProvider>(
-      () => IngredientProvider(repository: getIt()));
 
   getIt.registerFactory<UserChoiceProvider>(() => UserChoiceProvider());
 
   getIt.registerFactory<ChoiceYourIngredientsProvider>(
-      () => ChoiceYourIngredientsProvider());
+      () => ChoiceYourIngredientsProvider(ingredientRepository: getIt()));
 
-  getIt.registerFactory<RecipeProvider>(() => RecipeProvider());
+  getIt.registerFactory<RecipeProvider>(
+      () => RecipeProvider(recipeRepository: getIt()));
 }

@@ -16,7 +16,7 @@ class RouteManager {
   static const String mainScreen = "/main";
   static const String notFound = "/notFound";
   static const String yourMaterial = "/yourMaterial";
-  static const String chooseYourMaterial = '/chooseYourMaterial';
+  static const String chooseYourIngredient = '/chooseYourIngredient';
   static const String stepsToCooking = '/stepsToCooking';
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
@@ -30,7 +30,7 @@ class RouteManager {
     mainScreen: (_) => const MainScreen(),
     notFound: (_) => const NotFoundScreen(),
     yourMaterial: (_) => const YourMaterialScreen(),
-    chooseYourMaterial: (_) => const ChooseYourMaterial(),
+    chooseYourIngredient: (_) => const ChooseYourIngredient(),
     stepsToCooking: (_) => const StepsToCookingScreen(),
     cookRecipe: (_) => const CookRecipe(),
     selectRecipe: (_) => const SelectRecipe(),

@@ -71,7 +71,7 @@ class NotFoundScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
                     context,
-                    RouteManager.chooseYourMaterial,
+                    RouteManager.chooseYourIngredient,
                     ModalRoute.withName(RouteManager.mainScreen),
                   ),
                   style: TextButton.styleFrom(

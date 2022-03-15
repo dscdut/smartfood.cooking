@@ -1,4 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/helpers/show_loading_dialog.dart';
+import 'package:mobile/src/data/repositories/recipe_repository.dart';
+
+enum SearchStatus { loading, idle, error }
 
 class RecipeProvider extends ChangeNotifier {
   final menuData = [
@@ -67,13 +72,39 @@ class RecipeProvider extends ChangeNotifier {
     }
   ];
 
-  //TODO: add depedencences
+  final RecipeRepository recipeRepository;
   final listTodayRecipe = List.filled(5, false);
-  RecipeProvider();
+  RecipeProvider({required this.recipeRepository});
 
   void favoriteRecipeAction(int index) {
     listTodayRecipe[index] = !listTodayRecipe[index];
     //TODO: call method from repository to send data action to API
     notifyListeners();
+  }
+
+  Future<void> findRecipe(BuildContext context,
+      {required List<int> listId}) async {
+    try {
+      showLoadingDialog(context, contentDialog: "Đang tìm kiếm món ăn");
+      await recipeRepository.getRecipesByIngredients(listId).then((recipes) {
+        Navigator.pop(context);
+        if (recipes.isEmpty) {
+          Navigator.pushNamed(
+            context,
+            RouteManager.notFound,
+          );
+        } else {
+          Navigator.pushNamed(context, RouteManager.selectRecipe,
+              arguments: recipes);
+        }
+      });
+    } catch (e) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Error to finding"),
+        ),
+      );
+    }
   }
 }

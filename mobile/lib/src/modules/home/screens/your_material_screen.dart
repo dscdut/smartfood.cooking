@@ -68,7 +68,7 @@ class YourMaterialScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  RouteManager.chooseYourMaterial,
+                  RouteManager.chooseYourIngredient,
                 );
               },
               child: const Text(
