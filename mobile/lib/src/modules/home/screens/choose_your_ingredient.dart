@@ -1,12 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
 import 'package:mobile/src/modules/home/screens/test_screen.dart';
 import 'package:mobile/src/modules/home/widgets/material_card.dart';
-import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -203,47 +202,43 @@ class _ChooseYourMaterialState extends State<ChooseYourMaterial> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (choiceYourIngredientsProvider.selectedMaterialList
-                        .where((element) => element == true)
-                        .toList()
-                        .isNotEmpty) {
-                      Navigator.pushNamed(
-                        context,
-                        RouteManager.notFound,
-                      );
-                    }
+                    // if (selectedMaterialList
+                    //     .where((element) => element == true)
+                    //     .toList()
+                    //     .isNotEmpty) {
+                    //   Navigator.pushNamed(
+                    //     context,
+                    //     RouteManager.notFound,
+                    //   );
+                    // }
                   },
                   child: Center(
-                    child: Consumer<ChoiceYourIngredientsProvider>(
-                      builder: (_, provider, __) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                            top: 18.h,
-                            bottom: 24.h,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 24.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: !choiceYourIngredientsProvider
-                                    .selectedMaterialList
-                                    .where((element) => element == true)
-                                    .toList()
-                                    .isNotEmpty
-                                ? Palette.orange300
-                                : Palette.orange500,
-                          ),
-                          child: Text(
-                            "Tiếp tục ${choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().isEmpty ? "" : (choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().length)}",
-                            style: CustomTextTheme.headline4.copyWith(
-                              color: Palette.backgroundColor,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                        );
-                      },
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        top: 18.h,
+                        bottom: 24.h,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        color: !choiceYourIngredientsProvider
+                                .selectedMaterialList
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty
+                            ? Palette.orange300
+                            : Palette.orange500,
+                      ),
+                      child: Text(
+                        "Tiếp tục ${choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().isEmpty ? "" : (choiceYourIngredientsProvider.selectedMaterialList.where((element) => element == true).toList().length)}",
+                        style: CustomTextTheme.headline4.copyWith(
+                          color: Palette.backgroundColor,
+                          fontSize: 18.sp,
+                        ),
+                      ),
                     ),
                   ),
                 ),
