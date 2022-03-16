@@ -77,9 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 MenuButton(
                   menuName: 'Tủ lạnh\nbạn có gì?',
                   onMenuAction: () => Navigator.pushNamed(
-                    context,
-                    RouteManager.chooseYourIngredient
-                  ),
+                      context, RouteManager.chooseYourIngredient),
                   child: SvgPicture.asset(
                     ImagePath.fridgeIcon,
                     height: 32.h,

@@ -74,12 +74,12 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id: false});
           page++;
-          isLoadingMore = false;
         },
       );
     } catch (e) {
       isLoadingMore = false;
     } finally {
+      isLoadingMore = false;
       notifyListeners();
     }
   }
@@ -131,6 +131,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
             ..first = true;
       ingredientFilterData.addAll(ingredientData);
     }
+    for (var e in ingredientFilterData) {
+      log(e.name);
+    }
+    log("=============================================");
     notifyListeners();
   }
 }

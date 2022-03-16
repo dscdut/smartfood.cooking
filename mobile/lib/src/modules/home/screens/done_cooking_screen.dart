@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
@@ -119,7 +120,8 @@ class DoneCookingScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .popUntil(ModalRoute.withName(RouteManager.mainScreen));
               },
               style: TextButton.styleFrom(
                   fixedSize: Size(210.w, 45.h),

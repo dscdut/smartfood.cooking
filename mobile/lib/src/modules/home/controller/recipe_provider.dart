@@ -119,20 +119,18 @@ class RecipeProvider extends ChangeNotifier {
     }
   }
 
-  Future<Recipe?> getDataRecipeById(context, {required int id}) async {
+  Future<Recipe?> getDataRecipeById(BuildContext context,
+      {required int id}) async {
     try {
-      loadingData = DataLoadingStatus.loading;
-      notifyListeners();
+      showLoadingDialog(context, contentDialog: "Đang lấy dữ liệu món ăn");
       var data = await recipeRepository.getRecipeById(id);
-      loadingData = DataLoadingStatus.idle;
-      notifyListeners();
+      Navigator.pop(context);
       return data;
     } catch (e) {
-      loadingData = DataLoadingStatus.error;
-      notifyListeners();
+      Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Get Data"),
+          content: Text("Lấy dữ liệu món ăn không thành công"),
         ),
       );
     }

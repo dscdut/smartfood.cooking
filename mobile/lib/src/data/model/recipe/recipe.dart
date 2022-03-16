@@ -8,20 +8,14 @@ class Recipe extends Equatable {
 	final String? name;
 	final String? level;
 	final String? description;
-	final dynamic deletedAt;
-	final String? createdAt;
-	final String? updatedAt;
 	final List<Ingredient>? ingredients;
-	final List<Step>? steps;
+	final List<CookingStep>? steps;
 
 	const Recipe({
 		this.id, 
 		this.name, 
 		this.level, 
 		this.description, 
-		this.deletedAt, 
-		this.createdAt, 
-		this.updatedAt, 
 		this.ingredients, 
 		this.steps, 
 	});
@@ -31,14 +25,11 @@ class Recipe extends Equatable {
 				name: json['name'] as String?,
 				level: json['level'] as String?,
 				description: json['description'] as String?,
-				deletedAt: json['deleted_at'] as dynamic,
-				createdAt: json['created_at'] as String?,
-				updatedAt: json['updated_at'] as String?,
 				ingredients: (json['ingredients'] as List<dynamic>?)
 						?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
 						.toList(),
 				steps: (json['steps'] as List<dynamic>?)
-						?.map((e) => Step.fromJson(e as Map<String, dynamic>))
+						?.map((e) => CookingStep.fromJson(e as Map<String, dynamic>))
 						.toList(),
 			);
 
@@ -47,9 +38,6 @@ class Recipe extends Equatable {
 				'name': name,
 				'level': level,
 				'description': description,
-				'deleted_at': deletedAt,
-				'created_at': createdAt,
-				'updated_at': updatedAt,
 				'ingredients': ingredients?.map((e) => e.toJson()).toList(),
 				'steps': steps?.map((e) => e.toJson()).toList(),
 			};
@@ -59,20 +47,14 @@ class Recipe extends Equatable {
 		String? name,
 		String? level,
 		String? description,
-		dynamic deletedAt,
-		String? createdAt,
-		String? updatedAt,
 		List<Ingredient>? ingredients,
-		List<Step>? steps,
+		List<CookingStep>? steps,
 	}) {
 		return Recipe(
 			id: id ?? this.id,
 			name: name ?? this.name,
 			level: level ?? this.level,
 			description: description ?? this.description,
-			deletedAt: deletedAt ?? this.deletedAt,
-			createdAt: createdAt ?? this.createdAt,
-			updatedAt: updatedAt ?? this.updatedAt,
 			ingredients: ingredients ?? this.ingredients,
 			steps: steps ?? this.steps,
 		);
@@ -88,9 +70,6 @@ class Recipe extends Equatable {
 				name,
 				level,
 				description,
-				deletedAt,
-				createdAt,
-				updatedAt,
 				ingredients,
 				steps,
 		];

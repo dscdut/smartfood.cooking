@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Step extends Equatable {
+class CookingStep extends Equatable {
 	final String? content;
 	final int? order;
 
-	const Step({this.content, this.order});
+	const CookingStep({this.content, this.order});
 
-	factory Step.fromJson(Map<String, dynamic> json) => Step(
+	factory CookingStep.fromJson(Map<String, dynamic> json) => CookingStep(
 				content: json['content'] as String?,
 				order: json['order'] as int?,
 			);
@@ -16,11 +16,11 @@ class Step extends Equatable {
 				'order': order,
 			};
 
-	Step copyWith({
+	CookingStep copyWith({
 		String? content,
 		int? order,
 	}) {
-		return Step(
+		return CookingStep(
 			content: content ?? this.content,
 			order: order ?? this.order,
 		);
