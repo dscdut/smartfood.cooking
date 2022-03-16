@@ -305,7 +305,7 @@ class Recipe {
   late String recipeName;
   late String imageURL;
   late double favoriteLevel;
-  late bool favorited = true;
+  late bool favorited = false;
   late String cookingTime;
   late String cookingLevel;
   late List<Ingredient> ingredient;
