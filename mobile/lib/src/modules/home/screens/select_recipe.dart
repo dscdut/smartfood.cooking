@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/model/recipe.dart';
+import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -174,7 +174,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                           Expanded(
                             flex: 2,
                             child: Text(
-                              val.nameRecipe,
+                              val.name!,
                               style: CustomTextTheme.headline3.copyWith(
                                 color: Palette.gray500,
                                 fontWeight: FontWeight.bold,
@@ -234,7 +234,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                             size: 24.sp,
                           ),
                           Text(
-                            ' ' + val.level,
+                            ' ' + val.level!,
                             style: CustomTextTheme.bodyText1.copyWith(
                               color: Palette.gray400,
                               fontSize: 14.sp,

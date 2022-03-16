@@ -233,31 +233,36 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         padding: EdgeInsets.only(top: 20.h),
                         child: Center(
                           child: Wrap(
-                            runSpacing: 40.h,
-                            spacing: 35.w,
+                            runSpacing: 35.h,
+                            spacing: 40.w,
                             alignment: WrapAlignment.center,
                             children: List.generate(
-                                provider.ingredientFilterData.length + 1,
-                                (index) {
-                              if (index ==
-                                  provider.ingredientFilterData.length) {
-                                return provider.isLoadingMore
-                                    ? const LoadingCircle()
-                                    : const SizedBox();
-                              }
-                              return IngredientCard(
-                                imageUrl:
-                                    "https://blogs.biomedcentral.com/on-medicine/wp-"
-                                    "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
-                                    "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
-                                materialName:
-                                    provider.ingredientFilterData[index].name,
-                                isSelected:
-                                    provider.selectedIngredientList[index],
-                                onMaterialTap: () =>
-                                    provider.onTapIngredientsCard(index),
-                              );
-                            }),
+                              provider.ingredientFilterData.length + 1,
+                              (index) {
+                                if (index ==
+                                    provider.ingredientFilterData.length) {
+                                  return provider.isLoadingMore
+                                      ? const LoadingCircle()
+                                      : const SizedBox();
+                                } else {
+                                  return IngredientCard(
+                                    imageUrl:
+                                        "https://blogs.biomedcentral.com/on-medicine/wp-"
+                                        "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
+                                        "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
+                                    materialName: provider
+                                        .ingredientFilterData[index].name,
+                                    isSelected: provider.selectedData[provider
+                                        .ingredientFilterData[index].id]!,
+                                    onMaterialTap: () =>
+                                        provider.onTapIngredientsCard(
+                                      index,
+                                      provider.ingredientFilterData[index].id,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
                           ),
                         ),
                       );
@@ -268,9 +273,14 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                     builder: (context, provider, child) {
                   return GestureDetector(
                     onTap: () {
-                      context
-                          .read<RecipeProvider>()
-                          .findRecipe(context, listId: [123]);
+                      if (provider.selectedData.values
+                          .where((element) => element == true)
+                          .toList()
+                          .isNotEmpty) {
+                        context
+                            .read<RecipeProvider>()
+                            .findRecipe(context, data: provider.selectedData);
+                      }
                     },
                     child: Center(
                       child: Container(
@@ -284,7 +294,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
-                          color: !provider.selectedIngredientList
+                          color: !provider.selectedData.values
                                   .where((element) => element == true)
                                   .toList()
                                   .isNotEmpty
@@ -292,7 +302,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                               : Palette.orange500,
                         ),
                         child: Text(
-                          "Tiếp tục ${provider.selectedIngredientList.where((element) => element == true).toList().isEmpty ? "" : (choiceYourIngredientsProvider.selectedIngredientList.where((element) => element == true).toList().length)}",
+                          "Tiếp tục ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
                           style: CustomTextTheme.headline4.copyWith(
                             color: Palette.backgroundColor,
                             fontSize: 18.sp,

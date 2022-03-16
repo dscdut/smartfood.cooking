@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/helpers/show_loading_dialog.dart';
+import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/data/repositories/recipe_repository.dart';
 
 enum SearchStatus { loading, idle, error }
+enum DataLoadingStatus { loading, idle, error }
 
 class RecipeProvider extends ChangeNotifier {
   final menuData = [
@@ -74,6 +76,7 @@ class RecipeProvider extends ChangeNotifier {
 
   final RecipeRepository recipeRepository;
   final listTodayRecipe = List.filled(5, false);
+  var loadingData = DataLoadingStatus.idle;
   RecipeProvider({required this.recipeRepository});
 
   void favoriteRecipeAction(int index) {
@@ -83,8 +86,16 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> findRecipe(BuildContext context,
-      {required List<int> listId}) async {
+      {required Map<int, bool?> data}) async {
     try {
+      var listId = <int>[];
+      data.forEach(
+        (key, value) {
+          if (value == true) {
+            listId.add(key);
+          }
+        },
+      );
       showLoadingDialog(context, contentDialog: "Đang tìm kiếm món ăn");
       await recipeRepository.getRecipesByIngredients(listId).then((recipes) {
         Navigator.pop(context);
@@ -106,5 +117,25 @@ class RecipeProvider extends ChangeNotifier {
         ),
       );
     }
+  }
+
+  Future<Recipe?> getDataRecipeById(context, {required int id}) async {
+    try {
+      loadingData = DataLoadingStatus.loading;
+      notifyListeners();
+      var data = await recipeRepository.getRecipeById(id);
+      loadingData = DataLoadingStatus.idle;
+      notifyListeners();
+      return data;
+    } catch (e) {
+      loadingData = DataLoadingStatus.error;
+      notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Get Data"),
+        ),
+      );
+    }
+    return null;
   }
 }

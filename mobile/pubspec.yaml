@@ -47,6 +47,7 @@ dependencies:
   http: ^0.13.4
   device_preview: ^1.0.0
   flutter_dotenv: ^5.0.2
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:

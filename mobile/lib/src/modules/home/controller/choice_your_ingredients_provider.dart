@@ -28,6 +28,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   var ingredientFilterData = <Ingredient>[];
   var selectedTypeList = <bool>[];
   var selectedIngredientList = <bool>[];
+  var selectedData = <int, bool?>{};
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
   int page = 2;
@@ -41,6 +42,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       selectedIngredientList =
           List<bool>.filled(ingredientData.length, false, growable: true);
       ingredientFilterData.addAll(ingredientData);
+      selectedData = {for (var e in ingredientData) e.id: false};
+      print(selectedData);
     });
   }
 
@@ -68,10 +71,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       await ingredientRepository.getListIngredients(page).then(
         (data) {
           ingredientData.addAll(data);
-          page++;
-          selectedIngredientList.addAll(List<bool>.filled(data.length, false));
-          isLoadingMore = false;
           ingredientFilterData.addAll(data);
+          selectedData.addAll({for (var e in data) e.id: false});
+          page++;
+          isLoadingMore = false;
         },
       );
     } catch (e) {
@@ -82,53 +85,18 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   }
 
   String countSelectedMaterial() {
-    return selectedIngredientList
+    return selectedData.values
         .where((element) => element == true)
         .toList()
         .length
         .toString();
   }
 
-  void onTapIngredientsCard(int index) {
-    selectedIngredientList[index] = !selectedIngredientList[index];
+  void onTapIngredientsCard(int index, int id) {
+    selectedData.update(id, (value) => !value!);
+    log(selectedData.toString());
     notifyListeners();
   }
-
-  // void onSelected(bool value, int index) {
-  //   if (index == 0 && !selectedTypeList[index]) {
-  //     selectedTypeList =
-  //         List<bool>.filled(typeMaterialList.length, false, growable: false)
-  //           ..first = true;
-  //     ingredientFilterData.clear();
-  //     ingredientFilterData = ingredientData;
-  //   } else if (index != 0) {
-  //     selectedTypeList[index] = value;
-  //     selectedTypeList[0] = false;
-  //     if (selectedTypeList
-  //             .where((element) => element == true)
-  //             .toList()
-  //             .length ==
-  //         1) {
-  //       ingredientFilterData.clear();
-  //       ingredientFilterData
-  //           .addAll(ingredientData.where((data) => data.categoryId == ));
-  //     }
-  //     if (value) {
-  //       ingredientFilterData
-  //           .addAll(ingredientData.where((data) => data.categoryId == index));
-  //     }
-  //   }
-  // if (selectedTypeList.every(
-  //   (element) => element == false,
-  // )) {
-  //   selectedTypeList =
-  //       List<bool>.filled(typeMaterialList.length, false, growable: false)
-  //         ..first = true;
-  //   ingredientFilterData = ingredientData;
-  //   notifyListeners();
-  // }
-  //   notifyListeners();
-  // }
 
   void onSelected(bool value, int index) {
     if (index == 0 && selectedTypeList[index] == false) {
@@ -153,9 +121,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           );
         }
       }
-      // ingredientFilterData
-      //     .addAll(ingredientData.where((data) => data.categoryId == index));
-
     }
     if (selectedTypeList.every(
       (element) => element == false,
