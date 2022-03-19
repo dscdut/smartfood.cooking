@@ -1,14 +1,17 @@
 {
   "main": [
-    "id",
-    "name",
-    "level",
-    "description",
-    { "createdAt": "created_at" },
-    { "updatedAt": "updated_at" },
-    { "deletedAt": "deleted_at" }
+    "recipes.id",
+    "recipes.name",
+    "recipes.level",
+    "recipes.description",
+    "images.url",
+    { "createdAt": "recipes.created_at" },
+    { "updatedAt": "recipes.updated_at" },
+    { "deletedAt": "recipes.deleted_at" }
   ],
   "associates": [
+    ["recipes_images", "recipes_images.recipe_id", "recipes.id"],
+    ["images", "images.id", "recipes_images.image_id"]
   ],
   "notDeleted": ["recipes"],
   "locks": {
