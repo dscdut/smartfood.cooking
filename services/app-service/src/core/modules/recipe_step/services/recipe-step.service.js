@@ -1,5 +1,5 @@
 import { DataPersistenceService } from 'packages/restBuilder/core/dataHandler/data.persistence.service';
-import { RecipeStepRepository } from '../recipe_step.repository';
+import { RecipeStepRepository } from '../recipe-step.repository';
 import { Optional } from '../../../utils';
 import { NotFoundException } from '../../../../packages/httpException';
 
