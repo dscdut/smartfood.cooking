@@ -1,9 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
-class BaseApi{
+class BaseApi {
   final Client http;
 
   BaseApi({required this.http});
@@ -29,18 +30,24 @@ class BaseApi{
 
   Future<String> postMethod(String path,
       {required Map<String, dynamic> body}) async {
-    try {
-      final uri = '${dotenv.env['BASE_URL']}$path';
-      final response = await http.post(Uri.parse(uri), body: body);
-      if (response.statusCode == 200) {
-        log("Post in $path successfully");
-        return response.body;
-      } else {
-        throw Exception("Post fail in $path");
-      }
-    } catch (e) {
-      throw ("Exception get in $path");
+    final header = {
+      "Content-Type": 'application/json',
+    };
+    // try {
+    final uri = '${dotenv.env['BASE_URL']}$path';
+    log(jsonEncode(body));
+    final response = await http.post(Uri.parse(uri),
+        body: jsonEncode(body), headers: header);
+    if (response.statusCode == 200) {
+      log("Post in $path successfully");
+      return response.body;
+    } else {
+      log(response.body.toString());
+      throw Exception("Post fail in $path");
     }
+    // } catch (e) {
+    //   throw ("Exception get in $path");
+    // }
   }
 
   // T _returnResponse<T>(Response response) {

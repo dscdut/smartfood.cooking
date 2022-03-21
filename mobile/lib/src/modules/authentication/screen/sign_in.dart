@@ -7,8 +7,8 @@ import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
+import 'package:mobile/src/di/injector.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -43,8 +43,7 @@ class _SignInState extends State<SignIn> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: SafeArea(
-            child: ListView(
+        body: ListView(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -82,7 +81,6 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: TextFormField(
                         controller: emailTextController,
-                    
                         decoration: InputDecoration(
                           icon: const Icon(
                             PhosphorIcons.user,
@@ -316,7 +314,7 @@ class _SignInState extends State<SignIn> {
                           ],
                         ),
                         onPressed: () =>
-                            context.read<FirebaseService>().signInWithGoogle(),
+                            getIt<FirebaseService>().signInWithGoogle(),
                       ),
                     ),
                     Container(
@@ -363,7 +361,7 @@ class _SignInState extends State<SignIn> {
               ),
             )
           ],
-        )),
+        ),
       ),
     );
   }

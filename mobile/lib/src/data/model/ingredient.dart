@@ -1,45 +1,26 @@
 class Ingredient {
   final int id;
   final String name;
+  final int categoryId;
   Ingredient({
     required this.id,
     required this.name,
+    required this.categoryId,
   });
-
-  Ingredient copyWith({
-    int? id,
-    String? name,
-  }) {
-    return Ingredient(
-      id: id ?? this.id,
-      name: name ?? this.name,
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
+      'category_id': categoryId,
     };
   }
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
-      id: json['id'] ?? '',
+      id: json['id'] ?? 0,
       name: json['name'] ?? '',
+      categoryId: json['category_id'] ?? 0,
     );
   }
-
-  @override
-  String toString() => 'Ingredient(id: $id, name: $name)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Ingredient && other.id == id && other.name == name;
-  }
-
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode;
 }

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
-class MaterialCard extends StatelessWidget {
-  const MaterialCard({
+class IngredientCard extends StatelessWidget {
+  const IngredientCard({
     Key? key,
     required this.isSelected,
     required this.imageUrl,
@@ -56,7 +56,7 @@ class MaterialCard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Expanded(
+                Flexible(
                   flex: 4,
                   child: Container(
                     decoration: BoxDecoration(
@@ -72,7 +72,7 @@ class MaterialCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   flex: 2,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -97,16 +97,19 @@ class MaterialCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 12.h,
-            right: 12.w,
-            child: Checkbox(
-              checkColor: Colors.white,
-              fillColor: MaterialStateProperty.resolveWith(getColor),
-              value: isSelected,
-              shape: const CircleBorder(),
-              side:
-                  const BorderSide(width: 1.5, color: Palette.backgroundColor),
-              onChanged: (bool? value) {},
+            top: 12,
+            right: 12,
+            child: IgnorePointer(
+              ignoring: true,
+              child: Checkbox(
+                checkColor: Colors.white,
+                fillColor: MaterialStateProperty.resolveWith(getColor),
+                value: isSelected,
+                shape: const CircleBorder(),
+                side: const BorderSide(
+                    width: 1.5, color: Palette.backgroundColor),
+                onChanged: (bool? value) {},
+              ),
             ),
           ),
         ],

@@ -57,8 +57,7 @@ class UserChoiceProvider with ChangeNotifier {
   List<bool> listCheckChosenAllergicFood = List.filled(9, false);
 
   void onTapRegionCard(int index) {
-    listCheckChosenRegion = List.filled(3, false);
-    listCheckChosenRegion[index] = true;
+    listCheckChosenRegion[index] = !listCheckChosenRegion[index];
     notifyListeners();
   }
 
@@ -73,11 +72,20 @@ class UserChoiceProvider with ChangeNotifier {
   }
 
   void onTapAllergicItem(int index) {
-    if (index == listCheckChosenAllergicFood.length - 1 &&
-        listCheckChosenAllergicFood[index] != true) {
-      listCheckChosenAllergicFood = List.filled(9, false);
+    if (index == listCheckChosenAllergicFood.length - 1) {
+      listCheckChosenAllergicFood =
+          List.filled(listCheckChosenAllergicFood.length, false)..last = true;
+    } else {
+      if (listCheckChosenAllergicFood.last) {
+        listCheckChosenAllergicFood.last = false;
+      }
+
+      listCheckChosenAllergicFood[index] = !listCheckChosenAllergicFood[index];
+      if (listCheckChosenAllergicFood.every((element) => element == false)) {
+        listCheckChosenAllergicFood =
+            List.filled(listCheckChosenAllergicFood.length, false)..last = true;
+      }
     }
-    listCheckChosenAllergicFood[index] = !listCheckChosenAllergicFood[index];
     notifyListeners();
   }
 }

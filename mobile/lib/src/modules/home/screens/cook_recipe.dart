@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/modules/home/screens/select_recipe.dart';
+import 'package:mobile/src/data/model/recipe/ingredient.dart';
+import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/modules/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
@@ -15,6 +16,7 @@ class CookRecipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recipe = ModalRoute.of(context)!.settings.arguments as Recipe;
+    print(recipe.ingredients);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -39,7 +41,7 @@ class CookRecipe extends StatelessWidget {
                     // ),
                     Expanded(
                         child: Text(
-                      recipe.recipeName,
+                      recipe.name!,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       style: CustomTextTheme.headline2.copyWith(
@@ -73,7 +75,8 @@ class CookRecipe extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20.r),
                         child: Image.network(
-                          recipe.imageURL,
+                          "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
+
                           fit: BoxFit.fitWidth,
                           width: 343.w,
                           height: 200.w,
@@ -149,7 +152,8 @@ class CookRecipe extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   Text(
-                                    ' ' + recipe.cookingTime,
+                                    //TODO: need time data
+                                    "30p",
                                     style: CustomTextTheme.bodyText1.copyWith(
                                         fontSize: 14.sp,
                                         color: Palette.backgroundColor),
@@ -169,7 +173,7 @@ class CookRecipe extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                   Text(
-                                    ' ' + recipe.cookingLevel,
+                                    ' ' + recipe.level!,
                                     style: CustomTextTheme.bodyText1.copyWith(
                                       fontSize: 14.sp,
                                       color: Palette.backgroundColor,
@@ -185,7 +189,8 @@ class CookRecipe extends StatelessWidget {
                                   ),
                                   SizedBox(width: 2.w),
                                   Text(
-                                    recipe.favoriteLevel.toString(),
+                                    //TODO: need data for favorite
+                                    "0.2",
                                     style: CustomTextTheme.bodyText1.copyWith(
                                       fontSize: 14.sp,
                                       color: Palette.backgroundColor,
@@ -253,7 +258,7 @@ class CookRecipe extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                         child: Text(
                           'Nguyên liệu (' +
-                              recipe.ingredient.length.toString() +
+                              recipe.ingredients!.length.toString() +
                               ')',
                           style: CustomTextTheme.headline3.copyWith(
                             color: Palette.gray500,
@@ -270,8 +275,9 @@ class CookRecipe extends StatelessWidget {
                           behavior: NoShowLimitScroll(),
                           child: ListView(
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
-                            children:
-                                recipe.ingredient.map(listIngredient).toList(),
+                            children: recipe.ingredients!
+                                .map(listIngredient)
+                                .toList(),
                           ),
                         ),
                       ),
@@ -295,7 +301,8 @@ class CookRecipe extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () => Navigator.of(context)
-                                    .pushNamed(RouteManager.stepsToCooking),
+                                    .pushNamed(RouteManager.stepsToCooking,
+                                        arguments: recipe.steps),
                                 child: Row(
                                   children: [
                                     Text(
@@ -331,12 +338,13 @@ class CookRecipe extends StatelessWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(ingredient.ingrImageURL),
+              const CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg"),
               ),
               SizedBox(width: 12.w),
               Text(
-                ingredient.ingrName,
+                ingredient.name ?? "",
                 style: CustomTextTheme.subtitle1.copyWith(
                   color: Palette.gray500,
                   fontSize: 17.sp,
@@ -345,7 +353,7 @@ class CookRecipe extends StatelessWidget {
             ],
           ),
           Text(
-            ingredient.inghrQuantity + ' ' + ingredient.ingrUnit,
+            "${ingredient.value ?? ""} ${ingredient.unit ?? ""}",
             style: CustomTextTheme.bodyText1.copyWith(
               color: Palette.gray400,
               fontSize: 15.sp,

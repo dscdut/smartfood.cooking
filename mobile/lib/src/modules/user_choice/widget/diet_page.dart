@@ -13,7 +13,6 @@ class DietPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final int listLength =
         context.read<UserChoiceProvider>().listNameDiet.length;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

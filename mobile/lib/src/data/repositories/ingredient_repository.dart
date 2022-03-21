@@ -10,15 +10,15 @@ class IngredientRepository {
     required this.baseApi,
   });
 
-  Future<List<Ingredient>> getListIngredients() async {
+  Future<List<Ingredient>> getListIngredients(int page) async {
     try {
-      final dataRaw = await baseApi.getMethod("/ingredients");
+      final dataRaw = await baseApi.getMethod("/ingredients?page=$page&size=12");
       var converted = jsonDecode(dataRaw);
       Iterable data = converted["content"];
       log(data.toString());
       return data.map((value) => Ingredient.fromJson(value)).toList();
     } catch (e) {
-      log("get List Ingredients fail ${e.toString()}");
+      log("gete List Ingredients fail ${e.toString()}");
       throw Exception("get List Ingredients fail");
     }
   }

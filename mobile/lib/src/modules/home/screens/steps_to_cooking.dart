@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/data/model/recipe/step.dart';
 import 'package:mobile/src/modules/home/widgets/dynamic_height_page_view.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
@@ -14,11 +15,7 @@ class StepsToCookingScreen extends StatefulWidget {
 }
 
 class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
-  final List<String> listSteps = [
-    "Cánh gà làm sạch, ngâm với nước ấm pha muối loãng, thêm vài lát gừng, hành củ đập dập trong 10-15 phút để khử mùi. Sau đó, rửa sạch, thấm khô. Nếu cánh nhỏ thì để nguyên, cánh to thì cắt thành các miếng vừa ăn.",
-    "Ướp cánh gà với gia vị: 1 thìa cà phê muối, 1 thìa cà phê hạt tiêu, 1 thìa cà phê hạt nêm, 2 thìa cà phê ớt bột tạo màu Hàn Quốc, 2 thìa cà phê dầu hào, 1 thìa cà phê mỡ gà hoặc mỡ lợn, 1 thìa canh bột bắp và chút gừng, hành củ đập dập (khi rán bỏ gừng, hành ra, tránh bị cháy). Đeo găng tay trộn và thoa đều các mặt cho gia vị thấm đều. Để ướp trong 15 – 20 phút.",
-    "Ướp cánh gà với gia vị: 1 thìa cà phê muối, 1 thìa cà phê hạt tiêu, 1 thìa cà phê hạt nêm, 2 thìa cà phê ớt bột tạo màu Hàn Quốc, 2 thìa cà phê dầu hào, 1 thìa cà phê mỡ gà hoặc mỡ lợn, 1 thìa canh bột bắp và chút gừng, hành củ đập dập (khi rán bỏ gừng, hành ra, tránh bị cháy). Đeo găng tay trộn và thoa đều các mặt cho gia vị thấm đều. Để ướp trong 15 – 20 phút."
-  ];
+  late List<CookingStep>? listStep;
 
   late PageController pageController;
 
@@ -26,7 +23,8 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
   final listImageStep = [
     "assets/images/temp/b1.png",
     "assets/images/temp/b2.png",
-    "assets/images/temp/b3.png"
+    "assets/images/temp/b3.png",
+    "assets/images/temp/b3.png",
   ];
 
   @override
@@ -39,6 +37,12 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
           setState(() => indexCurrentPage = newIndex!);
         }
       });
+  }
+
+  @override
+  void didChangeDependencies() {
+    listStep = ModalRoute.of(context)!.settings.arguments as List<CookingStep>?;
+    super.didChangeDependencies();
   }
 
   @override
@@ -97,9 +101,9 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
             ),
             //TODO: will refactor ```DynamicHeightPageView```
             DynamicHeightPageView(
-              children: listSteps.map((e) {
+              children: listStep!.map((e) {
                 return Text(
-                  e,
+                  e.content!,
                   style: CustomTextTheme.headline5
                       .copyWith(color: Palette.gray500, fontSize: 16.sp),
                   textAlign: TextAlign.justify,
@@ -113,7 +117,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: listSteps
+              children: listStep!
                   .asMap()
                   .map(
                     (key, value) {
@@ -136,7 +140,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   .toList(),
             ),
             const Spacer(),
-            indexCurrentPage < listSteps.length - 1
+            indexCurrentPage < listStep!.length - 1
                 ? Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                     child: Row(

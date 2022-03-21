@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/data/model/recipe/recipe.dart';
+import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SelectRecipe extends StatefulWidget {
   const SelectRecipe({Key? key}) : super(key: key);
@@ -15,6 +18,14 @@ class SelectRecipe extends StatefulWidget {
 }
 
 class _SelectRecipeState extends State<SelectRecipe> {
+  late List<Recipe> listFound;
+
+  @override
+  void didChangeDependencies() {
+    listFound = ModalRoute.of(context)!.settings.arguments as List<Recipe>;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +57,13 @@ class _SelectRecipeState extends State<SelectRecipe> {
               Expanded(
                 child: ScrollConfiguration(
                   behavior: NoShowLimitScroll(),
-                  child: ListView(
-                    children: suggest.map(listRecipe).toList(),
+                  child: ListView.builder(
+                    itemCount: listFound.length,
+                    itemBuilder: (context, index) {
+                      return RecipeCard(
+                        recipe: listFound[index],
+                      );
+                    },
                   ),
                 ),
               )
@@ -57,187 +73,200 @@ class _SelectRecipeState extends State<SelectRecipe> {
       ),
     );
   }
+}
 
-  Widget listRecipe(Recipe val) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, RouteManager.cookRecipe, arguments: val);
-      },
+class RecipeCard extends StatelessWidget {
+  const RecipeCard({Key? key, required this.recipe}) : super(key: key);
+
+  final Recipe recipe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 160.h,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
       child: Container(
-        height: 160.h,
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 7.h),
-        child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Palette.shadowColor.withOpacity(0.1),
-                blurRadius: 6,
-              )
-            ],
-            borderRadius: BorderRadius.circular(10.sp),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Palette.shadowColor.withOpacity(0.1),
+              blurRadius: 6,
+            )
+          ],
+          borderRadius: BorderRadius.circular(10.sp),
+        ),
+        child: Card(
+          color: Palette.backgroundColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Card(
-            color: Palette.backgroundColor,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Stack(
-                      alignment: Alignment.topLeft,
-                      children: [
-                        Image.network(val.imageURL,
-                            width: 110.w, height: 110.w, fit: BoxFit.cover),
-                        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    alignment: Alignment.topLeft,
+                    children: [
+                      Image.network(
+                          "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
                           width: 110.w,
-                          height: 30.w,
-                          padding: EdgeInsets.symmetric(horizontal: 4.w),
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                Colors.transparent,
-                                Colors.black54,
-                              ],
-                            ),
+                          height: 110.w,
+                          fit: BoxFit.cover),
+                      Container(
+                        width: 110.w,
+                        height: 30.w,
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Colors.transparent,
+                              Colors.black54,
+                            ],
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),
                                 splashRadius: 24,
                                 onPressed: () {
-                                  setState(() {
-                                    val.favorited = !val.favorited;
-                                  });
+                                  // setState(() {
+                                  //  recipe.favorited = !val.favorited;
+                                  // });
                                 },
                                 icon: const Icon(PhosphorIcons.heartFill),
-                                color: val.favorited
-                                    ? Palette.orange500
-                                    : Palette.backgroundColor,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    PhosphorIcons.starFill,
-                                    color: Palette.yellowStar,
-                                    size: 20.sp,
+                                color: Palette.orange500
+                                // : Palette.backgroundColor,
+                                ),
+                            Row(
+                              children: [
+                                Icon(
+                                  PhosphorIcons.starFill,
+                                  color: Palette.yellowStar,
+                                  size: 20.sp,
+                                ),
+                                SizedBox(width: 2.w),
+                                Text(
+                                  0.1.toString(),
+                                  style: CustomTextTheme.headline4.copyWith(
+                                    color: Palette.backgroundColor,
+                                    fontWeight: FontWeight.w800,
                                   ),
-                                  SizedBox(width: 2.w),
-                                  Text(
-                                    val.favoriteLevel.toString(),
-                                    style: CustomTextTheme.headline4.copyWith(
-                                      color: Palette.backgroundColor,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5.sp),
-                  width: 195.w,
-                  height: 105.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              val.recipeName,
-                              style: CustomTextTheme.headline3.copyWith(
-                                color: Palette.gray500,
-                                fontWeight: FontWeight.bold,
-                              ),
+              ),
+              Container(
+                padding: EdgeInsets.all(5.sp),
+                width: 195.w,
+                height: 105.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            recipe.name!,
+                            style: CustomTextTheme.headline3.copyWith(
+                              color: Palette.gray500,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 28.w,
-                            height: 26.h,
-                            decoration: BoxDecoration(
-                              color: Palette.orange500,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: IconButton(
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: 28.w,
+                          height: 26.h,
+                          decoration: BoxDecoration(
+                            color: Palette.orange500,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: IconButton(
                                 splashRadius: 0.1,
                                 padding: const EdgeInsets.all(0),
                                 iconSize: 20.sp,
                                 icon: const Icon(PhosphorIcons.arrowRightBold),
                                 color: Palette.backgroundColor,
-                                onPressed: () => Navigator.pushNamed(
-                                  context,
-                                  RouteManager.cookRecipe,
-                                  arguments: val,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          const Icon(
-                            PhosphorIcons.clockBold,
+                                onPressed: () async {
+                                  await context
+                                      .read<RecipeProvider>()
+                                      .getDataRecipeById(context,
+                                          id: recipe.id!)
+                                      .then((value) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteManager.cookRecipe,
+                                      arguments: recipe.copyWith(
+                                          ingredients: value!.ingredients,
+                                          steps: value.steps),
+                                    );
+                                  });
+                                }),
+                          ),
+                        )
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        const Icon(
+                          PhosphorIcons.clockBold,
+                          color: Palette.gray400,
+                        ),
+                        Text(
+                          ' 30p',
+                          style: CustomTextTheme.bodyText1.copyWith(
                             color: Palette.gray400,
                           ),
-                          Text(
-                            ' ' + val.cookingTime,
-                            style: CustomTextTheme.bodyText1.copyWith(
-                              color: Palette.gray400,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                            child: Text('|', style: CustomTextTheme.headline4),
-                          ),
-                          Icon(
-                            PhosphorIcons.cookingPotBold,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                          child: Text('|', style: CustomTextTheme.headline4),
+                        ),
+                        Icon(
+                          PhosphorIcons.cookingPotBold,
+                          color: Palette.gray400,
+                          size: 24.sp,
+                        ),
+                        Text(
+                          ' ' + recipe.level!,
+                          style: CustomTextTheme.bodyText1.copyWith(
                             color: Palette.gray400,
-                            size: 24.sp,
+                            fontSize: 14.sp,
                           ),
-                          Text(
-                            ' ' + val.cookingLevel,
-                            style: CustomTextTheme.bodyText1.copyWith(
-                              color: Palette.gray400,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                          const Spacer(),
-                          const Spacer(),
-                          const Spacer(),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        const Spacer(),
+                        const Spacer(),
+                        const Spacer(),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -245,97 +274,3 @@ class _SelectRecipeState extends State<SelectRecipe> {
   }
 }
 
-Ingredient igr1 =
-    Ingredient('Thịt gà', 'https://tinyurl.com/yrsj7hbm', 'con', '1');
-Ingredient igr2 =
-    Ingredient('Đường', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '2');
-Ingredient igr3 =
-    Ingredient('Mắm', 'https://tinyurl.com/yrsj7hbm', 'muỗng canh', '1');
-Ingredient igr4 = Ingredient(
-    'Hạt nêm Knor', 'https://tinyurl.com/yrsj7hbm', 'muỗng cà phê', '4');
-List<Ingredient> ingredient = [igr1, igr2, igr3, igr4];
-Nutrition nutri1 = Nutrition();
-Nutrition nutri2 = Nutrition();
-Nutrition nutri3 = Nutrition();
-List<Nutrition> nutrition = [nutri1, nutri2, nutri3];
-
-Recipe recipe1 = Recipe(
-    'Cánh gà chiên mắm',
-    'http://imgs.vietnamnet.vn/Images/2016/12/09/08/20161209085123-ga3.jpg',
-    4,
-    'Vừa',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe2 = Recipe(
-    'Gà luộc',
-    'http://cdn.tgdd.vn/Files/2020/08/11/1278766/cach-moi-nhanh-va-de-giup-luoc-ga-khong-nut-da-chat-gon-dep-doc-xong-chi-muon-thu-ngay-202008111016237351.jpg',
-    3,
-    'Dễ',
-    '2 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe3 = Recipe(
-    'Gỏi gà lá chanh chua ngọt',
-    'https://cdn.cet.edu.vn/wp-content/uploads/2019/08/goi-ga-xe-phay.jpg',
-    3.5,
-    'Vừa',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe4 = Recipe(
-    'Gà hầm thuốc bắc',
-    'https://st.quantrimang.com/photos/image/2020/10/14/ga-ham-thuoc-bac-2.jpg',
-    4.5,
-    'Khó',
-    '3 giờ',
-    ingredient,
-    nutrition, []);
-Recipe recipe5 = Recipe(
-    'Gỏi gà',
-    'https://image-us.eva.vn/upload/2-2019/images/2019-06-06/1559789758-596-thumbnail.jpg',
-    2.5,
-    'Dễ',
-    '1 giờ',
-    ingredient,
-    nutrition, []);
-List<Recipe> suggest = [recipe1, recipe2, recipe3, recipe4, recipe5];
-
-class Recipe {
-  late String recipeName;
-  late String imageURL;
-  late double favoriteLevel;
-  late bool favorited = false;
-  late String cookingTime;
-  late String cookingLevel;
-  late List<Ingredient> ingredient;
-  late List<Nutrition> nutrition;
-  late List<CookStep> step;
-  Recipe(this.recipeName, this.imageURL, this.favoriteLevel, this.cookingLevel,
-      this.cookingTime, this.ingredient, this.nutrition, this.step);
-}
-
-class Ingredient {
-  late String ingrName;
-  late String ingrImageURL;
-  late String ingrUnit;
-  late String inghrQuantity;
-  Ingredient(
-      this.ingrName, this.ingrImageURL, this.ingrUnit, this.inghrQuantity);
-}
-
-class Nutrition {
-  late String nutriName;
-  late String nutriUnit;
-  late String nutriQuantity;
-  Nutrition() {
-    nutriName = 'Canxi';
-    nutriUnit = 'miligram';
-    nutriQuantity = '50';
-  }
-}
-
-class CookStep {
-  String stepName = '';
-  String stepDescription = '';
-}
