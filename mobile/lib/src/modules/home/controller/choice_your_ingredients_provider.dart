@@ -8,26 +8,10 @@ enum LoadingStatus { loading, error, idle }
 
 class ChoiceYourIngredientsProvider with ChangeNotifier {
   // STATIC DATA for Choose Your Material screen
-  final List<String> typeMaterialList = <String>[
-    "Tất cả",
-    "Rau củ quả",
-    "Thủy sản",
-    "Thịt",
-    "Trứng",
-    "Sữa",
-    "Gia vị",
-    "Hạt",
-    "Thực phẩm chế biến",
-    "Gạo, bột, đồ khô",
-    "Nước",
-    "Nội tạng",
-    "Khác",
-  ];
 
   var ingredientData = <Ingredient>[];
   var ingredientFilterData = <Ingredient>[];
   var selectedTypeList = <bool>[];
-  var selectedIngredientList = <bool>[];
   var selectedData = <int, bool?>{};
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
@@ -35,12 +19,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   final IngredientRepository ingredientRepository;
 
   ChoiceYourIngredientsProvider({required this.ingredientRepository}) {
+    selectedTypeList = List<bool>.filled(13, false, growable: true)
+      ..first = true;
     loadIngredientData().then((value) {
-      selectedTypeList =
-          List<bool>.filled(typeMaterialList.length, false, growable: true)
-            ..first = true;
-      selectedIngredientList =
-          List<bool>.filled(ingredientData.length, false, growable: true);
+
       ingredientFilterData.addAll(ingredientData);
       selectedData = {for (var e in ingredientData) e.id: false};
       print(selectedData);
@@ -100,9 +82,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
 
   void onSelected(bool value, int index) {
     if (index == 0 && selectedTypeList[index] == false) {
-      selectedTypeList =
-          List<bool>.filled(typeMaterialList.length, false, growable: false)
-            ..first = true;
+      selectedTypeList = List<bool>.filled(13, false, growable: false)
+        ..first = true;
       ingredientFilterData.clear();
       log(ingredientData.length.toString());
       ingredientFilterData.addAll(ingredientData);
@@ -126,9 +107,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       (element) => element == false,
     )) {
       ingredientFilterData.clear();
-      selectedTypeList =
-          List<bool>.filled(typeMaterialList.length, false, growable: false)
-            ..first = true;
+      selectedTypeList = List<bool>.filled(13, false, growable: false)
+        ..first = true;
       ingredientFilterData.addAll(ingredientData);
     }
     for (var e in ingredientFilterData) {

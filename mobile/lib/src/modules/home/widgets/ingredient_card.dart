@@ -31,7 +31,7 @@ class IngredientCard extends StatelessWidget {
     return GestureDetector(
       onTap: onMaterialTap,
       child: Stack(
-        alignment: Alignment.topRight,
+        alignment: Alignment.center,
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
@@ -97,8 +97,8 @@ class IngredientCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: -8,
-            right: -8,
+            top: 12,
+            right: 12,
             child: IgnorePointer(
               ignoring: true,
               child: Checkbox(

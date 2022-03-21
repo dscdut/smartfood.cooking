@@ -23,6 +23,21 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
   late final ScrollController _scrollController;
   late final ChoiceYourIngredientsProvider _choiceYourIngredientsProvider;
 
+  final List<String> typeMaterialList = <String>[
+    "Tất cả",
+    "Rau củ quả",
+    "Thủy sản",
+    "Thịt",
+    "Trứng",
+    "Sữa",
+    "Gia vị",
+    "Hạt",
+    "Thực phẩm chế biến",
+    "Gạo, bột, đồ khô",
+    "Nước",
+    "Nội tạng",
+    "Khác",
+  ];
   @override
   void initState() {
     _scrollController = ScrollController();
@@ -159,8 +174,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                      itemCount: _choiceYourIngredientsProvider
-                          .typeMaterialList.length,
+                      itemCount: typeMaterialList.length,
                       itemBuilder: (context, index) {
                         return Consumer<ChoiceYourIngredientsProvider>(
                             builder: (_, provider, __) {
@@ -168,7 +182,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            label: Text(provider.typeMaterialList[index]),
+                            label: Text(typeMaterialList[index]),
                             labelStyle: CustomTextTheme.subtitle1.copyWith(
                                 color: provider.selectedTypeList[index]
                                     ? Colors.white
@@ -201,46 +215,40 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             child: Icon(PhosphorIcons.warning),
                           );
                         }
-                        return SingleChildScrollView(
+                        return GridView.builder(
                           controller: _scrollController,
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: Center(
-                            child: Wrap(
-                              runSpacing: 35.h,
-                              spacing: 40.w,
-                              alignment: WrapAlignment.center,
-                              children: List.generate(
-                                provider.ingredientFilterData.length + 1,
-                                (index) {
-                                  if (index ==
-                                      provider.ingredientFilterData.length) {
-                                    return provider.isLoadingMore
-                                        ? const LoadingCircle()
-                                        : const SizedBox();
-                                  } else {
-                                    return IngredientCard(
-                                      imageUrl:
-                                          "https://blogs.biomedcentral.com/on-medicine/wp-"
-                                          "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
-                                          "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
-                                      materialName: provider
-                                          .ingredientFilterData[index].name,
-                                      isSelected: provider.selectedData[provider
-                                          .ingredientFilterData[index].id]!,
-                                      onMaterialTap: () =>
-                                          provider.onTapIngredientsCard(
-                                        index,
-                                        provider.ingredientFilterData[index].id,
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
+                          itemCount: provider.ingredientFilterData.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
                           ),
+                          itemBuilder: (context, index) {
+                            return IngredientCard(
+                              imageUrl:
+                                  "https://blogs.biomedcentral.com/on-medicine/wp-"
+                                  "content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj"
+                                  "9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg",
+                              materialName:
+                                  provider.ingredientFilterData[index].name,
+                              isSelected: provider.selectedData[
+                                  provider.ingredientFilterData[index].id]!,
+                              onMaterialTap: () =>
+                                  provider.onTapIngredientsCard(
+                                index,
+                                provider.ingredientFilterData[index].id,
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
+                  ),
+                  Consumer<ChoiceYourIngredientsProvider>(
+                    builder: ((context, provider, child) {
+                      return provider.isLoadingMore
+                          ? const LoadingCircle()
+                          : const SizedBox();
+                    }),
                   ),
                   Consumer<ChoiceYourIngredientsProvider>(
                       builder: (context, provider, child) {

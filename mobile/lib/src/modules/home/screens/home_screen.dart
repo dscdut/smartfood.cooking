@@ -25,10 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final recipeProvider = context.read<RecipeProvider>();
     return Scaffold(
-      body: ScrollConfiguration(
-        behavior: NoShowLimitScroll(),
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top - 8.h,
+        ),
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 40.0.h),
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.0.w),
@@ -156,6 +157,47 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               height: 20.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.0.w),
+              child: Text(
+                "Chế độ ăn",
+                style: CustomTextTheme.headline2.copyWith(
+                  color: Palette.pink500,
+                  fontSize: 30.sp,
+                ),
+              ),
+            ),
+            SizedBox(height: 8.h),
+            SizedBox(
+              height: 240.h,
+              child: ScrollConfiguration(
+                behavior: NoShowLimitScroll(),
+                child: ListView.separated(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                  itemCount: recipeProvider.dietModeData.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Consumer<RecipeProvider>(
+                        builder: (context, provider, child) {
+                      return DietModeCard(
+                        imageUrl:
+                            provider.dietModeData[index]["imageUrl"] as String,
+                        joinedCount: provider.dietModeData[index]["joinedCount"]
+                            as String,
+                        modeName:
+                            provider.dietModeData[index]["modeName"] as String,
+                        noMenu: provider.dietModeData[index]["menu"] as String,
+                        onTapAction: () {},
+                      );
+                    });
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(width: 25.w);
+                  },
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.0.w),
