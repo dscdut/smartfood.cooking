@@ -15,4 +15,11 @@ export const IngredientResolver = Module.builder()
             params: DefaultQueryCriteriaDocument,
             controller: IngredientController.findAll,
         },
+        {
+            route: '/categories',
+            method: 'post',
+            params: DefaultQueryCriteriaDocument,
+            body: 'GetIngredientsByCategoriesDto',
+            controller: IngredientController.findByCategoryIds,
+        },
     ]);

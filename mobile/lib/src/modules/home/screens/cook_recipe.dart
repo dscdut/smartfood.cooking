@@ -76,6 +76,7 @@ class CookRecipe extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.r),
                         child: Image.network(
                           "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
+
                           fit: BoxFit.fitWidth,
                           width: 343.w,
                           height: 200.w,
