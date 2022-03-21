@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>133017922113-e9m669d5k3cbrc4l4d2rmr75qmmjj1qf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.133017922113-e9m669d5k3cbrc4l4d2rmr75qmmjj1qf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>133017922113-9u36lcqgen2sh3knta1t4g1s1prrj421.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDz8TFyN1E9X4Kdw7rjn0-WSdMJAhBzsZY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>133017922113</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gdscdut.smartfood</string>
+	<key>PROJECT_ID</key>
+	<string>smartfood-cooking-1d276</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smartfood-cooking-1d276.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:133017922113:ios:d26738ba81b7bd7e6ef4c0</string>
+</dict>
+</plist>
