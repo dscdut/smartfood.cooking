@@ -1,14 +1,17 @@
 {
   "main": [
-    "id",
+    "ingredients.id",
     "name",
     "ingredients_categories.category_id",
-    { "createdAt": "created_at" },
-    { "updatedAt": "updated_at" },
-    { "deletedAt": "deleted_at" }
+    "images.url",
+    { "createdAt": "ingredients.created_at" },
+    { "updatedAt": "ingredients.updated_at" },
+    { "deletedAt": "ingredients.deleted_at" }
   ],
   "associates": [
-    ["ingredients_categories", "ingredients.id", "ingredients_categories.ingredient_id"]
+    ["ingredients_categories", "ingredients.id", "ingredients_categories.ingredient_id"],
+    ["ingredients_images", "ingredients.id", "ingredients_images.ingredient_id"],
+    ["images", "images.id", "ingredients_images.image_id"]
   ],
   "notDeleted": ["ingredients"],
   "locks": {

@@ -4,12 +4,15 @@ class Repository extends DataRepository {
     findByCategoryIds(categoriesId, pagination) {
         return this.query()
             .innerJoin('ingredients_categories', 'ingredients_categories.ingredient_id', 'ingredients.id')
+            .innerJoin('ingredients_images', 'ingredients_images.ingredient_id', 'ingredients.id')
+            .innerJoin('images', 'ingredients_images.image_id', 'images.id')
             .whereNull('ingredients.deleted_at')
             .whereIn('ingredients_categories.category_id', categoriesId)
             .select(
                 'ingredients.id',
                 'ingredients.name',
                 'ingredients_categories.category_id',
+                'images.url',
                 'ingredients.deleted_at',
                 'ingredients.created_at',
                 'ingredients.updated_at',
