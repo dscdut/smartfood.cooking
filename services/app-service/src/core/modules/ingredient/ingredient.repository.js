@@ -24,12 +24,15 @@ class Repository extends DataRepository {
     findByRecipeId(recipeId) {
         return this.query()
             .innerJoin('recipes_ingredients', 'recipes_ingredients.ingredient_id', 'ingredients.id')
+            .innerJoin('ingredients_images', 'ingredients_images.ingredient_id', 'ingredients.id')
+            .innerJoin('images', 'ingredients_images.image_id', 'images.id')
             .whereNull('ingredients.deleted_at')
             .where('recipes_ingredients.recipe_id', recipeId)
             .select(
                 'ingredients.name',
                 'recipes_ingredients.value',
                 'recipes_ingredients.unit',
+                'images.url',
             );
     }
 }
