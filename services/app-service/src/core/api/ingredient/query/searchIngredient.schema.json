@@ -23,6 +23,7 @@
     "sorts": [
       { "id": "ingredients.id" },
       { "name": "ingredients.name" },
+      { "category_id": "ingredients_categories.category_id" },
       { "createdAt": "ingredients.created_at" },
       { "updatedAt": "ingredients.updated_at" }
     ]
