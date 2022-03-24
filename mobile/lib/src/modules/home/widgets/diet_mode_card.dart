@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/core/utils/custom_cache_manager.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DietModeCard extends StatelessWidget {
@@ -40,14 +42,49 @@ class DietModeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 120.h,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: Image.network(imageUrl).image,
-                  fit: BoxFit.cover,
+            CachedNetworkImage(
+              cacheManager: CustomCacheManager.customCacheManager,
+              imageUrl: imageUrl,
+              imageBuilder: (context, imageProvider) => Container(
+                height: 120.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(15.r),
+                  ),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(15.r)),
+              ),
+              progressIndicatorBuilder: (context, string, progress) {
+                return Container(
+                  height: 120.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(15.r),
+                    ),
+                  ),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                      color: Palette.orange500,
+                    ),
+                  ),
+                );
+              },
+              errorWidget: (context, string, dymamic) => Container(
+                height: 120.h,
+                alignment: Alignment.center,
+                child: const Icon(
+                  PhosphorIcons.warning,
+                  color: Palette.orange500,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(15.r),
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 5.h),

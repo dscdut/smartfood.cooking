@@ -1,20 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/core/utils/custom_cache_manager.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class IngredientCard extends StatelessWidget {
   const IngredientCard({
     Key? key,
-    required this.isSelected,
+    this.isSelected,
     required this.imageUrl,
     required this.materialName,
-    required this.onMaterialTap,
+    this.onMaterialTap,
+    this.onDeleteAction,
   }) : super(key: key);
-  final bool isSelected;
+  final bool? isSelected;
   final String imageUrl;
   final String materialName;
-  final VoidCallback onMaterialTap;
+  final VoidCallback? onMaterialTap;
+  final VoidCallback? onDeleteAction;
 
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -39,11 +44,13 @@ class IngredientCard extends StatelessWidget {
             width: 100.h,
             decoration: BoxDecoration(
               color: Palette.backgroundColor,
-              border: isSelected
-                  ? Border.all(
-                      width: 2.w,
-                      color: Palette.pink500,
-                    )
+              border: onDeleteAction == null
+                  ? (isSelected!
+                      ? Border.all(
+                          width: 1.5.w,
+                          color: Palette.pink500,
+                        )
+                      : null)
                   : null,
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
@@ -58,16 +65,51 @@ class IngredientCard extends StatelessWidget {
               children: [
                 Flexible(
                   flex: 4,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(12.r),
+                  child: CachedNetworkImage(
+                    cacheManager: CustomCacheManager.customCacheManager,
+                    imageUrl: imageUrl != ""
+                        ? imageUrl
+                        : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
+                            "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
+                            "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
+                            "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.r),
+                        ),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      image: DecorationImage(
-                        image: Image.network(
-                          imageUrl,
-                        ).image,
-                        fit: BoxFit.cover,
+                    ),
+                    progressIndicatorBuilder: (context, string, progress) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12.r),
+                          ),
+                        ),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value: progress.progress,
+                            color: Palette.orange500,
+                          ),
+                        ),
+                      );
+                    },
+                    errorWidget: (context, string, dymamic) => Container(
+                      child: const Center(
+                        child: Icon(
+                          PhosphorIcons.warning,
+                          color: Palette.orange500,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.r),
+                        ),
                       ),
                     ),
                   ),
@@ -99,18 +141,37 @@ class IngredientCard extends StatelessWidget {
           Positioned(
             top: 12,
             right: 12,
-            child: IgnorePointer(
-              ignoring: true,
-              child: Checkbox(
-                checkColor: Colors.white,
-                fillColor: MaterialStateProperty.resolveWith(getColor),
-                value: isSelected,
-                shape: const CircleBorder(),
-                side: const BorderSide(
-                    width: 1.5, color: Palette.backgroundColor),
-                onChanged: (bool? value) {},
-              ),
-            ),
+            child: onDeleteAction == null
+                ? IgnorePointer(
+                    ignoring: true,
+                    child: Checkbox(
+                      checkColor: Colors.white,
+                      fillColor: MaterialStateProperty.resolveWith(getColor),
+                      value: isSelected,
+                      shape: const CircleBorder(),
+                      side: const BorderSide(
+                          width: 1.5, color: Palette.backgroundColor),
+                      onChanged: (bool? value) {},
+                    ),
+                  )
+                : IconButton(
+                    constraints: const BoxConstraints(),
+                    splashRadius: 20,
+                    icon: Container(
+                      decoration: const BoxDecoration(
+                        color: Palette.backgroundColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const FittedBox(
+                        fit: BoxFit.fill,
+                        child: Icon(
+                          PhosphorIcons.xCircleFill,
+                          color: Palette.pink500,
+                        ),
+                      ),
+                    ),
+                    onPressed: onDeleteAction,
+                  ),
           ),
         ],
       ),

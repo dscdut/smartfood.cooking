@@ -5,12 +5,11 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/modules/user_choice/widget/allergic_food_page.dart';
-import 'package:mobile/src/modules/user_choice/widget/choose_region_page.dart';
-import 'package:mobile/src/modules/user_choice/widget/choose_favorite_food_page.dart';
-import 'package:mobile/src/modules/user_choice/widget/diet_page.dart';
+import 'package:mobile/src/modules/user_choice/widgets/allergic_food_page.dart';
+import 'package:mobile/src/modules/user_choice/widgets/choose_region_page.dart';
+import 'package:mobile/src/modules/user_choice/widgets/choose_favorite_food_page.dart';
+import 'package:mobile/src/modules/user_choice/widgets/diet_page.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
-import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 
 class UserChoiceScreen extends StatefulWidget {
   const UserChoiceScreen({Key? key}) : super(key: key);
@@ -57,16 +56,24 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomBackButton(
-                  onPressedFunction: () {
-                    pageController.previousPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeOut,
-                    );
-                  },
-                ),
+                tabController.index != 0
+                    ? CustomBackButton(
+                        onPressedFunction: () {
+                          pageController.previousPage(
+                            duration: const Duration(milliseconds: 400),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                      )
+                    : const Opacity(
+                        opacity: 0,
+                        child: CustomBackButton(),
+                      ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RouteManager.mainScreen, (route) => false);
+                  },
                   child: Text(
                     "Bỏ qua",
                     style: CustomTextTheme.headline3.copyWith(
@@ -79,27 +86,23 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
             ),
             SizedBox(height: 20.h),
             Expanded(
-              child: ScrollConfiguration(
-                behavior: NoShowLimitScroll(),
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: pageController,
-                  onPageChanged: (value) {
-                    setState(() {
-                      tabController.index = value;
-                    });
-                  },
-                  children: [
-                    ChooseRegionPage(
-                      key: UniqueKey(),
-                    ),
-                    ChooseFavoriteFoodPage(
-                      key: UniqueKey(),
-                    ),
-                    DietPage(key: UniqueKey()),
-                    const AllergicFoodPage(),
-                  ],
-                ),
+              child: PageView(
+                controller: pageController,
+                onPageChanged: (value) {
+                  setState(() {
+                    tabController.index = value;
+                  });
+                },
+                children: [
+                  ChooseRegionPage(
+                    key: UniqueKey(),
+                  ),
+                  ChooseFavoriteFoodPage(
+                    key: UniqueKey(),
+                  ),
+                  DietPage(key: UniqueKey()),
+                  const AllergicFoodPage(),
+                ],
               ),
             ),
             GestureDetector(
@@ -138,36 +141,6 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                 ),
               ),
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //     if (tabController.index + 1 < 4) {
-            //       pageController.nextPage(
-            //         duration: const Duration(milliseconds: 300),
-            //         curve: Curves.easeIn,
-            //       );
-            //     } else {
-            //       Navigator.pushNamedAndRemoveUntil(
-            //           context, RouteManager.mainScreen, (route) => false);
-            //     }
-            //   },
-            //   child: Container(
-            //     margin: EdgeInsets.only(bottom: 15.h),
-            //     alignment: Alignment.center,
-            //     decoration: BoxDecoration(
-            //       color: Palette.orange500,
-            //       borderRadius: BorderRadius.circular(20.r),
-            //     ),
-            //     padding:
-            //         EdgeInsets.symmetric(horizontal: 24.w, vertical: 10.h),
-            //     child: Text(
-            //       tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
-            //       style: CustomTextTheme.headline4.copyWith(
-            //         color: Palette.backgroundColor,
-            //         fontSize: 20.sp,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Center(
               child: TabPageSelector(
                 controller: tabController,

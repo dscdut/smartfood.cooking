@@ -45,12 +45,11 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
             alignment: Alignment.topCenter,
             child: Column(
               children: [
-               
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                   child: UpdatedSizeWidget(
-                    onSizeChange: (Size size) =>
-                        setState(() => listHeigtOfChildren[index] = size.height),
+                    onSizeChange: (Size size) => setState(
+                        () => listHeigtOfChildren[index] = size.height),
                     child: widget.children[index],
                     previousHeight: listHeigtOfChildren[index],
                   ),

@@ -6,16 +6,20 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
     Key? key,
-    required this.onPressedFunction,
-  }) : super(key: key);
+    this.onPressedFunction,
+    this.reverse = false,
+    this.opacity = 1.0,
+  })  : assert(opacity >= 0.0 && opacity <= 1.0),
+        super(key: key);
 
-  final VoidCallback onPressedFunction;
+  final VoidCallback? onPressedFunction;
+  final bool reverse;
+  final double opacity;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
@@ -27,11 +31,13 @@ class CustomBackButton extends StatelessWidget {
       ),
       child: CircleAvatar(
         radius: 18.r,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white.withOpacity(opacity),
         child: IconButton(
           padding: EdgeInsets.zero,
           splashRadius: 24,
-          icon: const Icon(PhosphorIcons.caretLeftBold),
+          icon: Icon(reverse
+              ? PhosphorIcons.caretRightBold
+              : PhosphorIcons.caretLeftBold),
           color: Palette.pink500,
           iconSize: 20.sp,
           onPressed: onPressedFunction,

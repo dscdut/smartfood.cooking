@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/model/recipe/ingredient.dart';
+import 'package:mobile/src/core/utils/custom_cache_manager.dart';
+import 'package:mobile/src/data/model/recipe/ingredient_recipe.dart';
 import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/modules/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
@@ -46,7 +48,7 @@ class CookRecipe extends StatelessWidget {
                       maxLines: 2,
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
-                        fontSize: 26.sp,
+                        fontSize: 24.sp,
                       ),
                     )),
                     SizedBox(width: 22.w),
@@ -62,6 +64,8 @@ class CookRecipe extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
+                      width: 343.w,
+                      height: 200.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
@@ -72,14 +76,46 @@ class CookRecipe extends StatelessWidget {
                           )
                         ],
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.r),
-                        child: Image.network(
-                          "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg",
-
-                          fit: BoxFit.fitWidth,
-                          width: 343.w,
-                          height: 200.w,
+                      child: CachedNetworkImage(
+                        cacheManager: CustomCacheManager.customCacheManager,
+                        imageUrl: recipe.imageUrl != ""
+                            ? recipe.imageUrl!
+                            : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
+                                "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
+                                "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
+                                "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.r),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        progressIndicatorBuilder: (context, string, progress) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: progress.progress,
+                                color: Palette.orange500,
+                              ),
+                            ),
+                          );
+                        },
+                        errorWidget: (context, string, dymamic) => Container(
+                          child: const Center(
+                            child: Icon(
+                              PhosphorIcons.warning,
+                              color: Palette.orange500,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
                         ),
                       ),
                     ),
@@ -227,7 +263,7 @@ class CookRecipe extends StatelessWidget {
                             Text(
                               'Xem tất cả',
                               style: CustomTextTheme.bodyText1.copyWith(
-                                color: Palette.pink300,
+                                color: Palette.pink500,
                                 fontSize: 14.sp,
                               ),
                             ),
@@ -302,7 +338,10 @@ class CookRecipe extends StatelessWidget {
                               TextButton(
                                 onPressed: () => Navigator.of(context)
                                     .pushNamed(RouteManager.stepsToCooking,
-                                        arguments: recipe.steps),
+                                        arguments: {
+                                      "step": recipe.steps,
+                                      "name": recipe.name,
+                                    }),
                                 child: Row(
                                   children: [
                                     Text(
@@ -330,7 +369,7 @@ class CookRecipe extends StatelessWidget {
     );
   }
 
-  Widget listIngredient(Ingredient ingredient) {
+  Widget listIngredient(IngredientRecipe ingredient) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Row(
@@ -338,9 +377,44 @@ class CookRecipe extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://pbs.twimg.com/profile_images/683842208500285440/-kb4Pf8k_400x400.jpg"),
+              CachedNetworkImage(
+                imageUrl: ingredient.url ??
+                    "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
+                        "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
+                        "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
+                        "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                imageBuilder: (context, imageProvider) {
+                  return CircleAvatar(
+                    backgroundImage: imageProvider,
+                  );
+                },
+                progressIndicatorBuilder: (context, string, progress) {
+                  return CircleAvatar(
+                    backgroundColor: Palette.backgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: progress.progress,
+                          color: Palette.orange500,
+                          strokeWidth: 2,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                errorWidget: (context, string, dymamic) => const CircleAvatar(
+                  backgroundColor: Palette.backgroundColor,
+                  child: Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Center(
+                      child: Icon(
+                        PhosphorIcons.warning,
+                        color: Palette.orange500,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(width: 12.w),
               Text(

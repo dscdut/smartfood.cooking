@@ -74,6 +74,29 @@ class RecipeProvider extends ChangeNotifier {
     }
   ];
 
+  final List<Map<String, String>> newsData = [
+    {
+      'imageUrl':
+          'https://image.thanhnien.vn/w660/Uploaded/2022/bfznsfyr.bn/2019_11_11/sx/1_bulo.jpg',
+      'newsTitle': 'Nên ăn gì khi bị Covid-19',
+      'description':
+          'F0 sau thời gian điều trị COVID-19 có nguy cơ bị suy dinh dưỡng ở các mức độ khác nhau khiến cơ thể bị úng ba la xi bùa'
+    },
+    {
+      'imageUrl':
+          'https://genvita.vn/-/media/genvita/articles/desktops/uong-nuoc-ep-can-tay-feature.ashx?w=1920&h=1080&useCustomFunctions=1&centerCrop=1&hash=73BFF59106DA8D5A4E15A413BED817B52BD2A429',
+      'newsTitle': 'Tác dụng của nước ép cần tây',
+      'description':
+          'Nước ép cần tây không chỉ là thức uống giảm cân mà còn mang lại nhiều lợi ích cho da và tóc. Tác dụng ...'
+    },
+    {
+      'imageUrl':
+          'https://cdn.chiaki.vn/unsafe/0x800/left/top/smart/filters:quality(75)/https://chiaki.vn/upload/news/2021/05/thuc-don-giam-mo-bung-duoi-cho-nu-an-toan-17052021161539.jpg',
+      'newsTitle': 'Nên ăn gì để giảm mỡ bụng',
+      'description': 'Nên ăn gì để có thể giảm mỡ bung, giữ vóng dáng đẹp...'
+    }
+  ];
+
   final RecipeRepository recipeRepository;
   final listTodayRecipe = List.filled(5, false);
   var loadingData = DataLoadingStatus.idle;
@@ -86,7 +109,7 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   Future<void> findRecipe(BuildContext context,
-      {required Map<int, bool?> data}) async {
+      {required Map<int, bool?> data, bool isInSelectedScreen = false}) async {
     try {
       var listId = <int>[];
       data.forEach(
@@ -105,8 +128,11 @@ class RecipeProvider extends ChangeNotifier {
             RouteManager.notFound,
           );
         } else {
-          Navigator.pushNamed(context, RouteManager.selectRecipe,
-              arguments: recipes);
+          isInSelectedScreen
+              ? Navigator.popAndPushNamed(context, RouteManager.selectRecipe,
+                  arguments: recipes)
+              : Navigator.pushNamed(context, RouteManager.selectRecipe,
+                  arguments: recipes);
         }
       });
     } catch (e) {

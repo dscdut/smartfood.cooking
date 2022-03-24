@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
-import 'package:mobile/src/modules/user_choice/widget/item_choice.dart';
+import 'package:mobile/src/modules/user_choice/widgets/item_choice.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,8 @@ class AllergicFoodPage extends StatelessWidget {
               icon: const Icon(
                 PhosphorIcons.magnifyingGlass,
               ),
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.pushNamed(context, RouteManager.allergicChoice),
               splashRadius: 24.sp,
               color: Palette.gray500,
               iconSize: 32.sp,

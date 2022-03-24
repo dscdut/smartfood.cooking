@@ -33,21 +33,21 @@ class BaseApi {
     final header = {
       "Content-Type": 'application/json',
     };
-    // try {
-    final uri = '${dotenv.env['BASE_URL']}$path';
-    log(jsonEncode(body));
-    final response = await http.post(Uri.parse(uri),
-        body: jsonEncode(body), headers: header);
-    if (response.statusCode == 200) {
-      log("Post in $path successfully");
-      return response.body;
-    } else {
-      log(response.body.toString());
-      throw Exception("Post fail in $path");
+    try {
+      final uri = '${dotenv.env['BASE_URL']}$path';
+      log(jsonEncode(body));
+      final response = await http.post(Uri.parse(uri),
+          body: jsonEncode(body), headers: header);
+      if (response.statusCode == 200) {
+        log("Post in $path successfully");
+        return response.body;
+      } else {
+        log(response.body.toString());
+        throw Exception("Post fail in $path");
+      }
+    } catch (e) {
+      throw ("Exception get in $path");
     }
-    // } catch (e) {
-    //   throw ("Exception get in $path");
-    // }
   }
 
   // T _returnResponse<T>(Response response) {
