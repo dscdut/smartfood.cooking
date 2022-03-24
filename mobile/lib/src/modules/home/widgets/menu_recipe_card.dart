@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:mobile/src/core/utils/custom_cache_manager.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
 
 class MenuRecipeCard extends StatelessWidget {
   const MenuRecipeCard({
@@ -49,16 +50,46 @@ class MenuRecipeCard extends StatelessWidget {
                 Expanded(
                   child: Stack(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20.r),
+                      CachedNetworkImage(
+                        cacheManager: CustomCacheManager.customCacheManager,
+                        imageUrl: imageUrl,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20.r),
+                            ),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          image: DecorationImage(
-                            image: Image.network(
-                              imageUrl,
-                            ).image,
-                            fit: BoxFit.cover,
+                        ),
+                        progressIndicatorBuilder: (context, string, progress) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20.r),
+                              ),
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: progress.progress,
+                                color: Palette.orange500,
+                              ),
+                            ),
+                          );
+                        },
+                        errorWidget: (context, string, dymamic) => Container(
+                          child: const Center(
+                            child: Icon(
+                              PhosphorIcons.warning,
+                              color: Palette.orange500,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20.r),
+                            ),
                           ),
                         ),
                       ),

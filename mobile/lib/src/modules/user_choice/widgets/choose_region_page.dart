@@ -12,7 +12,6 @@ class ChooseRegionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userChoiceProvider = context.read<UserChoiceProvider>();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

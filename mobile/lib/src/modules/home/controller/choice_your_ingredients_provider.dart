@@ -5,6 +5,7 @@ import 'package:mobile/src/data/model/ingredient.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 
 enum LoadingStatus { loading, error, idle }
+enum SearchLoadingStatus { loading, error, idle }
 
 class ChoiceYourIngredientsProvider with ChangeNotifier {
   // STATIC DATA for Choose Your Material screen
@@ -15,16 +16,19 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   var selectedData = <int, bool?>{};
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
+  var searchStatus = SearchLoadingStatus.idle;
   int page = 2;
+  bool isAll = true;
   final IngredientRepository ingredientRepository;
+  late TextEditingController searchEditingController;
 
   ChoiceYourIngredientsProvider({required this.ingredientRepository}) {
+    searchEditingController = TextEditingController();
     selectedTypeList = List<bool>.filled(13, false, growable: true)
       ..first = true;
     loadIngredientData().then((value) {
-
       ingredientFilterData.addAll(ingredientData);
-      selectedData = {for (var e in ingredientData) e.id: false};
+      selectedData = {for (var e in ingredientData) e.id!: false};
       print(selectedData);
     });
   }
@@ -34,6 +38,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     notifyListeners();
     try {
       ingredientData = await ingredientRepository.getListIngredients(1);
+
       if (ingredientData.isNotEmpty) {
         status = LoadingStatus.idle;
       } else {
@@ -54,7 +59,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         (data) {
           ingredientData.addAll(data);
           ingredientFilterData.addAll(data);
-          selectedData.addAll({for (var e in data) e.id: false});
+          selectedData.addAll({for (var e in data) e.id!: false});
           page++;
         },
       );
@@ -88,8 +93,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       log(ingredientData.length.toString());
       ingredientFilterData.addAll(ingredientData);
       log(ingredientFilterData.length.toString());
+      isAll = true;
     } else if (index != 0) {
       print(index);
+      isAll = false;
       selectedTypeList[index] = value;
       selectedTypeList[0] = false;
       ingredientFilterData.clear();
@@ -110,11 +117,71 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
       ingredientFilterData.addAll(ingredientData);
+      isAll = true;
     }
     for (var e in ingredientFilterData) {
-      log(e.name);
+      log(e.name!);
     }
-    log("=============================================");
+    log("==============================================================");
     notifyListeners();
+  }
+
+  void onDeleteAction(int id) {
+    selectedData.update(id, (value) => value = false);
+    notifyListeners();
+  }
+
+  void onDeleteAllAction() {
+    selectedData.updateAll(((key, value) => value = false));
+    notifyListeners();
+  }
+
+  Future<void> onSearchWithValue(String value) async {
+    searchStatus = SearchLoadingStatus.idle;
+    if (value == "") {
+      ingredientFilterData.clear();
+      ingredientFilterData.addAll(ingredientData);
+      log(ingredientData.length.toString());
+    } else {
+      ingredientFilterData = ingredientFilterData
+          .where(
+            (element) =>
+                element.name!.toLowerCase().contains(value.toLowerCase()),
+          )
+          .toList();
+
+      if (ingredientFilterData.isEmpty) {
+        searchStatus = SearchLoadingStatus.loading;
+        notifyListeners();
+        await ingredientRepository.searchIngredients(value).then((data) {
+          if (data.isNotEmpty) {
+            log(data.toString());
+            ingredientFilterData.addAll(data);
+            selectedData.addAll({for (var e in data) e.id!: false});
+
+            searchStatus = SearchLoadingStatus.idle;
+          } else {
+            searchStatus = SearchLoadingStatus.error;
+          }
+        }).onError(((error, stackTrace) {
+          searchStatus = SearchLoadingStatus.error;
+        }));
+      }
+      log(ingredientFilterData.length.toString());
+    }
+    notifyListeners();
+  }
+
+  void clearSearch() {
+    searchEditingController.clear();
+    ingredientFilterData.clear();
+    ingredientFilterData.addAll(ingredientData);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    searchEditingController.dispose();
+    super.dispose();
   }
 }

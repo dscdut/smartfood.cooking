@@ -29,4 +29,5 @@ class ImagePath {
       "assets/images/foods_drinks/vegetarian_dish.png";
 
   static const String gmailLogo = "assets/images/decoration/lg_gmail.svg";
+  static const String logoFridge = "assets/images/logos/ic_fridger_no_hat.svg";
 }

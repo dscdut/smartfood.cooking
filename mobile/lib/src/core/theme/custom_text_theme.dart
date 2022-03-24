@@ -68,4 +68,10 @@ class CustomTextTheme {
     letterSpacing: 0.15,
     fontWeight: FontWeight.w400,
   );
+  static final bodyText4 = TextStyle(
+    fontSize: 8.sp,
+    height: 10.sp / 8.sp,
+    letterSpacing: 0.15,
+    fontWeight: FontWeight.w400,
+  );
 }

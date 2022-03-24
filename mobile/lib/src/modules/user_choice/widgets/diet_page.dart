@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
-import 'package:mobile/src/modules/user_choice/widget/item_choice.dart';
+import 'package:mobile/src/modules/user_choice/widgets/item_choice.dart';
 import 'package:provider/provider.dart';
 
 class DietPage extends StatelessWidget {

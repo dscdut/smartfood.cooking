@@ -9,18 +9,12 @@ import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/home/widgets/diet_mode_card.dart';
 import 'package:mobile/src/modules/home/widgets/menu_button.dart';
 import 'package:mobile/src/modules/home/widgets/menu_recipe_card.dart';
-import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
+import 'package:mobile/src/modules/home/widgets/news_card.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final recipeProvider = context.read<RecipeProvider>();
@@ -125,34 +119,30 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 8.h),
             SizedBox(
               height: 220.h,
-              child: ScrollConfiguration(
-                behavior: NoShowLimitScroll(),
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
-                  itemCount: recipeProvider.menuData.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Consumer<RecipeProvider>(
-                        builder: (context, provider, child) {
-                      return MenuRecipeCard(
-                        imageUrl:
-                            provider.menuData[index]["imageUrl"] as String,
-                        isFavorite: provider.listTodayRecipe[index],
-                        level: provider.menuData[index]["level"] as String,
-                        recipeName: provider.menuData[index]["name"] as String,
-                        timeNeed: provider.menuData[index]["time"] as String,
-                        onMenuCardAction: () {},
-                        onFavoriteAction: () {
-                          recipeProvider.favoriteRecipeAction(index);
-                        },
-                      );
-                    });
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: 26.w);
-                  },
-                ),
+              child: ListView.separated(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                itemCount: recipeProvider.menuData.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Consumer<RecipeProvider>(
+                      builder: (context, provider, child) {
+                    return MenuRecipeCard(
+                      imageUrl: provider.menuData[index]["imageUrl"] as String,
+                      isFavorite: provider.listTodayRecipe[index],
+                      level: provider.menuData[index]["level"] as String,
+                      recipeName: provider.menuData[index]["name"] as String,
+                      timeNeed: provider.menuData[index]["time"] as String,
+                      onMenuCardAction: () {},
+                      onFavoriteAction: () {
+                        recipeProvider.favoriteRecipeAction(index);
+                      },
+                    );
+                  });
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 26.w);
+                },
               ),
             ),
             SizedBox(
@@ -171,38 +161,38 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 8.h),
             SizedBox(
               height: 240.h,
-              child: ScrollConfiguration(
-                behavior: NoShowLimitScroll(),
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
-                  itemCount: recipeProvider.dietModeData.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Consumer<RecipeProvider>(
-                        builder: (context, provider, child) {
-                      return DietModeCard(
-                        imageUrl:
-                            provider.dietModeData[index]["imageUrl"] as String,
-                        joinedCount: provider.dietModeData[index]["joinedCount"]
-                            as String,
-                        modeName:
-                            provider.dietModeData[index]["modeName"] as String,
-                        noMenu: provider.dietModeData[index]["menu"] as String,
-                        onTapAction: () {},
-                      );
-                    });
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: 25.w);
-                  },
-                ),
+              child: ListView.separated(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                itemCount: recipeProvider.dietModeData.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Consumer<RecipeProvider>(
+                      builder: (context, provider, child) {
+                    return DietModeCard(
+                      imageUrl:
+                          provider.dietModeData[index]["imageUrl"] as String,
+                      joinedCount:
+                          provider.dietModeData[index]["joinedCount"] as String,
+                      modeName:
+                          provider.dietModeData[index]["modeName"] as String,
+                      noMenu: provider.dietModeData[index]["menu"] as String,
+                      onTapAction: () {},
+                    );
+                  });
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 25.w);
+                },
               ),
+            ),
+            SizedBox(
+              height: 20.h,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14.0.w),
               child: Text(
-                "Chế độ ăn",
+                "SmartFood News",
                 style: CustomTextTheme.headline2.copyWith(
                   color: Palette.pink500,
                   fontSize: 30.sp,
@@ -211,33 +201,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 8.h),
             SizedBox(
-              height: 240.h,
-              child: ScrollConfiguration(
-                behavior: NoShowLimitScroll(),
-                child: ListView.separated(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
-                  itemCount: recipeProvider.dietModeData.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Consumer<RecipeProvider>(
-                        builder: (context, provider, child) {
-                      return DietModeCard(
-                        imageUrl:
-                            provider.dietModeData[index]["imageUrl"] as String,
-                        joinedCount: provider.dietModeData[index]["joinedCount"]
-                            as String,
-                        modeName:
-                            provider.dietModeData[index]["modeName"] as String,
-                        noMenu: provider.dietModeData[index]["menu"] as String,
-                        onTapAction: () {},
+              height: 220.h,
+              child: ListView.separated(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 14.0.w, vertical: 8.h),
+                itemCount: recipeProvider.newsData.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Consumer<RecipeProvider>(
+                    builder: (context, provider, child) {
+                      return NewsCard(
+                        description: provider.newsData[index]["description"]!,
+                        imageUrl: provider.newsData[index]["imageUrl"]!,
+                        title: provider.newsData[index]["newsTitle"]!,
                       );
-                    });
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(width: 25.w);
-                  },
-                ),
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 25.w);
+                },
               ),
             ),
           ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/core/theme/palette.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class LoadingCircle extends StatelessWidget {
-  const LoadingCircle({Key? key, this.content}) : super(key: key);
+class ErrorMessage extends StatelessWidget {
+  const ErrorMessage({Key? key, this.content}) : super(key: key);
 
   final String? content;
   @override
@@ -13,8 +14,10 @@ class LoadingCircle extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircularProgressIndicator(
-              color: Palette.pink500,
+            const Icon(
+              PhosphorIcons.warning,
+              color: Palette.orange500,
+              size: 32,
             ),
             Text(
               content ?? "",

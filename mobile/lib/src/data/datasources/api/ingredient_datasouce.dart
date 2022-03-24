@@ -5,7 +5,6 @@
 // import 'package:mobile/src/data/datasources/api/base_api.dart';
 
 // class IngredientDatasource{
-  
 
 //   @override
 //   Future<String> getMethod(String path) async {
@@ -26,9 +25,9 @@
 //   @override
 //   Future<String> postMethod(String path,
 //       {required Map<String, dynamic> body}) async {
-    // final header = {
-    //   "Content-Type": 'application/json',
-    // };
+// final header = {
+//   "Content-Type": 'application/json',
+// };
 
 //     final url = "${dotenv.get("BASE_URL")}$path";
 //     try {
@@ -56,6 +55,5 @@
 //     // TODO: implement putMethod
 //     throw UnimplementedError();
 //   }
-
 
 // }
