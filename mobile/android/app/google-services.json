@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "133017922113-9u36lcqgen2sh3knta1t4g1s1prrj421.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dscdut.smartfood",
+            "certificate_hash": "df5a7219ef4008d29058315fd4e099643e559175"
+          }
+        },
+        {
+          "client_id": "133017922113-c505rpmgqemg0hd8n5mfh0sku8elu9rt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dscdut.smartfood",
+            "certificate_hash": "e0f5e0f8ff7fd725ca6eafe4beb8af33ee224d40"
+          }
+        },
+        {
           "client_id": "133017922113-jqkpa1pr19nkc38jbsnei5e639ue571g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +53,13 @@
             {
               "client_id": "133017922113-s4q3rlr3thfiv1psdj00lsa7p4mkh1fq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "133017922113-e9m669d5k3cbrc4l4d2rmr75qmmjj1qf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gdscdut.smartfood"
+              }
             }
           ]
         }
