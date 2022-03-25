@@ -46,7 +46,7 @@ class BaseApi {
         throw Exception("Post fail in $path");
       }
     } catch (e) {
-      throw ("Exception get in $path");
+      throw Exception(e.toString());
     }
   }
 
