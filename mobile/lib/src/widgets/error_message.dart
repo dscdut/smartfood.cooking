@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -19,6 +20,7 @@ class ErrorMessage extends StatelessWidget {
               color: Palette.orange500,
               size: 32,
             ),
+            SizedBox(height: 12.h),
             Text(
               content ?? "",
               style: const TextStyle(

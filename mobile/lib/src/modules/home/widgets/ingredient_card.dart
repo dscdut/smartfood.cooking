@@ -40,8 +40,8 @@ class IngredientCard extends StatelessWidget {
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            height: 100.h,
-            width: 100.h,
+            height: 105.h,
+            width: 105.h,
             decoration: BoxDecoration(
               color: Palette.backgroundColor,
               border: onDeleteAction == null
@@ -117,16 +117,13 @@ class IngredientCard extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 5.0.w,
-                      vertical: 3.h,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Center(
                       child: Text(
                         materialName,
                         style: CustomTextTheme.bodyText1.copyWith(
                           color: Palette.gray500,
-                          fontSize: 13.sp,
+                          fontSize: 12.sp,
                         ),
                         textAlign: TextAlign.center,
                         maxLines: 2,
@@ -139,8 +136,8 @@ class IngredientCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 12,
-            right: 12,
+            top: 10,
+            right: 10,
             child: onDeleteAction == null
                 ? IgnorePointer(
                     ignoring: true,
