@@ -30,13 +30,6 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
   int indexCurrentPage = 0;
   bool isImagePageLast = false;
 
-  final listImageStep = [
-    "assets/images/temp/b1.png",
-    "assets/images/temp/b2.png",
-    "assets/images/temp/b3.png",
-    "assets/images/temp/b3.png",
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -89,14 +82,18 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   CustomBackButton(
                     onPressedFunction: () => Navigator.pop(context),
                   ),
-                  Text(
+                  SizedBox(width: 8.w),
+                  Expanded(
+                      child: Text(
                     nameRecipe,
-                    style: CustomTextTheme.headline2
-                        .copyWith(color: Palette.pink500),
-                  ),
-                  SizedBox(
-                    width: 28.w,
-                  )
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: CustomTextTheme.headline2.copyWith(
+                      color: Palette.pink500,
+                      fontSize: 24.sp,
+                    ),
+                  )),
+                  SizedBox(width: 22.w),
                 ],
               ),
             ),

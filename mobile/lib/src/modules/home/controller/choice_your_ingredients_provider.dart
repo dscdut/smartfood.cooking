@@ -97,6 +97,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     } else if (index != 0) {
       print(index);
       isAll = false;
+      selectedTypeList = List<bool>.filled(13, false, growable: false);
       selectedTypeList[index] = value;
       selectedTypeList[0] = false;
       ingredientFilterData.clear();

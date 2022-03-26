@@ -242,7 +242,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                   ),
                 ),
                 SizedBox(
-                  height: 12.h,
+                  height: 8.h,
                 ),
                 Expanded(
                   child: Consumer<ChoiceYourIngredientsProvider>(
