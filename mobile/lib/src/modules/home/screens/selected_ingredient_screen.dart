@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +39,9 @@ class SelectedIngredientScreen extends StatelessWidget {
                     style: CustomTextTheme.headline2
                         .copyWith(color: Palette.pink500, fontSize: 26.sp),
                   ),
-                  const SizedBox()
+                  const CustomBackButton(
+                    isHide: true,
+                  ),
                 ],
               ),
             ),
@@ -50,16 +54,19 @@ class SelectedIngredientScreen extends StatelessWidget {
                   final listSelectedIngredient = provider.selectedData.entries
                       .where((entry) => entry.value == true)
                       .toList();
-
                   return GridView.builder(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.w,
+                      vertical: 16.h,
+                    ),
                     itemCount: listSelectedIngredient.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (context, index) {
-                      final Ingredient data = provider.ingredientFilterData
+                      log(listSelectedIngredient[index].key.toString());
+                      final Ingredient data = provider.ingredientData
                           .firstWhere((element) =>
                               element.id == listSelectedIngredient[index].key);
                       return IngredientCard(
@@ -118,7 +125,10 @@ class SelectedIngredientScreen extends StatelessWidget {
                     .where((entry) => entry.value == true)
                     .isNotEmpty
                 ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0.w,
+                      vertical: 8.h,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

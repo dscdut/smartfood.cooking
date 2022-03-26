@@ -92,6 +92,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
           ),
         ),
+        SizedBox(
+          height: 8.h,
+        ),
         Center(
           child: Text.rich(
             TextSpan(
@@ -109,7 +112,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     fontSize: 15.sp,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => print('Sign in'),
+                    ..onTap = () => Navigator.pop(context),
                 ),
               ],
             ),
