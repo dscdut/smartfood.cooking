@@ -207,10 +207,10 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                   ),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 16.h,
                 ),
                 SizedBox(
-                  height: 50.h,
+                  height: 60.h,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
@@ -241,9 +241,6 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                     },
                   ),
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
                 Expanded(
                   child: Consumer<ChoiceYourIngredientsProvider>(
                     builder: (_, provider, __) {
@@ -266,7 +263,10 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             content: "Đã có lỗi xảy ra, vui lòng thử lại!");
                       } else {
                         return GridView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 8.h,
+                          ),
                           controller: _scrollController,
                           itemCount: provider.ingredientFilterData.length,
                           gridDelegate:
@@ -275,16 +275,22 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                           ),
                           itemBuilder: (context, index) {
                             return IngredientCard(
-                              imageUrl:
-                                  provider.ingredientFilterData[index].url!,
-                              materialName:
-                                  provider.ingredientFilterData[index].name!,
-                              isSelected: provider.selectedData[
-                                  provider.ingredientFilterData[index].id]!,
+                              imageUrl: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .url!,
+                              materialName: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .name!,
+                              isSelected: provider.selectedData[provider
+                                  .ingredientFilterData
+                                  .elementAt(index)
+                                  .id]!,
                               onMaterialTap: () =>
                                   provider.onTapIngredientsCard(
                                 index,
-                                provider.ingredientFilterData[index].id!,
+                                provider.ingredientFilterData
+                                    .elementAt(index)
+                                    .id!,
                               ),
                             );
                           },
@@ -294,7 +300,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                   ),
                 ),
                 Consumer<ChoiceYourIngredientsProvider>(
-                  builder: ((context, provider, child) {
+                  builder: (context, provider, child) {
                     return provider.isLoadingMore
                         ? const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -305,7 +311,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             ),
                           )
                         : const SizedBox();
-                  }),
+                  },
                 ),
                 Consumer<ChoiceYourIngredientsProvider>(
                   builder: (context, provider, child) {

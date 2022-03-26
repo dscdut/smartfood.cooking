@@ -15,6 +15,7 @@ class IngredientCard extends StatelessWidget {
     this.onMaterialTap,
     this.onDeleteAction,
   }) : super(key: key);
+
   final bool? isSelected;
   final String imageUrl;
   final String materialName;
@@ -40,8 +41,8 @@ class IngredientCard extends StatelessWidget {
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            height: 105.h,
-            width: 105.h,
+            height: 115.h,
+            width: 115.h,
             decoration: BoxDecoration(
               color: Palette.backgroundColor,
               border: onDeleteAction == null
@@ -63,7 +64,7 @@ class IngredientCard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Flexible(
+                Expanded(
                   flex: 4,
                   child: CachedNetworkImage(
                     cacheManager: CustomCacheManager.customCacheManager,
@@ -76,7 +77,7 @@ class IngredientCard extends StatelessWidget {
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(12.r),
+                          top: Radius.circular(10.r),
                         ),
                         image: DecorationImage(
                           image: imageProvider,
@@ -114,7 +115,7 @@ class IngredientCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Flexible(
+                Expanded(
                   flex: 2,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
@@ -123,7 +124,7 @@ class IngredientCard extends StatelessWidget {
                         materialName,
                         style: CustomTextTheme.bodyText1.copyWith(
                           color: Palette.gray500,
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
                         ),
                         textAlign: TextAlign.center,
                         maxLines: 2,
@@ -136,8 +137,8 @@ class IngredientCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 10,
-            right: 10,
+            top: 4,
+            right: 4,
             child: onDeleteAction == null
                 ? IgnorePointer(
                     ignoring: true,
@@ -151,23 +152,27 @@ class IngredientCard extends StatelessWidget {
                       onChanged: (bool? value) {},
                     ),
                   )
-                : IconButton(
-                    constraints: const BoxConstraints(),
-                    splashRadius: 20,
-                    icon: Container(
-                      decoration: const BoxDecoration(
-                        color: Palette.backgroundColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const FittedBox(
-                        fit: BoxFit.fill,
-                        child: Icon(
-                          PhosphorIcons.xCircleFill,
-                          color: Palette.pink500,
+                : ClipOval(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        splashRadius: 18,
+                        icon: Container(
+                          decoration: const BoxDecoration(
+                            color: Palette.backgroundColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const FittedBox(
+                            fit: BoxFit.fill,
+                            child: Icon(
+                              PhosphorIcons.xCircleFill,
+                              color: Palette.pink500,
+                            ),
+                          ),
                         ),
+                        onPressed: onDeleteAction,
                       ),
                     ),
-                    onPressed: onDeleteAction,
                   ),
           ),
         ],
