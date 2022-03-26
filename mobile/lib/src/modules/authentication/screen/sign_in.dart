@@ -6,9 +6,9 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
-import 'package:mobile/src/di/injector.dart';
+import 'package:mobile/src/modules/authentication/controllers/sign_in_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -40,6 +40,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final SignInProvider signInProvider = context.read<SignInProvider>();
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -292,30 +294,32 @@ class _SignInState extends State<SignIn> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 25.w,
-                            ),
-                            Image.asset(
-                              'assets/images/decoration/google.png',
-                              height: 20.r,
-                              width: 20.r,
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            Text(
-                              'Đăng nhập bằng Google',
-                              style: CustomTextTheme.headline4
-                                  .copyWith(color: Palette.gray500),
-                            )
-                          ],
-                        ),
-                        onPressed: () =>
-                            getIt<FirebaseService>().signInWithGoogle(),
-                      ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 25.w,
+                              ),
+                              Image.asset(
+                                'assets/images/decoration/google.png',
+                                height: 20.r,
+                                width: 20.r,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                'Đăng nhập bằng Google',
+                                style: CustomTextTheme.headline4
+                                    .copyWith(color: Palette.gray500),
+                              )
+                            ],
+                          ),
+                          onPressed: () async {
+                            await signInProvider.onTapSigninWithGoogle();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                RouteManager.mainScreen, (route) => false);
+                          }),
                     ),
                     Container(
                       margin: const EdgeInsets.all(21),

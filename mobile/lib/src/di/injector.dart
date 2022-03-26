@@ -4,8 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 import 'package:mobile/src/data/datasources/api/base_api.dart';
 import 'package:mobile/src/data/datasources/firebase/firebase_service.dart';
+import 'package:mobile/src/data/repositories/authentication_repository.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 import 'package:mobile/src/data/repositories/recipe_repository.dart';
+import 'package:mobile/src/modules/authentication/controllers/sign_in_provider.dart';
 import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
 import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
@@ -23,7 +25,7 @@ void initDependences() {
   ///
   getIt.registerLazySingleton<FirebaseService>(
     () => FirebaseService(
-      authService: getIt(),
+      firebaseAuth: getIt(),
       googleSignIn: getIt(),
       http: getIt(),
     ),
@@ -38,6 +40,11 @@ void initDependences() {
       () => IngredientRepository(baseApi: getIt()));
   getIt.registerLazySingleton<RecipeRepository>(
       () => RecipeRepository(baseApi: getIt()));
+  getIt.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepository(
+            baseApi: getIt(),
+            firebaseService: getIt(),
+          ));
 
   ///ChangeNotifier
   ///
@@ -50,4 +57,7 @@ void initDependences() {
 
   getIt.registerFactory<RecipeProvider>(
       () => RecipeProvider(recipeRepository: getIt()));
+
+  getIt.registerFactory<SignInProvider>(
+      () => SignInProvider(authenticationRepository: getIt()));
 }
