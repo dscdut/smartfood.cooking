@@ -137,8 +137,8 @@ class IngredientCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0.h,
-            right: 0.w,
+            top: -4.h,
+            right: -4.w,
             child: onDeleteAction == null
                 ? IgnorePointer(
                     ignoring: true,
