@@ -139,6 +139,34 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         });
         notifyListeners();
       }
+
+      /// In case current data ```isEmpty```
+      ///
+      if (ingredientFilterData.isEmpty &&
+          ingredientData
+              .where(
+                (data) => data.categoryId == index,
+              )
+              .isEmpty) {
+        searchStatus = SearchLoadingStatus.loading;
+        notifyListeners();
+        await ingredientRepository
+            .getListIngredientByCategory(index)
+            .then((data) {
+          ingredientData.addAll(data);
+          //sort
+          final temp = ingredientData.toList();
+          temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
+          ingredientData = temp.toSet();
+          ingredientFilterData.addAll(data);
+          selectedData.addAll({for (var e in data) e.id!: false});
+
+          searchStatus = SearchLoadingStatus.idle;
+        }).catchError((err) {
+          searchStatus = SearchLoadingStatus.error;
+        });
+        notifyListeners();
+      }
     }
     if (selectedTypeList.every(
       (element) => element == false,

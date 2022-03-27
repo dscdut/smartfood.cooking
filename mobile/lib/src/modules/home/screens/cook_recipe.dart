@@ -348,17 +348,10 @@ class CookRecipe extends StatelessWidget {
                             const Icon(
                               PhosphorIcons.cookingPotBold,
                               color: Palette.backgroundColor,
+                              fontSize: 18.sp,
                             ),
-                            SizedBox(width: 6.w),
-                            Text(
-                              'Bắt đầu nấu ăn!',
-                              style: CustomTextTheme.headline4.copyWith(
-                                color: Palette.backgroundColor,
-                                fontSize: 18.sp,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   )

@@ -37,7 +37,7 @@ class RecipeCard extends StatelessWidget {
           );
         });
       },
-      child: Container(
+      child: Ink(
         height: 140.h,
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
