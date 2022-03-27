@@ -64,7 +64,6 @@ class _SelectRecipeState extends State<SelectRecipe> {
                 child: ScrollConfiguration(
                   behavior: NoShowLimitScroll(),
                   child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     itemCount: listFound.length,
                     itemBuilder: (context, index) {
                       return RecipeCard(recipe: listFound[index]);

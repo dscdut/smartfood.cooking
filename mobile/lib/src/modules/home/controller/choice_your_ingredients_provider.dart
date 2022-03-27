@@ -10,15 +10,14 @@ enum SearchLoadingStatus { loading, error, idle }
 class ChoiceYourIngredientsProvider with ChangeNotifier {
   // STATIC DATA for Choose Your Material screen
 
-  var ingredientData = <Ingredient>{};
-  var ingredientFilterData = <Ingredient>{};
+  var ingredientData = <Ingredient>[];
+  var ingredientFilterData = <Ingredient>[];
   var selectedTypeList = <bool>[];
   var selectedData = <int, bool?>{};
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
   var searchStatus = SearchLoadingStatus.idle;
   int page = 2;
-  //TODO: convert to list pagnation to control fitler ingredients by category id
   bool isAll = true;
   final IngredientRepository ingredientRepository;
   late TextEditingController searchEditingController;
@@ -38,9 +37,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     status = LoadingStatus.loading;
     notifyListeners();
     try {
-      await ingredientRepository.getListIngredients(1).then((value) {
-        ingredientData.addAll(value);
-      });
+      ingredientData = await ingredientRepository.getListIngredients(1);
 
       if (ingredientData.isNotEmpty) {
         status = LoadingStatus.idle;
@@ -60,10 +57,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     try {
       await ingredientRepository.getListIngredients(page).then(
         (data) {
-          page++;
           ingredientData.addAll(data);
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id!: false});
+          page++;
         },
       );
     } catch (e) {
@@ -88,7 +85,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onSelected(bool value, int index) async {
+  void onSelected(bool value, int index) {
     if (index == 0 && selectedTypeList[index] == false) {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
@@ -112,34 +109,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
             ),
           );
         }
-      }
-
-      /// In case current data ```isEmpty```
-      ///
-      if (ingredientFilterData.isEmpty &&
-          ingredientData
-              .where(
-                (data) => data.categoryId == index,
-              )
-              .isEmpty) {
-        searchStatus = SearchLoadingStatus.loading;
-        notifyListeners();
-        await ingredientRepository
-            .getListIngredientByCategory(index)
-            .then((data) {
-          ingredientData.addAll(data);
-          //sort
-          final temp = ingredientData.toList();
-          temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
-          ingredientData = temp.toSet();
-          ingredientFilterData.addAll(data);
-          selectedData.addAll({for (var e in data) e.id!: false});
-
-          searchStatus = SearchLoadingStatus.idle;
-        }).catchError((err) {
-          searchStatus = SearchLoadingStatus.error;
-        });
-        notifyListeners();
       }
     }
     if (selectedTypeList.every(
@@ -180,13 +149,14 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
             (element) =>
                 element.name!.toLowerCase().contains(value.toLowerCase()),
           )
-          .toSet();
+          .toList();
 
       if (ingredientFilterData.isEmpty) {
         searchStatus = SearchLoadingStatus.loading;
         notifyListeners();
         await ingredientRepository.searchIngredients(value).then((data) {
           if (data.isNotEmpty) {
+            log(data.toString());
             ingredientFilterData.addAll(data);
             selectedData.addAll({for (var e in data) e.id!: false});
 
@@ -194,7 +164,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           } else {
             searchStatus = SearchLoadingStatus.error;
           }
-        }).catchError(((err) {
+        }).onError(((error, stackTrace) {
           searchStatus = SearchLoadingStatus.error;
         }));
       }

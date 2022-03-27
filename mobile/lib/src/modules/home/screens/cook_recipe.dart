@@ -45,9 +45,7 @@ class CookRecipe extends StatelessWidget {
                       fontSize: 24.sp,
                     ),
                   )),
-                  const CustomBackButton(
-                    isHide: true,
-                  ),
+                  SizedBox(width: 22.w),
                 ],
               ),
             ),
@@ -238,121 +236,122 @@ class CookRecipe extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8.h),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Dinh dưỡng',
-                          style: CustomTextTheme.headline3.copyWith(
-                            color: Palette.gray500,
-                            fontSize: 21.sp,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          'Xem tất cả',
-                          style: CustomTextTheme.bodyText1.copyWith(
-                            color: Palette.pink500,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        NutritionCard(
-                            nameNutrition: 'Đạm', valueNutrition: '50g'),
-                        NutritionCard(
-                          nameNutrition: "Chất béo",
-                          valueNutrition: '50g',
-                        ),
-                        NutritionCard(
-                          nameNutrition: "Protein",
-                          valueNutrition: '50g',
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 24.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Text(
-                      'Nguyên liệu (' +
-                          recipe.ingredients!.length.toString() +
-                          ')',
-                      style: CustomTextTheme.headline3.copyWith(
-                        color: Palette.gray500,
-                        fontSize: 21.sp,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  SizedBox(
-                    height: 180.h,
-                    child: ScrollConfiguration(
-                      behavior: NoShowLimitScroll(),
-                      child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        children:
-                            recipe.ingredients!.map(listIngredient).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 90.w),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          RouteManager.stepsToCooking,
-                          arguments: {
-                            "step": recipe.steps,
-                            "name": recipe.name,
-                          },
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        fixedSize: Size(210.w, 45.h),
-                        backgroundColor: Palette.orange500,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
+              child: ScrollConfiguration(
+                behavior: NoShowLimitScroll(),
+                child: ListView(
+                  children: [
+                    SizedBox(height: 15.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            PhosphorIcons.cookingPotBold,
-                            color: Palette.backgroundColor,
-                          ),
-                          SizedBox(width: 6.w),
                           Text(
-                            'Bắt đầu nấu ăn!',
-                            style: CustomTextTheme.headline4.copyWith(
-                              color: Palette.backgroundColor,
-                              fontSize: 18.sp,
+                            'Dinh dưỡng',
+                            style: CustomTextTheme.headline3.copyWith(
+                              color: Palette.gray500,
+                              fontSize: 21.sp,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            'Xem tất cả',
+                            style: CustomTextTheme.bodyText1.copyWith(
+                              color: Palette.pink500,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  )
-                ],
+                    SizedBox(height: 15.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          NutritionCard(
+                              nameNutrition: 'Đạm', valueNutrition: '50g'),
+                          NutritionCard(
+                            nameNutrition: "Chất béo",
+                            valueNutrition: '50g',
+                          ),
+                          NutritionCard(
+                            nameNutrition: "Protein",
+                            valueNutrition: '50g',
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 24.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                      child: Text(
+                        'Nguyên liệu (' +
+                            recipe.ingredients!.length.toString() +
+                            ')',
+                        style: CustomTextTheme.headline3.copyWith(
+                          color: Palette.gray500,
+                          fontSize: 21.sp,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    SizedBox(
+                      height: 180.h,
+                      child: ScrollConfiguration(
+                        behavior: NoShowLimitScroll(),
+                        child: ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          children:
+                              recipe.ingredients!.map(listIngredient).toList(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: 90.w, right: 90.w, bottom: 18.h),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            RouteManager.stepsToCooking,
+                            arguments: {
+                              "step": recipe.steps,
+                              "name": recipe.name,
+                            },
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                            fixedSize: Size(210.w, 45.h),
+                            backgroundColor: Palette.orange500,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              PhosphorIcons.cookingPotBold,
+                              color: Palette.backgroundColor,
+                            ),
+                            SizedBox(width: 6.w),
+                            Text(
+                              'Bắt đầu nấu ăn!',
+                              style: CustomTextTheme.headline4.copyWith(
+                                color: Palette.backgroundColor,
+                                fontSize: 18.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

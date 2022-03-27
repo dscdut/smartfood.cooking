@@ -16,9 +16,6 @@ class SignInProvider with ChangeNotifier {
   }
 
   Future<void> onTapSigninWithGoogle() async {
-    // ignore: unused_local_variable
     final UserData? newUser = await authenticationRepository.loginWithGoogle();
-
-    //TODO: action tap SignIn
   }
 }

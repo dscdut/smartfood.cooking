@@ -27,7 +27,7 @@ class DietModeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTapAction,
       child: Container(
-        width: 170.w,
+        width: 160.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
           color: Palette.backgroundColor,
