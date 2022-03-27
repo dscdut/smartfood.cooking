@@ -18,7 +18,6 @@ class CookRecipe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recipe = ModalRoute.of(context)!.settings.arguments as Recipe;
-    print(recipe.ingredients);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -123,6 +122,7 @@ class CookRecipe extends StatelessWidget {
                         Container(
                           width: 343.w,
                           height: 39.w,
+                          padding: EdgeInsets.only(left: 8.w),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(20.r),
@@ -138,21 +138,18 @@ class CookRecipe extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: 0.h,
-                                  left: 8.w,
-                                ),
-                                child: IconButton(
-                                  splashRadius: 24,
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    PhosphorIcons.heartFill,
+                              ClipOval(
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      PhosphorIcons.heartFill,
+                                    ),
+                                    color: Palette.orange500,
+                                    onPressed: () {},
                                   ),
-                                  color: Palette.orange500,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -300,8 +297,7 @@ class CookRecipe extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                   ),
-                  SizedBox(
-                    height: 180.h,
+                  Expanded(
                     child: ScrollConfiguration(
                       behavior: NoShowLimitScroll(),
                       child: ListView(
@@ -314,41 +310,43 @@ class CookRecipe extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 90.w),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          RouteManager.stepsToCooking,
-                          arguments: {
-                            "step": recipe.steps,
-                            "name": recipe.name,
-                          },
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        fixedSize: Size(210.w, 45.h),
-                        backgroundColor: Palette.orange500,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            RouteManager.stepsToCooking,
+                            arguments: {
+                              "step": recipe.steps,
+                              "name": recipe.name,
+                            },
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          fixedSize: Size(210.w, 45.h),
+                          backgroundColor: Palette.orange500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            PhosphorIcons.cookingPotBold,
-                            color: Palette.backgroundColor,
-                          ),
-                          SizedBox(width: 6.w),
-                          Text(
-                            'Bắt đầu nấu ăn!',
-                            style: CustomTextTheme.headline4.copyWith(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              PhosphorIcons.cookingPotBold,
                               color: Palette.backgroundColor,
-                              fontSize: 18.sp,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 6.w),
+                            Text(
+                              'Bắt đầu nấu ăn!',
+                              style: CustomTextTheme.headline4.copyWith(
+                                color: Palette.backgroundColor,
+                                fontSize: 18.sp,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -363,7 +361,7 @@ class CookRecipe extends StatelessWidget {
 
   Widget listIngredient(IngredientRecipe ingredient) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

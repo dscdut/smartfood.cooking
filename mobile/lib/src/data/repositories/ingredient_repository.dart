@@ -35,10 +35,10 @@ class IngredientRepository {
     }
   }
 
-  Future<List<Ingredient>> getListIngredientByCategory(int categoryId) async {
+  Future<List<Ingredient>> getListIngredientByCategory(int categoryId, int page) async {
     try {
       final dataRaw = await baseApi.postMethod(
-        "/ingredients/categories",
+        "/ingredients/categories?page=$page&size=12",
         body: <String, List<int>>{
           "ids": <int>[categoryId]
         },

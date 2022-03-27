@@ -20,8 +20,8 @@ class SelectedIngredientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).padding.top + 20.0.h,
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + 20.0.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +60,10 @@ class SelectedIngredientScreen extends StatelessWidget {
                       vertical: 16.h,
                     ),
                     itemCount: listSelectedIngredient.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
+                      mainAxisSpacing: 8.h,
+                      crossAxisSpacing: 8.w,
                     ),
                     itemBuilder: (context, index) {
                       log(listSelectedIngredient[index].key.toString());
@@ -127,7 +128,7 @@ class SelectedIngredientScreen extends StatelessWidget {
                 ? Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.0.w,
-                      vertical: 8.h,
+                      vertical: 16.h,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

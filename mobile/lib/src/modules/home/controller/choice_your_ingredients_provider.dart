@@ -17,8 +17,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
   var searchStatus = SearchLoadingStatus.idle;
-  int page = 2;
-  //TODO: convert to list pagnation to control fitler ingredients by category id
+  var listPageObserve = List<int>.filled(13, 1);
   bool isAll = true;
   final IngredientRepository ingredientRepository;
   late TextEditingController searchEditingController;
@@ -30,7 +29,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     loadIngredientData().then((value) {
       ingredientFilterData.addAll(ingredientData);
       selectedData = {for (var e in ingredientData) e.id!: false};
-      print(selectedData);
     });
   }
 
@@ -54,13 +52,13 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> loadMoreIngredientData() async {
+  Future<void> loadMoreAllIngredientData() async {
     isLoadingMore = true;
     notifyListeners();
     try {
-      await ingredientRepository.getListIngredients(page).then(
+      await ingredientRepository.getListIngredients(listPageObserve[0]).then(
         (data) {
-          page++;
+          listPageObserve[0]++;
           ingredientData.addAll(data);
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id!: false});
@@ -88,20 +86,18 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onSelected(bool value, int index) async {
+  Future<void> onSelected(int index) async {
     if (index == 0 && selectedTypeList[index] == false) {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
       ingredientFilterData.clear();
       log(ingredientData.length.toString());
       ingredientFilterData.addAll(ingredientData);
-      log(ingredientFilterData.length.toString());
       isAll = true;
     } else if (index != 0) {
-      print(index);
       isAll = false;
       selectedTypeList = List<bool>.filled(13, false, growable: false);
-      selectedTypeList[index] = value;
+      selectedTypeList[index] = !selectedTypeList[index];
       selectedTypeList[0] = false;
       ingredientFilterData.clear();
       for (int j = 1; j < selectedTypeList.length; j++) {
@@ -125,9 +121,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         searchStatus = SearchLoadingStatus.loading;
         notifyListeners();
         await ingredientRepository
-            .getListIngredientByCategory(index)
+            .getListIngredientByCategory(index, listPageObserve[index])
             .then((data) {
           ingredientData.addAll(data);
+          listPageObserve[index]++;
           //sort
           final temp = ingredientData.toList();
           temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
@@ -158,34 +155,35 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void onDeleteAction(int id) {
-    selectedData.update(id, (value) => value = false);
-    notifyListeners();
-  }
-
-  void onDeleteAllAction() {
-    selectedData.updateAll(((key, value) => value = false));
-    notifyListeners();
-  }
-
-  Future<void> onSearchWithValue(String value) async {
+  Future<void> onSearchWithValue() async {
     searchStatus = SearchLoadingStatus.idle;
-    if (value == "") {
+    if (searchEditingController.text.isEmpty) {
       ingredientFilterData.clear();
       ingredientFilterData.addAll(ingredientData);
       log(ingredientData.length.toString());
     } else {
-      ingredientFilterData = ingredientFilterData
-          .where(
-            (element) =>
-                element.name!.toLowerCase().contains(value.toLowerCase()),
-          )
-          .toSet();
+      if (selectedTypeList.indexOf(
+              selectedTypeList.firstWhere((element) => element == true)) !=
+          0) {
+        ingredientFilterData = ingredientFilterData
+            .where(
+              (element) => (element.name!
+                      .toLowerCase()
+                      .contains(searchEditingController.text.toLowerCase()) &&
+                  element.categoryId!.compareTo(selectedTypeList.indexOf(
+                          selectedTypeList
+                              .firstWhere((element) => element == true))) ==
+                      0),
+            )
+            .toSet();
+      }
 
       if (ingredientFilterData.isEmpty) {
         searchStatus = SearchLoadingStatus.loading;
         notifyListeners();
-        await ingredientRepository.searchIngredients(value).then((data) {
+        await ingredientRepository
+            .searchIngredients(searchEditingController.text)
+            .then((data) {
           if (data.isNotEmpty) {
             ingredientFilterData.addAll(data);
             selectedData.addAll({for (var e in data) e.id!: false});
@@ -203,10 +201,42 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadMoreIngredientsDataByCategory(int index, int page) async {
+    isLoadingMore = true;
+    notifyListeners();
+    try {
+      await ingredientRepository.getListIngredientByCategory(index, page).then(
+        (data) {
+          listPageObserve[index]++;
+          ingredientData.addAll(data);
+          ingredientFilterData.addAll(data);
+          selectedData.addAll({for (var e in data) e.id!: false});
+        },
+      );
+    } catch (e) {
+      isLoadingMore = false;
+    } finally {
+      isLoadingMore = false;
+      notifyListeners();
+    }
+  }
+
   void clearSearch() {
     searchEditingController.clear();
     ingredientFilterData.clear();
+    onSelected(selectedTypeList
+        .indexOf(selectedTypeList.firstWhere(((element) => element == true))));
     ingredientFilterData.addAll(ingredientData);
+    notifyListeners();
+  }
+
+  void onDeleteAction(int id) {
+    selectedData.update(id, (value) => value = false);
+    notifyListeners();
+  }
+
+  void onDeleteAllAction() {
+    selectedData.updateAll(((key, value) => value = false));
     notifyListeners();
   }
 
