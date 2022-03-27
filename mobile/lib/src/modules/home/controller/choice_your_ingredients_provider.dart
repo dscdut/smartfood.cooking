@@ -95,19 +95,20 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       ingredientFilterData.addAll(ingredientData);
       isAll = true;
     } else if (index != 0) {
-      isAll = false;
-      selectedTypeList = List<bool>.filled(13, false, growable: false);
-      selectedTypeList[index] = !selectedTypeList[index];
-      selectedTypeList[0] = false;
-      ingredientFilterData.clear();
-      for (int j = 1; j < selectedTypeList.length; j++) {
-        if (selectedTypeList[j] == true) {
-          ingredientFilterData.addAll(
-            ingredientData.where(
-              (data) => data.categoryId == j,
-            ),
-          );
+      if (!selectedTypeList[index]) {
+        isAll = false;
+        selectedTypeList = List<bool>.filled(13, false, growable: false);
+        selectedTypeList[index] = true;
+        selectedTypeList[0] = false;
+        ingredientFilterData.clear();
+        for (int j = 1; j < selectedTypeList.length; j++) {
+          if (selectedTypeList[j] == true) {
+            ingredientFilterData
+                .addAll(ingredientData.where((data) => data.categoryId == j));
+          }
         }
+      } else {
+        selectedTypeList[index] = false;
       }
 
       /// In case current data ```isEmpty```
@@ -159,43 +160,64 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     searchStatus = SearchLoadingStatus.idle;
     if (searchEditingController.text.isEmpty) {
       ingredientFilterData.clear();
-      ingredientFilterData.addAll(ingredientData);
+      if (selectedTypeList.indexOf(
+              selectedTypeList.firstWhere((element) => element == true)) !=
+          0) {
+        ingredientFilterData.addAll(
+          ingredientData.where((element) =>
+              element.categoryId!.compareTo(selectedTypeList.indexOf(
+                  selectedTypeList.firstWhere((element) => element == true))) ==
+              0),
+        );
+      } else {
+        ingredientFilterData.addAll(ingredientData);
+      }
       log(ingredientData.length.toString());
     } else {
       if (selectedTypeList.indexOf(
               selectedTypeList.firstWhere((element) => element == true)) !=
           0) {
         ingredientFilterData = ingredientFilterData
-            .where(
-              (element) => (element.name!
-                      .toLowerCase()
-                      .contains(searchEditingController.text.toLowerCase()) &&
-                  element.categoryId!.compareTo(selectedTypeList.indexOf(
-                          selectedTypeList
-                              .firstWhere((element) => element == true))) ==
-                      0),
-            )
+            .where((element) => (element.name!
+                    .toLowerCase()
+                    .contains(searchEditingController.text.toLowerCase()) &&
+                element.categoryId!.compareTo(selectedTypeList.indexOf(
+                        selectedTypeList
+                            .firstWhere((element) => element == true))) ==
+                    0))
             .toSet();
       }
-
-      if (ingredientFilterData.isEmpty) {
-        searchStatus = SearchLoadingStatus.loading;
-        notifyListeners();
-        await ingredientRepository
-            .searchIngredients(searchEditingController.text)
-            .then((data) {
-          if (data.isNotEmpty) {
-            ingredientFilterData.addAll(data);
-            selectedData.addAll({for (var e in data) e.id!: false});
-
-            searchStatus = SearchLoadingStatus.idle;
+      searchStatus = SearchLoadingStatus.loading;
+      notifyListeners();
+      await ingredientRepository
+          .searchIngredients(searchEditingController.text)
+          .then((data) {
+        log(data.toString());
+        if (data.isNotEmpty) {
+          if (selectedTypeList.indexOf(
+                  selectedTypeList.firstWhere((element) => element == true)) !=
+              0) {
+            ingredientFilterData.addAll(data.where((element) =>
+                element.categoryId!.compareTo(selectedTypeList.indexOf(
+                    selectedTypeList
+                        .firstWhere((element) => element == true))) ==
+                0));
           } else {
-            searchStatus = SearchLoadingStatus.error;
+            ingredientFilterData.addAll(data);
           }
-        }).catchError(((err) {
+          selectedData.addAll({for (var e in data) e.id!: false});
+          if (ingredientData.isEmpty) {
+            searchStatus = SearchLoadingStatus.error;
+          } else {
+            searchStatus = SearchLoadingStatus.idle;
+          }
+        } else {
           searchStatus = SearchLoadingStatus.error;
-        }));
-      }
+        }
+      }).catchError(((err) {
+        searchStatus = SearchLoadingStatus.error;
+      }));
+
       log(ingredientFilterData.length.toString());
     }
     notifyListeners();

@@ -59,6 +59,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     listStep = arguments["step"] as List<CookingStep>;
+    print(listStep!.length);
     nameRecipe = arguments["name"] as String;
     log(listStep.toString());
     super.didChangeDependencies();
@@ -97,27 +98,29 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Palette.orange400,
-                      borderRadius: BorderRadius.circular(20)),
-                  margin: EdgeInsets.only(top: 30.h),
-                  width: 100.w,
-                  height: 40.h,
-                  child: Center(
-                    child: Text(
-                      "Bước ${indexCurrentPage + 1}",
-                      style: CustomTextTheme.headline4
-                          .copyWith(color: Palette.backgroundColor),
+            listStep!.length != 1
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Palette.orange400,
+                            borderRadius: BorderRadius.circular(20)),
+                        margin: EdgeInsets.only(top: 30.h),
+                        width: 100.w,
+                        height: 40.h,
+                        child: Center(
+                          child: Text(
+                            "Bước ${indexCurrentPage + 1}",
+                            style: CustomTextTheme.headline4
+                                .copyWith(color: Palette.backgroundColor),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox(),
             SizedBox(
               height: 220.h,
               child: Stack(

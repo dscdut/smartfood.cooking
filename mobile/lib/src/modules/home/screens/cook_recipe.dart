@@ -51,188 +51,200 @@ class CookRecipe extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5.h),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 10.h,
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(
+                context,
+                RouteManager.viewImage,
+                arguments: recipe.imageUrl!,
               ),
-              child: Stack(
-                children: [
-                  Container(
-                    width: 343.w,
-                    height: 200.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 8,
-                          color: Palette.shadowColor.withOpacity(0.1),
-                          offset: const Offset(0, 3),
-                        )
-                      ],
-                    ),
-                    child: CachedNetworkImage(
-                      cacheManager: CustomCacheManager.customCacheManager,
-                      imageUrl: recipe.imageUrl != ""
-                          ? recipe.imageUrl!
-                          : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                              "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                              "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                              "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      progressIndicatorBuilder: (context, string, progress) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              value: progress.progress,
-                              color: Palette.orange500,
-                            ),
-                          ),
-                        );
-                      },
-                      errorWidget: (context, string, dymamic) => Container(
-                        child: const Center(
-                          child: Icon(
-                            PhosphorIcons.warning,
-                            color: Palette.orange500,
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                      ),
-                    ),
+              child: Hero(
+                tag: recipe.imageUrl!,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 10.h,
                   ),
-                  SizedBox(
-                    width: 343.w,
-                    height: 200.w,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 343.w,
-                          height: 39.w,
-                          padding: EdgeInsets.only(left: 8.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20.r),
-                            ),
-                            gradient: const LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                Colors.transparent,
-                                Colors.black54,
-                              ],
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 343.w,
+                        height: 200.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 8,
+                              color: Palette.shadowColor.withOpacity(0.1),
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                        ),
+                        child: CachedNetworkImage(
+                          cacheManager: CustomCacheManager.customCacheManager,
+                          imageUrl: recipe.imageUrl != ""
+                              ? recipe.imageUrl!
+                              : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
+                                  "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
+                                  "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
+                                  "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: IconButton(
-                                    icon: const Icon(
-                                      PhosphorIcons.heartFill,
-                                    ),
-                                    color: Palette.orange500,
-                                    onPressed: () {},
-                                  ),
+                          progressIndicatorBuilder:
+                              (context, string, progress) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: progress.progress,
+                                  color: Palette.orange500,
                                 ),
                               ),
-                            ],
+                            );
+                          },
+                          errorWidget: (context, string, dymamic) => Container(
+                            child: const Center(
+                              child: Icon(
+                                PhosphorIcons.image,
+                                color: Palette.orange500,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
                           ),
                         ),
-                        const Spacer(),
-                        Container(
-                          width: 343.w,
-                          height: 39.w,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(20),
-                            ),
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                              colors: [
-                                Colors.black54,
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 21.5.w,
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  PhosphorIcons.clockBold,
-                                  color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 343.w,
+                        height: 200.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 343.w,
+                              height: 39.w,
+                              padding: EdgeInsets.only(left: 8.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20.r),
                                 ),
-                                Text(
-                                  //TODO: need time data
-                                  "30p",
-                                  style: CustomTextTheme.bodyText1.copyWith(
-                                      fontSize: 14.sp,
-                                      color: Palette.backgroundColor),
+                                gradient: const LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black54,
+                                  ],
                                 ),
-                                const Spacer(),
-                                const Text(
-                                  '|',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipOval(
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          PhosphorIcons.heartFill,
+                                        ),
+                                        color: Palette.orange500,
+                                        onPressed: () {},
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                const Spacer(),
-                                const Icon(
-                                  PhosphorIcons.cookingPotBold,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  ' ' + recipe.level!,
-                                  style: CustomTextTheme.bodyText1.copyWith(
-                                    fontSize: 14.sp,
-                                    color: Palette.backgroundColor,
-                                  ),
-                                ),
-                                const Spacer(),
-                                const Spacer(),
-                                const Spacer(),
-                                const Icon(
-                                  PhosphorIcons.starFill,
-                                  color: Palette.yellowStar,
-                                  size: 22,
-                                ),
-                                SizedBox(width: 2.w),
-                                Text(
-                                  //TODO: need data for favorite
-                                  "0.2",
-                                  style: CustomTextTheme.bodyText1.copyWith(
-                                    fontSize: 14.sp,
-                                    color: Palette.backgroundColor,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
+                            const Spacer(),
+                            Container(
+                              width: 343.w,
+                              height: 39.w,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(20),
+                                ),
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [
+                                    Colors.black54,
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 21.5.w,
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      PhosphorIcons.clockBold,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Text(
+                                      //TODO: need time data
+                                      "30p",
+                                      style: CustomTextTheme.bodyText1.copyWith(
+                                          fontSize: 14.sp,
+                                          color: Palette.backgroundColor),
+                                    ),
+                                    const Spacer(),
+                                    const Text(
+                                      '|',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    const Icon(
+                                      PhosphorIcons.cookingPotBold,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      ' ' + recipe.level!,
+                                      style: CustomTextTheme.bodyText1.copyWith(
+                                        fontSize: 14.sp,
+                                        color: Palette.backgroundColor,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    const Spacer(),
+                                    const Spacer(),
+                                    const Icon(
+                                      PhosphorIcons.starFill,
+                                      color: Palette.yellowStar,
+                                      size: 22,
+                                    ),
+                                    SizedBox(width: 2.w),
+                                    Text(
+                                      //TODO: need data for favorite
+                                      "0.2",
+                                      style: CustomTextTheme.bodyText1.copyWith(
+                                        fontSize: 14.sp,
+                                        color: Palette.backgroundColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
             SizedBox(height: 8.h),
@@ -399,7 +411,7 @@ class CookRecipe extends StatelessWidget {
                     padding: EdgeInsets.all(5.0),
                     child: Center(
                       child: Icon(
-                        PhosphorIcons.warning,
+                        PhosphorIcons.image,
                         color: Palette.orange500,
                       ),
                     ),
