@@ -23,9 +23,9 @@ class IngredientRepository {
     }
   }
 
-  Future<List<Ingredient>> searchIngredients(String value) async {
+  Future<List<Ingredient>> searchIngredients(String value, int page) async {
     try {
-      final dataRaw = await baseApi.getMethod("/ingredients/?search=$value");
+      final dataRaw = await baseApi.getMethod("/ingredients/?search=$value&page=$page");
       var converted = jsonDecode(dataRaw);
       Iterable data = converted["content"];
       return data.map((value) => Ingredient.fromJson(value)).toList();

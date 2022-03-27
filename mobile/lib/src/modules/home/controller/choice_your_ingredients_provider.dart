@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/src/data/model/ingredient.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 
 enum LoadingStatus { loading, error, idle }
 enum SearchLoadingStatus { loading, error, idle }
+enum FilterDataMode { search, chip, none }
 
 class ChoiceYourIngredientsProvider with ChangeNotifier {
   // STATIC DATA for Choose Your Material screen
@@ -14,11 +13,12 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   var ingredientFilterData = <Ingredient>{};
   var selectedTypeList = <bool>[];
   var selectedData = <int, bool?>{};
+  var filterDataMode = FilterDataMode.none;
   var isLoadingMore = false;
   var status = LoadingStatus.idle;
   var searchStatus = SearchLoadingStatus.idle;
   var listPageObserve = List<int>.filled(13, 1);
-  bool isAll = true;
+  int pageForSearch = 1;
   final IngredientRepository ingredientRepository;
   late TextEditingController searchEditingController;
 
@@ -26,7 +26,9 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     searchEditingController = TextEditingController();
     selectedTypeList = List<bool>.filled(13, false, growable: true)
       ..first = true;
+
     loadIngredientData().then((value) {
+      listPageObserve[0]++;
       ingredientFilterData.addAll(ingredientData);
       selectedData = {for (var e in ingredientData) e.id!: false};
     });
@@ -82,7 +84,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
 
   void onTapIngredientsCard(int index, int id) {
     selectedData.update(id, (value) => !value!);
-    log(selectedData.toString());
     notifyListeners();
   }
 
@@ -91,12 +92,11 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
       ingredientFilterData.clear();
-      log(ingredientData.length.toString());
       ingredientFilterData.addAll(ingredientData);
-      isAll = true;
+      filterDataMode = FilterDataMode.none;
     } else if (index != 0) {
       if (!selectedTypeList[index]) {
-        isAll = false;
+        filterDataMode = FilterDataMode.chip;
         selectedTypeList = List<bool>.filled(13, false, growable: false);
         selectedTypeList[index] = true;
         selectedTypeList[0] = false;
@@ -147,17 +147,15 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
       ingredientFilterData.addAll(ingredientData);
-      isAll = true;
     }
-    for (var e in ingredientFilterData) {
-      log(e.name!);
-    }
-    log("==============================================================");
+
     notifyListeners();
   }
 
   Future<void> onSearchWithValue() async {
+    pageForSearch = 1;
     searchStatus = SearchLoadingStatus.idle;
+    filterDataMode = FilterDataMode.search;
     if (searchEditingController.text.isEmpty) {
       ingredientFilterData.clear();
       if (selectedTypeList.indexOf(
@@ -172,28 +170,23 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       } else {
         ingredientFilterData.addAll(ingredientData);
       }
-      log(ingredientData.length.toString());
     } else {
-      if (selectedTypeList.indexOf(
-              selectedTypeList.firstWhere((element) => element == true)) !=
-          0) {
-        ingredientFilterData = ingredientFilterData
-            .where((element) => (element.name!
-                    .toLowerCase()
-                    .contains(searchEditingController.text.toLowerCase()) &&
-                element.categoryId!.compareTo(selectedTypeList.indexOf(
-                        selectedTypeList
-                            .firstWhere((element) => element == true))) ==
-                    0))
-            .toSet();
-      }
+      ingredientFilterData = ingredientFilterData
+          .where((element) => (element.name!
+                  .toLowerCase()
+                  .contains(searchEditingController.text.toLowerCase()) &&
+              element.categoryId!.compareTo(selectedTypeList.indexOf(
+                      selectedTypeList
+                          .firstWhere((element) => element == true))) ==
+                  0))
+          .toSet();
       searchStatus = SearchLoadingStatus.loading;
       notifyListeners();
       await ingredientRepository
-          .searchIngredients(searchEditingController.text)
+          .searchIngredients(searchEditingController.text, pageForSearch)
           .then((data) {
-        log(data.toString());
         if (data.isNotEmpty) {
+          pageForSearch++;
           if (selectedTypeList.indexOf(
                   selectedTypeList.firstWhere((element) => element == true)) !=
               0) {
@@ -216,18 +209,40 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         }
       }).catchError(((err) {
         searchStatus = SearchLoadingStatus.error;
+        pageForSearch = 1;
       }));
-
-      log(ingredientFilterData.length.toString());
     }
     notifyListeners();
   }
 
-  Future<void> loadMoreIngredientsDataByCategory(int index, int page) async {
+  Future<void> loadingDataMoreBySearch() async {
     isLoadingMore = true;
     notifyListeners();
     try {
-      await ingredientRepository.getListIngredientByCategory(index, page).then(
+      await ingredientRepository
+          .searchIngredients(searchEditingController.text, pageForSearch)
+          .then((data) {
+        pageForSearch++;
+        ingredientData.addAll(data);
+        ingredientFilterData.addAll(data);
+        selectedData.addAll({for (var e in data) e.id!: false});
+        isLoadingMore = false;
+      });
+    } catch (e) {
+      isLoadingMore = false;
+    } finally {
+      isLoadingMore = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadMoreIngredientsDataByCategory(int index) async {
+    isLoadingMore = true;
+    notifyListeners();
+    try {
+      await ingredientRepository
+          .getListIngredientByCategory(index, listPageObserve[index])
+          .then(
         (data) {
           listPageObserve[index]++;
           ingredientData.addAll(data);
@@ -244,6 +259,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   }
 
   void clearSearch() {
+    pageForSearch = 1;
+    filterDataMode = FilterDataMode.none;
     searchEditingController.clear();
     ingredientFilterData.clear();
     onSelected(selectedTypeList

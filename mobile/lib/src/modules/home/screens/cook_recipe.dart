@@ -375,58 +375,55 @@ class CookRecipe extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              CachedNetworkImage(
-                imageUrl: ingredient.url ??
-                    "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                        "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                        "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                        "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
-                imageBuilder: (context, imageProvider) {
-                  return CircleAvatar(
-                    backgroundImage: imageProvider,
-                  );
-                },
-                progressIndicatorBuilder: (context, string, progress) {
-                  return CircleAvatar(
-                    backgroundColor: Palette.backgroundColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: progress.progress,
-                          color: Palette.orange500,
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                errorWidget: (context, string, dymamic) => const CircleAvatar(
-                  backgroundColor: Palette.backgroundColor,
-                  child: Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: Center(
-                      child: Icon(
-                        PhosphorIcons.image,
-                        color: Palette.orange500,
-                      ),
+          CachedNetworkImage(
+            imageUrl: ingredient.url ??
+                "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
+                    "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
+                    "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
+                    "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+            imageBuilder: (context, imageProvider) {
+              return CircleAvatar(
+                backgroundImage: imageProvider,
+              );
+            },
+            progressIndicatorBuilder: (context, string, progress) {
+              return CircleAvatar(
+                backgroundColor: Palette.backgroundColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                      color: Palette.orange500,
+                      strokeWidth: 2,
                     ),
                   ),
                 ),
-              ),
-              SizedBox(width: 12.w),
-              Text(
-                ingredient.name ?? "",
-                style: CustomTextTheme.subtitle1.copyWith(
-                  color: Palette.gray500,
-                  fontSize: 17.sp,
+              );
+            },
+            errorWidget: (context, string, dymamic) => const CircleAvatar(
+              backgroundColor: Palette.backgroundColor,
+              child: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Center(
+                  child: Icon(
+                    PhosphorIcons.image,
+                    color: Palette.orange500,
+                  ),
                 ),
               ),
-            ],
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Text(
+              ingredient.name ?? "",
+              style: CustomTextTheme.subtitle1.copyWith(
+                color: Palette.gray500,
+                fontSize: 17.sp,
+              ),
+            ),
           ),
           Text(
             "${ingredient.value ?? ""} ${ingredient.unit ?? ""}",

@@ -22,7 +22,7 @@ class MenuButton extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(15.r),
           onTap: onMenuAction,
-          child: Ink(
+          child: Container(
             height: 50.h,
             width: 50.h,
             decoration: BoxDecoration(
