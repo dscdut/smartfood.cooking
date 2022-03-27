@@ -112,37 +112,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         selectedTypeList[index] = false;
       }
 
-      /// In case current data ```isEmpty```
-      ///
-      if (ingredientFilterData.isEmpty &&
-          ingredientData
-              .where(
-                (data) => data.categoryId == index,
-              )
-              .isEmpty) {
-        searchStatus = SearchLoadingStatus.loading;
-        notifyListeners();
-        await ingredientRepository
-            .getListIngredientByCategory(index, listPageObserve[index])
-            .then((data) {
-          ingredientData.addAll(data);
-          listPageObserve[index]++;
-          //sort
-          final temp = ingredientData.toList();
-          temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
-          ingredientData = temp.toSet();
-          ingredientFilterData.addAll(data);
-          selectedData.addAll({for (var e in data) e.id!: false});
-
-          searchStatus = SearchLoadingStatus.idle;
-        }).catchError((err) {
-          searchStatus = SearchLoadingStatus.error;
-        });
-        notifyListeners();
-      }
-
-      /// In case current data ```isEmpty```
-      ///
       if (ingredientFilterData.isEmpty &&
           ingredientData
               .where(
