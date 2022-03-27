@@ -126,10 +126,8 @@ class SelectedIngredientScreen extends StatelessWidget {
                     .where((entry) => entry.value == true)
                     .isNotEmpty
                 ? Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.0.w,
-                      vertical: 16.h,
-                    ),
+                    padding: EdgeInsets.only(
+                        left: 16.0.w, right: 16.0.w, bottom: 24.h, top: 8.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

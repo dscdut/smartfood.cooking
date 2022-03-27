@@ -31,7 +31,7 @@ class MenuRecipeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onMenuCardAction,
       child: Container(
-        width: 155.w,
+        width: 160.w,
         // height: 180.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -99,6 +99,7 @@ class MenuRecipeCard extends StatelessWidget {
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(20.r),
                         ),
+                        color: Palette.backgroundColor,
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -160,7 +161,9 @@ class MenuRecipeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Spacer(),
+                  const Spacer(
+                    flex: 2,
+                  ),
                   Text(
                     recipeName,
                     style: CustomTextTheme.bodyText1.copyWith(
@@ -171,7 +174,7 @@ class MenuRecipeCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Spacer(
-                    flex: 2,
+                    flex: 3,
                   ),
                   Row(
                     children: [
