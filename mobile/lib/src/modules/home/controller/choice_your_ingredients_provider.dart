@@ -9,8 +9,8 @@ enum FilterDataMode { search, chip, none }
 class ChoiceYourIngredientsProvider with ChangeNotifier {
   // STATIC DATA for Choose Your Material screen
 
-  var ingredientData = <Ingredient>{};
-  var ingredientFilterData = <Ingredient>{};
+  Set ingredientData = <Ingredient>{};
+  Set ingredientFilterData = <Ingredient>{};
   var selectedTypeList = <bool>[];
   var selectedData = <int, bool?>{};
   var filterDataMode = FilterDataMode.none;
@@ -88,6 +88,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   }
 
   Future<void> onSelected(int index) async {
+    //TODO: refactor Chip Mode
     if (index == 0 && selectedTypeList[index] == false) {
       selectedTypeList = List<bool>.filled(13, false, growable: false)
         ..first = true;
@@ -182,6 +183,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   }
 
   Future<void> onSearchWithValue() async {
+    //TODO: refactor Search
     pageForSearch = 1;
     searchStatus = SearchLoadingStatus.idle;
     filterDataMode = FilterDataMode.search;
@@ -294,7 +296,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     ingredientFilterData.clear();
     onSelected(selectedTypeList
         .indexOf(selectedTypeList.firstWhere(((element) => element == true))));
-    ingredientFilterData.addAll(ingredientData);
     notifyListeners();
   }
 
