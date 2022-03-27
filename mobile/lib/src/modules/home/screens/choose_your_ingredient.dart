@@ -310,7 +310,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                                       materialName: provider
                                           .ingredientFilterData
                                           .elementAt(index)
-                                          .name!,
+                                          .name,
                                       isSelected: provider.selectedData[provider
                                           .ingredientFilterData
                                           .elementAt(index)
