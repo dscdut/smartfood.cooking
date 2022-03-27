@@ -151,9 +151,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         searchStatus = SearchLoadingStatus.loading;
         notifyListeners();
         await ingredientRepository
-            .getListIngredientByCategory(index)
+            .getListIngredientByCategory(index, listPageObserve[index])
             .then((data) {
           ingredientData.addAll(data);
+          listPageObserve[index]++;
           //sort
           final temp = ingredientData.toList();
           temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
