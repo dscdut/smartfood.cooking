@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:mobile/src/core/helpers/debounce.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/di/injector.dart';
@@ -26,6 +26,8 @@ class ChooseYourIngredient extends StatefulWidget {
 class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
   late final ScrollController _scrollController;
   late final ChoiceYourIngredientsProvider _choiceYourIngredientsProvider;
+  late final Debounce _debounceLoadMore;
+  late final Debounce _debounceUserInput;
 
   final List<String> typeMaterialList = <String>[
     "Tất cả",
@@ -46,6 +48,8 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
   void initState() {
     _scrollController = ScrollController();
     _choiceYourIngredientsProvider = getIt<ChoiceYourIngredientsProvider>();
+    _debounceLoadMore = Debounce(const Duration(milliseconds: 300));
+    _debounceUserInput = Debounce(const Duration(milliseconds: 700));
     super.initState();
   }
 
@@ -54,27 +58,32 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
     _scrollController.addListener(() async {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        if (_choiceYourIngredientsProvider.isAll) {
-          await Future.delayed(const Duration(milliseconds: 200))
-              .then((value) async {
+        _debounceLoadMore(() async {
+          if (_choiceYourIngredientsProvider.filterDataMode ==
+              FilterDataMode.none) {
             await _choiceYourIngredientsProvider.loadMoreAllIngredientData();
-          });
-        } else {
-          await Future.delayed(const Duration(milliseconds: 200))
-              .then((value) async {
+          } else if (_choiceYourIngredientsProvider.filterDataMode ==
+              FilterDataMode.chip) {
             final index = _choiceYourIngredientsProvider.selectedTypeList
-                .indexOf(
-                    _choiceYourIngredientsProvider.selectedTypeList.firstWhere(
-              (element) => element == true,
-            ));
+                .indexOf(_choiceYourIngredientsProvider.selectedTypeList
+                    .firstWhere((element) => element == true));
             await _choiceYourIngredientsProvider
-                .loadMoreIngredientsDataByCategory(index,
-                    _choiceYourIngredientsProvider.listPageObserve[index]);
-          });
-        }
+                .loadMoreIngredientsDataByCategory(index);
+          } else {
+            await _choiceYourIngredientsProvider.loadingDataMoreBySearch();
+          }
+        });
       }
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _debounceLoadMore.dispose();
+    _debounceLoadMore.dispose();
+    super.dispose();
   }
 
   @override
@@ -170,42 +179,38 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                               .searchEditingController,
                           textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
-                              isCollapsed: true,
-                              contentPadding: EdgeInsets.only(left: 14.w),
-                              border: InputBorder.none,
-                              hintText: "Tủ lạnh bạn hôm nay có gì!",
-                              hintStyle: CustomTextTheme.headline4
-                                  .copyWith(color: Palette.gray300),
-                              suffixIcon:
-                                  Consumer<ChoiceYourIngredientsProvider>(
-                                builder: (context, provider, child) {
-                                  if (provider
-                                      .searchEditingController.text.isEmpty) {
-                                    return const Icon(
-                                      PhosphorIcons.magnifyingGlass,
-                                      color: Palette.gray400,
-                                    );
-                                  } else {
-                                    return InkWell(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      onTap: () => provider.clearSearch(),
-                                      child: const Icon(
-                                        PhosphorIcons.xBold,
-                                        color: Palette.orange400,
-                                      ),
-                                    );
-                                  }
-                                },
-                              )),
-                          onChanged: (value) async {
-                            log(_choiceYourIngredientsProvider
-                                .searchEditingController.text);
-                            await _choiceYourIngredientsProvider
-                                .onSearchWithValue();
-                          },
-                          onEditingComplete: () async {
-                            await _choiceYourIngredientsProvider
-                                .onSearchWithValue();
+                            isCollapsed: true,
+                            contentPadding: EdgeInsets.only(left: 14.w),
+                            border: InputBorder.none,
+                            hintText: "Tủ lạnh bạn hôm nay có gì!",
+                            hintStyle: CustomTextTheme.headline4
+                                .copyWith(color: Palette.gray300),
+                            suffixIcon: Consumer<ChoiceYourIngredientsProvider>(
+                              builder: (context, provider, child) {
+                                if (provider
+                                    .searchEditingController.text.isEmpty) {
+                                  return const Icon(
+                                    PhosphorIcons.magnifyingGlass,
+                                    color: Palette.gray400,
+                                  );
+                                } else {
+                                  return InkWell(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    onTap: () => provider.clearSearch(),
+                                    child: const Icon(
+                                      PhosphorIcons.xBold,
+                                      color: Palette.orange400,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                          onChanged: (value) {
+                            _debounceUserInput(() {
+                              _choiceYourIngredientsProvider
+                                  .onSearchWithValue();
+                            });
                           },
                         ),
                       ),
@@ -277,40 +282,52 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         return const ErrorMessage(
                             content: "Đã có lỗi xảy ra, vui lòng thử lại!");
                       } else {
-                        return GridView.builder(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.w,
-                            vertical: 8.h,
+                        return AnimationLimiter(
+                          child: GridView.builder(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.w,
+                              vertical: 8.h,
+                            ),
+                            controller: _scrollController,
+                            itemCount: provider.ingredientFilterData.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 10.h,
+                              crossAxisSpacing: 10.w,
+                            ),
+                            itemBuilder: (context, index) {
+                              return AnimationConfiguration.staggeredList(
+                                position: index,
+                                duration: const Duration(milliseconds: 400),
+                                child: SlideAnimation(
+                                  verticalOffset: 100.0,
+                                  child: FadeInAnimation(
+                                    child: IngredientCard(
+                                      imageUrl: provider.ingredientFilterData
+                                          .elementAt(index)
+                                          .url!,
+                                      materialName: provider
+                                          .ingredientFilterData
+                                          .elementAt(index)
+                                          .name!,
+                                      isSelected: provider.selectedData[provider
+                                          .ingredientFilterData
+                                          .elementAt(index)
+                                          .id]!,
+                                      onMaterialTap: () =>
+                                          provider.onTapIngredientsCard(
+                                        index,
+                                        provider.ingredientFilterData
+                                            .elementAt(index)
+                                            .id!,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                          controller: _scrollController,
-                          itemCount: provider.ingredientFilterData.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10.h,
-                            crossAxisSpacing: 10.w,
-                          ),
-                          itemBuilder: (context, index) {
-                            return IngredientCard(
-                              imageUrl: provider.ingredientFilterData
-                                  .elementAt(index)
-                                  .url!,
-                              materialName: provider.ingredientFilterData
-                                  .elementAt(index)
-                                  .name!,
-                              isSelected: provider.selectedData[provider
-                                  .ingredientFilterData
-                                  .elementAt(index)
-                                  .id]!,
-                              onMaterialTap: () =>
-                                  provider.onTapIngredientsCard(
-                                index,
-                                provider.ingredientFilterData
-                                    .elementAt(index)
-                                    .id!,
-                              ),
-                            );
-                          },
                         );
                       }
                     },

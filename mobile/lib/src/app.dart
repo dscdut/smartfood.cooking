@@ -43,7 +43,7 @@ class App extends StatelessWidget {
           title: "Smart Food",
           debugShowCheckedModeBanner: false,
           routes: RouteManager.listRoute,
-          initialRoute: RouteManager.signIn,
+          initialRoute: RouteManager.splash,
           theme: ThemeData(
             brightness: Brightness.light,
             fontFamily: 'Nunito',

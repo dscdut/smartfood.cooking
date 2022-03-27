@@ -36,22 +36,23 @@ class DoneCookingScreen extends StatelessWidget {
                   "Chúc mừng bạn đã hoàn thành món ăn",
                   style: CustomTextTheme.headline4.copyWith(
                     color: Palette.gray500,
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                   ),
                 ),
                 SizedBox(
                   width: 6.w,
                 ),
-                const Icon(
+                Icon(
                   PhosphorIcons.handsClappingBold,
                   color: Palette.gray500,
+                  size: 22.sp,
                 ),
               ],
             ),
             Container(
               width: 280.w,
               height: 120.h,
-              margin: EdgeInsets.only(top: 38.h),
+              margin: EdgeInsets.only(top: 32.h),
               padding: EdgeInsets.symmetric(horizontal: 19.w, vertical: 18.h),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -70,10 +71,10 @@ class DoneCookingScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.local_fire_department_rounded,
                         color: Palette.orange500,
-                        size: 28,
+                        size: 28.sp,
                       ),
                       SizedBox(
                         width: 6.w,
@@ -81,7 +82,7 @@ class DoneCookingScreen extends StatelessWidget {
                       Text(
                         "Lượng Calo bạn đã tiêu thụ",
                         style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.orange500, fontSize: 17.sp),
+                            color: Palette.orange500, fontSize: 16.sp),
                       )
                     ],
                   ),

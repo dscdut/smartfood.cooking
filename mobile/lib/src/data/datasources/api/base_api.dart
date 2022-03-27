@@ -16,6 +16,7 @@ class BaseApi {
       // if (shouldCache && box.get(uri) != null) {
       //   return json.decode(box.get(uri)!) as T;
       // }
+      log(Uri.parse(uri).toString());
       final response = await http.get(Uri.parse(uri)).timeout(
           const Duration(minutes: 1),
           onTimeout: () => throw Exception("Time out Get fail in $path"));
