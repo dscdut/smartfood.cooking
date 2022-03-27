@@ -14,7 +14,6 @@ class AllergicFoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userChoiceProvider = context.read<UserChoiceProvider>();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,9 +41,7 @@ class AllergicFoodPage extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
-          height: 16.h,
-        ),
+        SizedBox(height: 8.h),
         Expanded(
           child: ListView.separated(
             itemCount: userChoiceProvider.listNameAllergicFood.length,

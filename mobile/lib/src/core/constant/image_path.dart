@@ -30,4 +30,6 @@ class ImagePath {
 
   static const String gmailLogo = "assets/images/decoration/lg_gmail.svg";
   static const String logoFridge = "assets/images/logos/ic_fridger_no_hat.svg";
+  static const String signatureSmartfood =
+      "assets/images/decoration/signature_smartfood.png";
 }

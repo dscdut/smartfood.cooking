@@ -18,7 +18,7 @@ class IngredientCard extends StatelessWidget {
 
   final bool? isSelected;
   final String imageUrl;
-  final String materialName;
+  final String? materialName;
   final VoidCallback? onMaterialTap;
   final VoidCallback? onDeleteAction;
 
@@ -121,7 +121,7 @@ class IngredientCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Center(
                       child: Text(
-                        materialName,
+                        materialName ?? "null",
                         style: CustomTextTheme.bodyText1.copyWith(
                           color: Palette.gray500,
                           fontSize: 14.sp,
@@ -137,8 +137,8 @@ class IngredientCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 4,
-            right: 4,
+            top: -4.h,
+            right: -4.w,
             child: onDeleteAction == null
                 ? IgnorePointer(
                     ignoring: true,

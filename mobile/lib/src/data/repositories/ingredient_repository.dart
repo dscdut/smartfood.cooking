@@ -23,9 +23,9 @@ class IngredientRepository {
     }
   }
 
-  Future<List<Ingredient>> searchIngredients(String value) async {
+  Future<List<Ingredient>> searchIngredients(String value, int page) async {
     try {
-      final dataRaw = await baseApi.getMethod("/ingredients/?search=$value");
+      final dataRaw = await baseApi.getMethod("/ingredients/?search=$value&page=$page");
       var converted = jsonDecode(dataRaw);
       Iterable data = converted["content"];
       return data.map((value) => Ingredient.fromJson(value)).toList();
@@ -35,10 +35,11 @@ class IngredientRepository {
     }
   }
 
-  Future<List<Ingredient>> getListIngredientByCategory(int categoryId) async {
+  Future<List<Ingredient>> getListIngredientByCategory(
+      int categoryId, int page) async {
     try {
       final dataRaw = await baseApi.postMethod(
-        "/ingredients/categories",
+        "/ingredients/categories?page=$page&size=12",
         body: <String, List<int>>{
           "ids": <int>[categoryId]
         },

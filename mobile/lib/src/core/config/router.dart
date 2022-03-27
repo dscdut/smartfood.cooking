@@ -11,10 +11,12 @@ import 'package:mobile/src/modules/home/screens/steps_to_cooking.dart';
 import 'package:mobile/src/modules/home/screens/your_material_screen.dart';
 import 'package:mobile/src/modules/home/widgets/view_image.dart';
 import 'package:mobile/src/modules/main_screen/main_screen.dart';
+import 'package:mobile/src/modules/splash/splash_screen.dart';
 import 'package:mobile/src/modules/user_choice/screens/allergic_food_choice.dart';
 import 'package:mobile/src/modules/user_choice/screens/user_choice_screen.dart';
 
 class RouteManager {
+  static const String splash = '/';
   static const String mainScreen = "/main";
   static const String notFound = "/notFound";
   static const String yourMaterial = "/yourMaterial";
@@ -23,7 +25,7 @@ class RouteManager {
   static const String cookRecipe = '/cookRecipe';
   static const String selectRecipe = '/selectRecipe';
   static const String doneCooking = '/doneCooking';
-  static const String signIn = '/';
+  static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String forgotPassword = '/forgotPassword';
   static const String userChoice = '/userChoice';
@@ -31,6 +33,7 @@ class RouteManager {
   static const String viewImage = '/viewImage';
 
   static Map<String, WidgetBuilder> listRoute = {
+    splash: (_) => const SplashScreen(),
     mainScreen: (_) => const MainScreen(),
     notFound: (_) => const NotFoundScreen(),
     yourMaterial: (_) => const YourMaterialScreen(),
