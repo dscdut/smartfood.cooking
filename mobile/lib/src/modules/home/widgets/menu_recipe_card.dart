@@ -68,6 +68,7 @@ class MenuRecipeCard extends StatelessWidget {
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(20.r),
                           ),
+                          color: Palette.backgroundColor,
                         ),
                         child: Center(
                           child: CircularProgressIndicator(

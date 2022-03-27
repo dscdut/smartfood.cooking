@@ -42,9 +42,6 @@ class AllergicFoodPage extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
-          height: 16.h,
-        ),
         Expanded(
           child: ListView.separated(
             itemCount: userChoiceProvider.listNameAllergicFood.length,

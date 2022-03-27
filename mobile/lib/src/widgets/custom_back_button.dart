@@ -20,8 +20,9 @@ class CustomBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: isHide ? 0.0 : 1.0,
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 300),
+      opacity: !isHide ? 1.0 : 0.0,
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -44,7 +45,7 @@ class CustomBackButton extends StatelessWidget {
                 : PhosphorIcons.caretLeftBold),
             color: Palette.pink500,
             iconSize: 20.sp,
-            onPressed: onPressedFunction,
+            onPressed: !isHide ? onPressedFunction : null,
           ),
         ),
       ),

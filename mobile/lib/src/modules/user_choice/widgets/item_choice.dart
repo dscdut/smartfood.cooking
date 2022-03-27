@@ -23,33 +23,28 @@ class ItemChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTapFunction,
-      child: Column(
-        children: [
-          Padding(
+    return Column(
+      children: [
+        InkWell(
+          onTap: onTapFunction,
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(
-                      isSelected
-                          ? PhosphorIcons.checkCircle
-                          : PhosphorIcons.circle,
-                      size: 32.sp,
+                Icon(
+                  isSelected ? PhosphorIcons.checkCircle : PhosphorIcons.circle,
+                  size: 32.sp,
+                  color: isSelected ? Palette.pink500 : Palette.gray500,
+                ),
+                SizedBox(width: 7.w),
+                Expanded(
+                  child: Text(
+                    itemTitle,
+                    style: CustomTextTheme.headline4.copyWith(
                       color: isSelected ? Palette.pink500 : Palette.gray500,
+                      fontSize: 18.sp,
                     ),
-                    SizedBox(width: 7.w),
-                    Text(
-                      itemTitle,
-                      style: CustomTextTheme.headline4.copyWith(
-                        color: isSelected ? Palette.pink500 : Palette.gray500,
-                        fontSize: 18.sp,
-                      ),
-                    )
-                  ],
+                  ),
                 ),
                 isNeedHelpTooltip
                     ? CustomTooltip(
@@ -72,13 +67,13 @@ class ItemChoice extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(
-            color: Palette.gray200,
-            height: 10,
-            thickness: 1,
-          ),
-        ],
-      ),
+        ),
+        const Divider(
+          color: Palette.gray200,
+          height: 10,
+          thickness: 1,
+        )
+      ],
     );
   }
 }

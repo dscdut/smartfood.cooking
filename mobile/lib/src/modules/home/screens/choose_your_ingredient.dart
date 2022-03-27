@@ -55,9 +55,21 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         if (_choiceYourIngredientsProvider.isAll) {
-          await Future.delayed(const Duration(milliseconds: 100))
+          await Future.delayed(const Duration(milliseconds: 200))
               .then((value) async {
-            await _choiceYourIngredientsProvider.loadMoreIngredientData();
+            await _choiceYourIngredientsProvider.loadMoreAllIngredientData();
+          });
+        } else {
+          await Future.delayed(const Duration(milliseconds: 200))
+              .then((value) async {
+            final index = _choiceYourIngredientsProvider.selectedTypeList
+                .indexOf(
+                    _choiceYourIngredientsProvider.selectedTypeList.firstWhere(
+              (element) => element == true,
+            ));
+            await _choiceYourIngredientsProvider
+                .loadMoreIngredientsDataByCategory(index,
+                    _choiceYourIngredientsProvider.listPageObserve[index]);
           });
         }
       }
@@ -189,7 +201,11 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             log(_choiceYourIngredientsProvider
                                 .searchEditingController.text);
                             await _choiceYourIngredientsProvider
-                                .onSearchWithValue(value);
+                                .onSearchWithValue();
+                          },
+                          onEditingComplete: () async {
+                            await _choiceYourIngredientsProvider
+                                .onSearchWithValue();
                           },
                         ),
                       ),
@@ -228,8 +244,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                                   ? Colors.white
                                   : Palette.gray500),
                           selected: provider.selectedTypeList[index],
-                          onSelected: (value) =>
-                              provider.onSelected(value, index),
+                          onSelected: (value) => provider.onSelected(index),
                           selectedColor: Palette.pink500,
                           backgroundColor: Palette.backgroundColor,
                           elevation: 2,
@@ -270,8 +285,10 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                           controller: _scrollController,
                           itemCount: provider.ingredientFilterData.length,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
+                            mainAxisSpacing: 10.h,
+                            crossAxisSpacing: 10.w,
                           ),
                           itemBuilder: (context, index) {
                             return IngredientCard(
@@ -315,41 +332,43 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                 ),
                 Consumer<ChoiceYourIngredientsProvider>(
                   builder: (context, provider, child) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (provider.selectedData.values
-                            .where((element) => element == true)
-                            .toList()
-                            .isNotEmpty) {
-                          context
-                              .read<RecipeProvider>()
-                              .findRecipe(context, data: provider.selectedData);
-                        }
-                      },
-                      child: Center(
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            top: 18.h,
-                            bottom: 24.h,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 24.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
-                            color: !provider.selectedData.values
-                                    .where((element) => element == true)
-                                    .toList()
-                                    .isNotEmpty
-                                ? Palette.orange300
-                                : Palette.orange500,
-                          ),
-                          child: Text(
-                            "Tiếp tục ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
-                            style: CustomTextTheme.headline4.copyWith(
-                              color: Palette.backgroundColor,
-                              fontSize: 18.sp,
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 18.h,
+                          bottom: 24.h,
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(20.r),
+                          onTap: () {
+                            if (provider.selectedData.values
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty) {
+                              context.read<RecipeProvider>().findRecipe(context,
+                                  data: provider.selectedData);
+                            }
+                          },
+                          child: Ink(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 24.w,
+                              vertical: 10.h,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: !provider.selectedData.values
+                                      .where((element) => element == true)
+                                      .toList()
+                                      .isNotEmpty
+                                  ? Palette.orange300
+                                  : Palette.orange500,
+                            ),
+                            child: Text(
+                              "Tiếp tục ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
+                              style: CustomTextTheme.headline4.copyWith(
+                                color: Palette.backgroundColor,
+                                fontSize: 18.sp,
+                              ),
                             ),
                           ),
                         ),
