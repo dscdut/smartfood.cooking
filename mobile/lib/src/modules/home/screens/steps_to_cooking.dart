@@ -171,10 +171,22 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                         },
                         errorWidget: (context, string, dymamic) => Container(
                           height: 180.h,
-                          child: const Center(
-                            child: Icon(
-                              PhosphorIcons.warning,
-                              color: Palette.orange500,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  PhosphorIcons.warning,
+                                  color: Palette.orange500,
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  "Không có hình ảnh hiển thị",
+                                  style: CustomTextTheme.subtitle1.copyWith(
+                                    color: Palette.gray500,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           decoration: BoxDecoration(
