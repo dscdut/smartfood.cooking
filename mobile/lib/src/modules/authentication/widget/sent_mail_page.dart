@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,7 +71,7 @@ class _SentMailPageState extends State<SentMailPage> {
                     fontSize: 15.sp,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => print('Sign in'),
+                    ..onTap = () => log('Send mail again'),
                 ),
               ],
             ),

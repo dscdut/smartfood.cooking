@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/di/injector.dart';
+import 'package:mobile/src/modules/authentication/controllers/sign_in_provider.dart';
 import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,9 @@ class App extends StatelessWidget {
           ChangeNotifierProvider(
             create: (_) => getIt<RecipeProvider>(),
           ),
+          ChangeNotifierProvider(
+            create: (_) => getIt<SignInProvider>(),
+          )
         ],
         child: MaterialApp(
           builder: (context, widget) {
@@ -39,7 +43,7 @@ class App extends StatelessWidget {
           title: "Smart Food",
           debugShowCheckedModeBanner: false,
           routes: RouteManager.listRoute,
-          initialRoute: RouteManager.signIn,
+          initialRoute: RouteManager.splash,
           theme: ThemeData(
             brightness: Brightness.light,
             fontFamily: 'Nunito',

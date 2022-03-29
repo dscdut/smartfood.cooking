@@ -30,13 +30,6 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
   int indexCurrentPage = 0;
   bool isImagePageLast = false;
 
-  final listImageStep = [
-    "assets/images/temp/b1.png",
-    "assets/images/temp/b2.png",
-    "assets/images/temp/b3.png",
-    "assets/images/temp/b3.png",
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -66,6 +59,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     listStep = arguments["step"] as List<CookingStep>;
+    print(listStep!.length);
     nameRecipe = arguments["name"] as String;
     log(listStep.toString());
     super.didChangeDependencies();
@@ -89,38 +83,44 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   CustomBackButton(
                     onPressedFunction: () => Navigator.pop(context),
                   ),
-                  Text(
+                  SizedBox(width: 8.w),
+                  Expanded(
+                      child: Text(
                     nameRecipe,
-                    style: CustomTextTheme.headline2
-                        .copyWith(color: Palette.pink500),
-                  ),
-                  SizedBox(
-                    width: 28.w,
-                  )
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    style: CustomTextTheme.headline2.copyWith(
+                      color: Palette.pink500,
+                      fontSize: 24.sp,
+                    ),
+                  )),
+                  SizedBox(width: 22.w),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Palette.orange400,
-                      borderRadius: BorderRadius.circular(20)),
-                  margin: EdgeInsets.only(top: 30.h),
-                  width: 100.w,
-                  height: 40.h,
-                  child: Center(
-                    child: Text(
-                      "Bước ${indexCurrentPage + 1}",
-                      style: CustomTextTheme.headline4
-                          .copyWith(color: Palette.backgroundColor),
+            listStep!.length != 1
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Palette.orange400,
+                            borderRadius: BorderRadius.circular(20)),
+                        margin: EdgeInsets.only(top: 30.h),
+                        width: 100.w,
+                        height: 40.h,
+                        child: Center(
+                          child: Text(
+                            "Bước ${indexCurrentPage + 1}",
+                            style: CustomTextTheme.headline4
+                                .copyWith(color: Palette.backgroundColor),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox(),
             SizedBox(
               height: 220.h,
               child: Stack(
@@ -171,10 +171,22 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                         },
                         errorWidget: (context, string, dymamic) => Container(
                           height: 180.h,
-                          child: const Center(
-                            child: Icon(
-                              PhosphorIcons.warning,
-                              color: Palette.orange500,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  PhosphorIcons.warning,
+                                  color: Palette.orange500,
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  "Không có hình ảnh hiển thị",
+                                  style: CustomTextTheme.subtitle1.copyWith(
+                                    color: Palette.gray500,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           decoration: BoxDecoration(

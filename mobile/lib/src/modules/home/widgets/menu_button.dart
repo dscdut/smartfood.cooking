@@ -17,14 +17,14 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onMenuAction,
-      child: Column(
-        children: [
-          Container(
+    return Column(
+      children: [
+        InkWell(
+          borderRadius: BorderRadius.circular(15.r),
+          onTap: onMenuAction,
+          child: Container(
             height: 50.h,
             width: 50.h,
-            margin: EdgeInsets.only(bottom: 8.h),
             decoration: BoxDecoration(
               color: Palette.backgroundColor,
               borderRadius: BorderRadius.circular(15.r),
@@ -36,19 +36,21 @@ class MenuButton extends StatelessWidget {
                 ),
               ],
             ),
-            alignment: Alignment.center,
-            child: child,
+            child: Center(child: child),
           ),
-          Text(
-            menuName,
-            style: CustomTextTheme.bodyText1.copyWith(
-              color: Palette.gray500,
-              fontSize: 14.sp,
-            ),
-            textAlign: TextAlign.center,
-          )
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 8.h,
+        ),
+        Text(
+          menuName,
+          style: CustomTextTheme.bodyText1.copyWith(
+            color: Palette.gray500,
+            fontSize: 14.sp,
+          ),
+          textAlign: TextAlign.center,
+        )
+      ],
     );
   }
 }

@@ -118,7 +118,8 @@ class RegionCard extends StatelessWidget {
         ),
         Positioned(
           bottom: -10.h,
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               color: Colors.white,
               border: isChosen

@@ -16,7 +16,10 @@ class BaseApi {
       // if (shouldCache && box.get(uri) != null) {
       //   return json.decode(box.get(uri)!) as T;
       // }
-      final response = await http.get(Uri.parse(uri));
+      log(Uri.parse(uri).toString());
+      final response = await http.get(Uri.parse(uri)).timeout(
+          const Duration(minutes: 1),
+          onTimeout: () => throw Exception("Time out Get fail in $path"));
       if (response.statusCode == 200) {
         log("Get in $path successfully");
         return response.body;
@@ -36,8 +39,10 @@ class BaseApi {
     try {
       final uri = '${dotenv.env['BASE_URL']}$path';
       log(jsonEncode(body));
-      final response = await http.post(Uri.parse(uri),
-          body: jsonEncode(body), headers: header);
+      final response = await http
+          .post(Uri.parse(uri), body: jsonEncode(body), headers: header)
+          .timeout(const Duration(minutes: 1),
+              onTimeout: () => throw Exception("Time out Post fail in $path"));
       if (response.statusCode == 200) {
         log("Post in $path successfully");
         return response.body;
@@ -46,7 +51,7 @@ class BaseApi {
         throw Exception("Post fail in $path");
       }
     } catch (e) {
-      throw ("Exception get in $path");
+      throw Exception(e.toString());
     }
   }
 

@@ -23,9 +23,6 @@ class DietPage extends StatelessWidget {
             fontSize: 32.sp,
           ),
         ),
-        SizedBox(
-          height: 16.h,
-        ),
         Expanded(
           child: ListView.separated(
             itemCount: listLength,

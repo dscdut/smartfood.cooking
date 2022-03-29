@@ -63,14 +63,14 @@ class RecipeProvider extends ChangeNotifier {
       "joinedCount": "1.5",
       "menu": "3",
       "imageUrl":
-          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+          "https://omron-yte.com.vn/wp-content/uploads/2014/11/giam-can-e1491808919423.jpg"
     },
     {
       "modeName": "cho người tập Gym",
       "joinedCount": "6.9",
       "menu": "3",
       "imageUrl":
-          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+          "https://www.elleman.vn/wp-content/uploads/2018/03/20/an-uong-khoa-hoc-elle-man-feature.jpg"
     }
   ];
 

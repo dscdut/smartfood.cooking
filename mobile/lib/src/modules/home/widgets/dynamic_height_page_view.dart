@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,28 +35,28 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
 
   @override
   Widget build(BuildContext context) {
+    final double fixedHeight =
+        ScreenUtil().screenHeight - 475.h - MediaQuery.of(context).padding.top;
     return SizedBox(
-      height: _currentHeight,
+      height: min(fixedHeight, _currentHeight),
       child: PageView.builder(
         controller: widget.pageController,
         itemCount: widget.children.length,
         itemBuilder: (context, index) {
           return OverflowBox(
             minHeight: 0,
-            maxHeight: double.infinity,
             alignment: Alignment.topCenter,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                  child: UpdatedSizeWidget(
-                    onSizeChange: (Size size) => setState(
-                        () => listHeigtOfChildren[index] = size.height),
-                    child: widget.children[index],
-                    previousHeight: listHeigtOfChildren[index],
-                  ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: UpdatedSizeWidget(
+                  onSizeChange: (Size size) =>
+                      setState(() => listHeigtOfChildren[index] = size.height),
+                  child: widget.children[index],
+                  previousHeight: listHeigtOfChildren[index],
                 ),
-              ],
+              ),
             ),
           );
         },

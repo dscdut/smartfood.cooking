@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +26,7 @@ class RecipeCard extends StatelessWidget {
             .read<RecipeProvider>()
             .getDataRecipeById(context, id: recipe.id!)
             .then((value) {
+          log(value.toString());
           Navigator.pushNamed(
             context,
             RouteManager.cookRecipe,
@@ -36,7 +39,6 @@ class RecipeCard extends StatelessWidget {
       },
       child: Container(
         height: 140.h,
-        margin: EdgeInsets.symmetric(horizontal: 16.w),
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),

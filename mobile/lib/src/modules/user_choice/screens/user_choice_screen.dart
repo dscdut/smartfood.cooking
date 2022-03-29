@@ -56,21 +56,17 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                tabController.index != 0
-                    ? CustomBackButton(
-                        onPressedFunction: () {
-                          pageController.previousPage(
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.easeOut,
-                          );
-                        },
-                      )
-                    : const Opacity(
-                        opacity: 0,
-                        child: CustomBackButton(),
-                      ),
-                GestureDetector(
-                  onTap: () {
+                CustomBackButton(
+                  onPressedFunction: () {
+                    pageController.previousPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeOut,
+                    );
+                  },
+                  isHide: tabController.index == 0,
+                ),
+                TextButton(
+                  onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
                         context, RouteManager.mainScreen, (route) => false);
                   },
@@ -84,7 +80,7 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                 ),
               ],
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 16.h),
             Expanded(
               child: PageView(
                 controller: pageController,
@@ -105,37 +101,40 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                if (tabController.index + 1 < 4) {
-                  pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                } else {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, RouteManager.mainScreen, (route) => false);
-                }
-              },
+            Padding(
+              padding: EdgeInsets.only(
+                top: 32.h,
+                bottom: 24.h,
+              ),
               child: Center(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: 32.h,
-                    bottom: 24.h,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: Palette.orange500,
-                  ),
-                  child: Text(
-                    tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
-                    style: CustomTextTheme.headline4.copyWith(
-                      color: Palette.backgroundColor,
-                      fontSize: 18.sp,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20.r),
+                  onTap: () {
+                    if (tabController.index + 1 < 4) {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                    } else {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, RouteManager.mainScreen, (route) => false);
+                    }
+                  },
+                  child: Ink(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 10.h,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.r),
+                      color: Palette.orange500,
+                    ),
+                    child: Text(
+                      tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
+                      style: CustomTextTheme.headline4.copyWith(
+                        color: Palette.backgroundColor,
+                        fontSize: 18.sp,
+                      ),
                     ),
                   ),
                 ),

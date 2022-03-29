@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class LoadingCircle extends StatelessWidget {
@@ -16,6 +17,7 @@ class LoadingCircle extends StatelessWidget {
             const CircularProgressIndicator(
               color: Palette.pink500,
             ),
+            SizedBox(height: 12.h),
             Text(
               content ?? "",
               style: const TextStyle(
