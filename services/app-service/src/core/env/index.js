@@ -12,3 +12,4 @@ export const ROOT_DIR = process.env === 'production' ? `${process.cwd()}/dist` :
 export const { CLOUDINARY_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
 export const SALT_ROUNDS = Number.parseInt(process.env.SALT_ROUNDS, 10);
 export const CLIENT_ID = process.env.CLIENT_ID || '';
+export const SERVICE_KEY_PATH = process.env.SERVICE_KEY_PATH || './serviceAccount.json';
