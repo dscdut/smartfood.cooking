@@ -229,7 +229,7 @@ class CookRecipe extends StatelessWidget {
                                     SizedBox(width: 2.w),
                                     Text(
                                       //TODO: need data for favorite
-                                      "0.2",
+                                      "4.8",
                                       style: CustomTextTheme.bodyText1.copyWith(
                                         fontSize: 14.sp,
                                         color: Palette.backgroundColor,
