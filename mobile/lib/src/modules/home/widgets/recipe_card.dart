@@ -145,7 +145,7 @@ class RecipeCard extends StatelessWidget {
                           ),
                           SizedBox(width: 2.w),
                           Text(
-                            0.1.toString(),
+                            "4.8",
                             style: CustomTextTheme.headline4.copyWith(
                               color: Palette.backgroundColor,
                               fontWeight: FontWeight.w800,
