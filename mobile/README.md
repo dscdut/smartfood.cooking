@@ -1,8 +1,8 @@
-# Smartfood.cooking
-
-Smartfood - Application Suggesting recipes from available ingredients
+# SmartFood - Application suggesting recipes from available ingredients
 
 [![Flutter](https://img.shields.io/badge/Made%20with-Flutter-blue.svg)](https://flutter.dev/)
+
+<a href ="https://drive.google.com/file/d/1r5BxLCoTn2JqQuEjAtoUxmZeSHIByEKa/view?usp=sharing">![SmartFood Landing](screenshots/SmartFood.jpg)</a>
 
 ## Features
 
@@ -33,7 +33,7 @@ project
 │   |
 |   |
 |   └───src
-|   |    │  
+|   |    │
 │   |    └───core <--[app configs, constant, helpers, theme, utils]
 |   |    |
 │   |    └───data
@@ -49,9 +49,9 @@ project
 |   |    |
 |   |    |
 │   |    └───modules <-[App features, screens, business logic, local widgets]
-│   |    |    
-│   │    |   
-│   |    └───widgets <-[Common widgets]   
+│   |    |
+│   │    |
+│   |    └───widgets <-[Common widgets]
 │   │    |
 │   |    └───app.dart
 │   |
@@ -106,51 +106,14 @@ project
 
 ## Screenshots
 
-
-### Splash, Intro, SignIn, SignUp
-
-<details>
-    <summary>View Screenshots</summary>
-    <br>
-
-|                                                               |                             |                             |
-| :-----------------------------------------------------------: | :-------------------------: | :-------------------------: |
-|                         Splash Screen                         |           Intro1            |           Intro2            |
-| <img src="screenshots/splash.gif" width="420" height="560" /> | ![](screenshots/intro1.png) | ![](screenshots/intro2.png) |
-|                            Intro3                             |           Intro4            |                             |
-|                  ![](screenshots/intro3.png)                  | ![](screenshots/intro4.png) |            ![]()            |
-|                            Sign In                            |           Sign Up           |                             |
-|                  ![](screenshots/signin.png)                  | ![](screenshots/signup.png) |            ![]()            |
-
-</details>
-
-### Main Screen
-
-<details>
-    <summary>View Screenshots</summary>
-    <br>
-
-|                                                         |                                        |                                               |
-| :-----------------------------------------------------: | :------------------------------------: | :-------------------------------------------: |
-|                       Home Screen                       |        Choose if you feel good         |   Choose if you feel bad to finding doctor    |
-|             ![](screenshots/home_user.png)              |  ![](screenshots/if_choose_good.png)   |    ![](screenshots/if_choose_not_good.png)    |
-|                      More Symptoms                      |      Result for choosing symptoms      |                 Choose Doctor                 |
-|            ![](screenshots/more_symptom.png)            |      ![](screenshots/result.png)       | ![](screenshots/choose_doctor_by_symptom.png) |
-|                         Search                          |              Chat Screen               |                   Chat Room                   |
-|               ![](screenshots/search.png)               | ![](screenshots/chat_user_history.png) |        ![](screenshots/chat_room.png)         |
-|              Chat With Typing Event Socket              |      Image Preview Before Sending      |               All Prescriptions               |
-| ![](screenshots/chat_with_typing_event_socket_user.png) |    ![](screenshots/image_user.png)     |   ![](screenshots/prescription_member.png)    |
-|                   Detail Prescription                   |     Detail Information Member role     |               Edit Information                |
-|        ![](screenshots/detail_prescription.png)         |    ![](screenshots/detail_user.png)    |     ![](screenshots/edit_user_detial.png)     |
-|                Detail Information Doctor                |         Change password dialog         |             Dialog choose avatar              |
-|           ![](screenshots/detail_doctor.png)            |    ![](screenshots/change_pass.png)    | ![](screenshots/dialog_image_choose_edit.png) |
-|                        More news                        |                WebView                 |                                               |
-|             ![](screenshots/more_news.png)              |      ![](screenshots/webview.png)      |                     ![]()                     |
-
-</details>
-
-
-
+|                                         |                                         |                                    |
+| :-------------------------------------: | :-------------------------------------: | :--------------------------------: |
+|              Splash Screen              |                 Sign In                 |            Home Screen             |
+|       ![](screenshots/splash.jpg)       |      ![](screenshots/sign_in.jpg)       |     ![](screenshots/home.jpg)      |
+|         Choose your Ingredients         |        Choose Ingrdients by Type        |           Choose recipe            |
+| ![](screenshots/choose_ingredients.jpg) | ![](screenshots/choose_ingredient2.jpg) | ![](screenshots/choose_recipe.jpg) |
+|             Cooking repice              |              Cooking step               |            Done cooking            |
+|      ![](screenshots/cooking.jpg)       |    ![](screenshots/cooking_step.jpg)    | ![](screenshots/done_cooking.jpg)  |
 
 ## Todo
 
