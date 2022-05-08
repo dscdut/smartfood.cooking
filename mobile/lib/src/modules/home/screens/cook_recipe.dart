@@ -111,14 +111,14 @@ class CookRecipe extends StatelessWidget {
                             );
                           },
                           errorWidget: (context, string, dymamic) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
                             child: const Center(
                               child: Icon(
                                 PhosphorIcons.image,
                                 color: Palette.orange500,
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
                             ),
                           ),
                         ),
@@ -229,7 +229,7 @@ class CookRecipe extends StatelessWidget {
                                     SizedBox(width: 2.w),
                                     Text(
                                       //TODO: need data for favorite
-                                      "4.8",
+                                      '4.8',
                                       style: CustomTextTheme.bodyText1.copyWith(
                                         fontSize: 14.sp,
                                         color: Palette.backgroundColor,
@@ -248,123 +248,443 @@ class CookRecipe extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.h),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Dinh dưỡng',
-                          style: CustomTextTheme.headline3.copyWith(
-                            color: Palette.gray500,
-                            fontSize: 21.sp,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          'Xem tất cả',
-                          style: CustomTextTheme.bodyText1.copyWith(
-                            color: Palette.pink500,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        NutritionCard(
-                            nameNutrition: 'Đạm', valueNutrition: '50g'),
-                        NutritionCard(
-                          nameNutrition: "Chất béo",
-                          valueNutrition: '50g',
-                        ),
-                        NutritionCard(
-                          nameNutrition: "Protein",
-                          valueNutrition: '50g',
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 24.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Text(
-                      'Nguyên liệu (' +
-                          recipe.ingredients!.length.toString() +
-                          ')',
-                      style: CustomTextTheme.headline3.copyWith(
-                        color: Palette.gray500,
-                        fontSize: 21.sp,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  Expanded(
-                    child: ScrollConfiguration(
-                      behavior: NoShowLimitScroll(),
-                      child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        children:
-                            recipe.ingredients!.map(listIngredient).toList(),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            RouteManager.stepsToCooking,
-                            arguments: {
-                              "step": recipe.steps,
-                              "name": recipe.name,
-                            },
-                          );
-                        },
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(210.w, 45.h),
-                          backgroundColor: Palette.orange500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
+            SizedBox(
+              height: 390.h,
+              child: ScrollConfiguration(
+                behavior: NoShowLimitScroll(),
+                child: ListView(padding: EdgeInsets.zero, children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              PhosphorIcons.cookingPotBold,
-                              color: Palette.backgroundColor,
-                            ),
-                            SizedBox(width: 6.w),
                             Text(
-                              'Bắt đầu nấu ăn!',
-                              style: CustomTextTheme.headline4.copyWith(
-                                color: Palette.backgroundColor,
-                                fontSize: 18.sp,
+                              'Dinh dưỡng',
+                              style: CustomTextTheme.headline3.copyWith(
+                                color: Palette.gray500,
+                                fontSize: 21.sp,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              'Xem tất cả',
+                              style: CustomTextTheme.bodyText1.copyWith(
+                                color: Palette.pink500,
+                                fontSize: 14.sp,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  )
-                ],
+                      SizedBox(height: 15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            NutritionCard(
+                                nameNutrition: 'Đạm', valueNutrition: '50g'),
+                            NutritionCard(
+                              nameNutrition: 'Chất béo',
+                              valueNutrition: '50g',
+                            ),
+                            NutritionCard(
+                              nameNutrition: 'Protein',
+                              valueNutrition: '50g',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Text(
+                          'Nguyên liệu (' +
+                              recipe.ingredients!.length.toString() +
+                              ')',
+                          style: CustomTextTheme.headline3.copyWith(
+                            color: Palette.gray500,
+                            fontSize: 21.sp,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      SizedBox(
+                        height: 200.h,
+                        child: ScrollConfiguration(
+                          behavior: NoShowLimitScroll(),
+                          child: ListView(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            children: recipe.ingredients!
+                                .map(listIngredient)
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.w, vertical: 8.h),
+                        child: Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Đánh giá',
+                                style: CustomTextTheme.headline3.copyWith(
+                                  color: Palette.gray500,
+                                  fontSize: 21.sp,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 16.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 100.w,
+                                    height: 100.h,
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 8.h),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.r),
+                                      border: Border.all(
+                                          color: Palette.gray300, width: 2),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '4.0 / 5',
+                                          style: CustomTextTheme.headline5
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Icon(
+                                              Icons.star,
+                                              color: Palette.yellowStar,
+                                              size: 19,
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Palette.yellowStar,
+                                              size: 19,
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Palette.yellowStar,
+                                              size: 19,
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Palette.yellowStar,
+                                              size: 19,
+                                            ),
+                                            Icon(
+                                              Icons.star,
+                                              color: Palette.gray200,
+                                              size: 19,
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          '999 đánh giá',
+                                          style: CustomTextTheme.bodyText3
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 15.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Đánh giá của bạn',
+                                        style:
+                                            CustomTextTheme.headline6.copyWith(
+                                          color: Palette.gray500,
+                                          fontSize: 17.sp,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: const [
+                                          Icon(
+                                            Icons.star,
+                                            color: Palette.gray200,
+                                            size: 32,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Palette.gray200,
+                                            size: 32,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Palette.gray200,
+                                            size: 32,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Palette.gray200,
+                                            size: 32,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: Palette.gray200,
+                                            size: 32,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.h),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20.r,
+                                          backgroundColor: Palette.infoColor,
+                                          child: Text(
+                                            'A',
+                                            style: CustomTextTheme.headline4
+                                                .copyWith(
+                                              color: Palette.backgroundColor,
+                                              fontSize: 18.sp,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 8.w,
+                                        ),
+                                        Text(
+                                          'Khải Huyền',
+                                          style: CustomTextTheme.headline6
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        SizedBox(
+                                          width: 8.w,
+                                        ),
+                                        Text(
+                                          '20/02/2022',
+                                          style: CustomTextTheme.bodyText4
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 10.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      'Món ăn thật tuyệt dời. Ứng dụng SmartFood đỉnh quá. '
+                                      'Từ ngày có SmartFood mình không cần nghĩ hôm nay ăn món gì. Trừ một sao vì hôm nay dỗi anh P :(((',
+                                      textAlign: TextAlign.justify,
+                                      style: CustomTextTheme.bodyText3.copyWith(
+                                        color: Palette.gray500,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8.h),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20.r,
+                                          backgroundColor: Palette.infoColor,
+                                          child: Text(
+                                            'P',
+                                            style: CustomTextTheme.headline4
+                                                .copyWith(
+                                              color: Palette.backgroundColor,
+                                              fontSize: 18.sp,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 8.w,
+                                        ),
+                                        Text(
+                                          'anh P',
+                                          style: CustomTextTheme.headline6
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Palette.yellowStar,
+                                          size: 15,
+                                        ),
+                                        SizedBox(
+                                          width: 8.w,
+                                        ),
+                                        Text(
+                                          '20/02/2022',
+                                          style: CustomTextTheme.bodyText4
+                                              .copyWith(
+                                            color: Palette.gray500,
+                                            fontSize: 10.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Text(
+                                      'Món ăn hợp khẩu vị, ngon. Trừ một sao vì nay bị người yêu dỗi',
+                                      textAlign: TextAlign.justify,
+                                      style: CustomTextTheme.bodyText3.copyWith(
+                                        color: Palette.gray500,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
               ),
             ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      RouteManager.stepsToCooking,
+                      arguments: {
+                        'step': recipe.steps,
+                        'name': recipe.name,
+                      },
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    fixedSize: Size(210.w, 45.h),
+                    backgroundColor: Palette.orange500,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        PhosphorIcons.cookingPotBold,
+                        color: Palette.backgroundColor,
+                      ),
+                      SizedBox(width: 6.w),
+                      Text(
+                        'Bắt đầu nấu ăn!',
+                        style: CustomTextTheme.headline4.copyWith(
+                          color: Palette.backgroundColor,
+                          fontSize: 18.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -378,10 +698,10 @@ class CookRecipe extends StatelessWidget {
         children: [
           CachedNetworkImage(
             imageUrl: ingredient.url ??
-                "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                    "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                    "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                    "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                    '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                    'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                    '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg',
             imageBuilder: (context, imageProvider) {
               return CircleAvatar(
                 backgroundImage: imageProvider,
@@ -418,7 +738,7 @@ class CookRecipe extends StatelessWidget {
           SizedBox(width: 12.w),
           Expanded(
             child: Text(
-              ingredient.name ?? "",
+              ingredient.name ?? '',
               style: CustomTextTheme.subtitle1.copyWith(
                 color: Palette.gray500,
                 fontSize: 17.sp,
