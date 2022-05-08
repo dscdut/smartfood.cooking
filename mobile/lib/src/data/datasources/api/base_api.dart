@@ -11,44 +11,46 @@ class BaseApi {
 
   Future<String> getMethod(String path) async {
     try {
-      // final box = await Hive.openBox<String>(dotenv.env['HIVE_BOX_NAME']!);
       final uri = '${dotenv.env['BASE_URL']}$path';
-      // if (shouldCache && box.get(uri) != null) {
-      //   return json.decode(box.get(uri)!) as T;
-      // }
+
       log(Uri.parse(uri).toString());
       final response = await http.get(Uri.parse(uri)).timeout(
-          const Duration(minutes: 1),
-          onTimeout: () => throw Exception("Time out Get fail in $path"));
+            const Duration(minutes: 1),
+            onTimeout: () => throw Exception('Time out Get fail in $path'),
+          );
       if (response.statusCode == 200) {
-        log("Get in $path successfully");
+        log('Get in $path successfully');
         return response.body;
       } else {
-        throw Exception("Get fail in $path");
+        throw Exception('Get fail in $path');
       }
     } catch (e) {
-      throw Exception("Exception get in $path");
+      throw Exception('Exception get in $path');
     }
   }
 
-  Future<String> postMethod(String path,
-      {required Map<String, dynamic> body}) async {
+  Future<String> postMethod(
+    String path, {
+    required Map<String, dynamic> body,
+  }) async {
     final header = {
-      "Content-Type": 'application/json',
+      'Content-Type': 'application/json',
     };
     try {
       final uri = '${dotenv.env['BASE_URL']}$path';
       log(jsonEncode(body));
       final response = await http
           .post(Uri.parse(uri), body: jsonEncode(body), headers: header)
-          .timeout(const Duration(minutes: 1),
-              onTimeout: () => throw Exception("Time out Post fail in $path"));
+          .timeout(
+            const Duration(minutes: 1),
+            onTimeout: () => throw Exception('Time out Post fail in $path'),
+          );
       if (response.statusCode == 200) {
-        log("Post in $path successfully");
+        log('Post in $path successfully');
         return response.body;
       } else {
-        log(response.body.toString());
-        throw Exception("Post fail in $path");
+        log(response.body);
+        throw Exception('Post fail in $path');
       }
     } catch (e) {
       throw Exception(e.toString());

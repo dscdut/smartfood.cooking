@@ -18,41 +18,41 @@ class UserChoiceProvider with ChangeNotifier {
     ImagePath.friedImage
   ];
   final List<String> listNameFavoriteFood = <String>[
-    "Lẩu",
-    "Bún-Mì-Phở",
-    "Cháo",
-    "Nướng",
-    "Món chay",
-    "Rau củ",
-    "Thức uống",
-    "Bánh ngọt",
-    "Chiên"
+    'Lẩu',
+    'Bún-Mì-Phở',
+    'Cháo',
+    'Nướng',
+    'Món chay',
+    'Rau củ',
+    'Thức uống',
+    'Bánh ngọt',
+    'Chiên'
   ];
   final List<bool> listCheckChosenFavoriteFood = List.filled(9, false);
 
   // STATIC DATA for DietPage
   final List<String> listNameDiet = <String>[
-    "Eat Clean",
-    "Keto",
-    "Low carb/ Das",
-    "Thuần chay",
-    "Chế độ ăn cho người béo phì",
-    "Chế độ ăn cho người thiếu cân",
-    "Không theo chế độ ăn"
+    'Eat Clean',
+    'Keto',
+    'Low carb/ Das',
+    'Thuần chay',
+    'Chế độ ăn cho người béo phì',
+    'Chế độ ăn cho người thiếu cân',
+    'Không theo chế độ ăn'
   ];
   int currentIndex = 0;
 
   // STATIC DATA for AllergicFoodPage
   final List<String> listNameAllergicFood = [
-    "Sữa bò",
-    "Đường Lactose",
-    "Trứng",
-    "Cá/ Hải sản",
-    "Đậu phộng",
-    "Đậu tương",
-    "Lúa mì",
-    "Hạt cây",
-    "Không dị ứng"
+    'Sữa bò',
+    'Đường Lactose',
+    'Trứng',
+    'Cá/ Hải sản',
+    'Đậu phộng',
+    'Đậu tương',
+    'Lúa mì',
+    'Hạt cây',
+    'Không dị ứng'
   ];
   List<bool> listCheckChosenAllergicFood = List.filled(9, false);
 

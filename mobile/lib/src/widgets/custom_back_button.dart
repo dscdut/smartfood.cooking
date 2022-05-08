@@ -40,9 +40,11 @@ class CustomBackButton extends StatelessWidget {
           child: IconButton(
             padding: EdgeInsets.zero,
             splashRadius: 24,
-            icon: Icon(reverse
-                ? PhosphorIcons.caretRightBold
-                : PhosphorIcons.caretLeftBold),
+            icon: Icon(
+              reverse
+                  ? PhosphorIcons.caretRightBold
+                  : PhosphorIcons.caretLeftBold,
+            ),
             color: Palette.pink500,
             iconSize: 20.sp,
             onPressed: !isHide ? onPressedFunction : null,

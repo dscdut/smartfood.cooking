@@ -17,12 +17,16 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1600));
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.bounceOut));
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    );
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.bounceOut),
+    );
     _animationController.forward().whenComplete(() async {
-      await Future.delayed(const Duration(milliseconds: 400)).then((value) =>
-          Navigator.pushReplacementNamed(context, RouteManager.signIn));
+      await Future<void>.delayed(const Duration(milliseconds: 400)).then(
+        (value) => Navigator.pushReplacementNamed(context, RouteManager.signIn),
+      );
     });
   }
 

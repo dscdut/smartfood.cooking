@@ -34,7 +34,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
+    const interactiveStates = <MaterialState>{
       MaterialState.pressed,
       MaterialState.hovered,
       MaterialState.focused,
@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                       PhosphorIcons.lockKey,
                       color: Palette.gray500,
                     ),
-                    hintText: "Email",
+                    hintText: 'Email',
                     border: InputBorder.none,
                     hintStyle: CustomTextTheme.subtitle2.copyWith(
                       color: Palette.gray300,
@@ -146,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                       PhosphorIcons.lockKey,
                       color: Palette.gray500,
                     ),
-                    hintText: "Mật khẩu",
+                    hintText: 'Mật khẩu',
                     border: InputBorder.none,
                     hintStyle: CustomTextTheme.subtitle2.copyWith(
                       color: Palette.gray300,
@@ -207,7 +207,7 @@ class _SignUpState extends State<SignUp> {
                       PhosphorIcons.lockKey,
                       color: Palette.gray500,
                     ),
-                    hintText: "Xác nhận lại mật khẩu",
+                    hintText: 'Xác nhận lại mật khẩu',
                     border: InputBorder.none,
                     hintStyle: CustomTextTheme.subtitle2.copyWith(
                       color: Palette.gray300,
@@ -262,7 +262,7 @@ class _SignUpState extends State<SignUp> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "Tôi đồng ý với điều khoản của ",
+                            text: 'Tôi đồng ý với điều khoản của ',
                             style: CustomTextTheme.subtitle2.copyWith(
                               fontSize: 16.sp,
                               color: Palette.gray500,
@@ -270,7 +270,7 @@ class _SignUpState extends State<SignUp> {
                             ),
                           ),
                           TextSpan(
-                            text: "SmartFood",
+                            text: 'SmartFood',
                             style: CustomTextTheme.subtitle1.copyWith(
                               color: Palette.pink500,
                               fontSize: 16.sp,
@@ -304,7 +304,7 @@ class _SignUpState extends State<SignUp> {
                       color: Palette.orange500,
                     ),
                     child: Text(
-                      "Đăng ký",
+                      'Đăng ký',
                       style: CustomTextTheme.headline4.copyWith(
                         color: Palette.backgroundColor,
                         fontSize: 18.sp,

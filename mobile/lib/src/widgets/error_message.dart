@@ -10,7 +10,7 @@ class ErrorMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class ErrorMessage extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Text(
-              content ?? "",
+              content ?? '',
               style: const TextStyle(
                 color: Palette.gray500,
                 fontWeight: FontWeight.w700,

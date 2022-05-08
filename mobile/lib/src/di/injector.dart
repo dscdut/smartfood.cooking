@@ -15,49 +15,38 @@ import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.d
 final GetIt getIt = GetIt.instance;
 
 void initDependences() {
-  ///External + Http + Firebase
-  getIt.registerLazySingleton(() => GoogleSignIn());
-  getIt.registerLazySingleton(() => FirebaseAuth.instance);
-  getIt.registerLazySingleton(() => Client());
-
-  ///Datasource
-  ///
-  ///
-  getIt.registerLazySingleton<FirebaseService>(
-    () => FirebaseService(
-      firebaseAuth: getIt(),
-      googleSignIn: getIt(),
-      http: getIt(),
-    ),
-  );
-
-  getIt.registerLazySingleton<BaseApi>(() => BaseApi(http: getIt()));
-
-  ///Repository
-  ///
-  ///
-  getIt.registerLazySingleton<IngredientRepository>(
-      () => IngredientRepository(baseApi: getIt()));
-  getIt.registerLazySingleton<RecipeRepository>(
-      () => RecipeRepository(baseApi: getIt()));
-  getIt.registerLazySingleton<AuthenticationRepository>(
+  getIt
+    ..registerLazySingleton(GoogleSignIn.new)
+    ..registerLazySingleton(() => FirebaseAuth.instance)
+    ..registerLazySingleton(Client.new)
+    ..registerLazySingleton<FirebaseService>(
+      () => FirebaseService(
+        firebaseAuth: getIt(),
+        googleSignIn: getIt(),
+        http: getIt(),
+      ),
+    )
+    ..registerLazySingleton<BaseApi>(() => BaseApi(http: getIt()))
+    ..registerLazySingleton<IngredientRepository>(
+      () => IngredientRepository(baseApi: getIt()),
+    )
+    ..registerLazySingleton<RecipeRepository>(
+      () => RecipeRepository(baseApi: getIt()),
+    )
+    ..registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepository(
-            baseApi: getIt(),
-            firebaseService: getIt(),
-          ));
-
-  ///ChangeNotifier
-  ///
-  ///
-
-  getIt.registerFactory<UserChoiceProvider>(() => UserChoiceProvider());
-
-  getIt.registerFactory<ChoiceYourIngredientsProvider>(
-      () => ChoiceYourIngredientsProvider(ingredientRepository: getIt()));
-
-  getIt.registerFactory<RecipeProvider>(
-      () => RecipeProvider(recipeRepository: getIt()));
-
-  getIt.registerFactory<SignInProvider>(
-      () => SignInProvider(authenticationRepository: getIt()));
+        baseApi: getIt(),
+        firebaseService: getIt(),
+      ),
+    )
+    ..registerFactory<UserChoiceProvider>(UserChoiceProvider.new)
+    ..registerFactory<ChoiceYourIngredientsProvider>(
+      () => ChoiceYourIngredientsProvider(ingredientRepository: getIt()),
+    )
+    ..registerFactory<RecipeProvider>(
+      () => RecipeProvider(recipeRepository: getIt()),
+    )
+    ..registerFactory<SignInProvider>(
+      () => SignInProvider(authenticationRepository: getIt()),
+    );
 }

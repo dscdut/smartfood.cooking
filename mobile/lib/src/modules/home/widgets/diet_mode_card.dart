@@ -76,27 +76,25 @@ class DietModeCard extends StatelessWidget {
               errorWidget: (context, string, dymamic) => Container(
                 height: 120.h,
                 alignment: Alignment.center,
-                child: const Icon(
-                  PhosphorIcons.warning,
-                  color: Palette.orange500,
-                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(15.r),
                   ),
                 ),
+                child: const Icon(
+                  PhosphorIcons.warning,
+                  color: Palette.orange500,
+                ),
               ),
             ),
             SizedBox(height: 5.h),
-            const Spacer(
-              flex: 1,
-            ),
+            const Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 8.0.w,
               ),
               child: Text(
-                "Chế độ ăn $modeName",
+                'Chế độ ăn $modeName',
                 style: CustomTextTheme.subtitle1.copyWith(
                   color: Palette.gray500,
                   fontSize: 15.sp,
@@ -129,7 +127,7 @@ class DietModeCard extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "${joinedCount}k",
+                              text: '${joinedCount}k',
                               style: CustomTextTheme.bodyText1.copyWith(
                                 color: Palette.pink500,
                                 fontSize: 14.sp,

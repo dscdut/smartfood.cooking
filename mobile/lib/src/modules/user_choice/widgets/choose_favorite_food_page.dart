@@ -14,7 +14,7 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Món ăn yêu thích",
+          'Món ăn yêu thích',
           style: CustomTextTheme.headline1.copyWith(
             color: Palette.gray500,
             fontSize: 32.sp,
@@ -32,16 +32,18 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
               crossAxisSpacing: 16.w,
             ),
             children: List<Widget>.generate(9, (index) {
-              return Consumer<UserChoiceProvider>(builder: (_, provider, __) {
-                return InkWell(
-                  onTap: () => provider.onTapFavoriteFoodCard(index),
-                  child: FavoriteFoodCard(
-                    imagePath: provider.listImagePathFavoriteFood[index],
-                    title: provider.listNameFavoriteFood[index],
-                    isChosen: provider.listCheckChosenFavoriteFood[index],
-                  ),
-                );
-              });
+              return Consumer<UserChoiceProvider>(
+                builder: (_, provider, __) {
+                  return InkWell(
+                    onTap: () => provider.onTapFavoriteFoodCard(index),
+                    child: FavoriteFoodCard(
+                      imagePath: provider.listImagePathFavoriteFood[index],
+                      title: provider.listNameFavoriteFood[index],
+                      isChosen: provider.listCheckChosenFavoriteFood[index],
+                    ),
+                  );
+                },
+              );
             }),
           ),
         )
@@ -51,10 +53,6 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
 }
 
 class FavoriteFoodCard extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final bool isChosen;
-
   const FavoriteFoodCard({
     Key? key,
     required this.imagePath,
@@ -62,8 +60,12 @@ class FavoriteFoodCard extends StatelessWidget {
     this.isChosen = false,
   }) : super(key: key);
 
+  final String imagePath;
+  final String title;
+  final bool isChosen;
+
   Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
+    const interactiveStates = <MaterialState>{
       MaterialState.selected,
     };
     if (!states.any(interactiveStates.contains)) {
@@ -109,7 +111,6 @@ class FavoriteFoodCard extends StatelessWidget {
                 top: -15.h,
                 right: -25.w,
                 child: IgnorePointer(
-                  ignoring: true,
                   child: Checkbox(
                     checkColor: Colors.white,
                     fillColor: MaterialStateProperty.resolveWith(getColor),

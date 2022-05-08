@@ -21,7 +21,7 @@ class AllergicFoodPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Thực phẩm dị ứng",
+              'Thực phẩm dị ứng',
               style: CustomTextTheme.headline1.copyWith(
                 color: Palette.gray500,
                 fontSize: 32.sp,
@@ -46,16 +46,18 @@ class AllergicFoodPage extends StatelessWidget {
           child: ListView.separated(
             itemCount: userChoiceProvider.listNameAllergicFood.length,
             itemBuilder: (_, index) {
-              return Consumer<UserChoiceProvider>(builder: (_, provider, __) {
-                return ItemChoice(
-                  isSelected: provider.listCheckChosenAllergicFood[index],
-                  itemTitle: provider.listNameAllergicFood[index],
-                  onTapFunction: () {
-                    provider.onTapAllergicItem(index);
-                  },
-                  isNeedHelpTooltip: false,
-                );
-              });
+              return Consumer<UserChoiceProvider>(
+                builder: (_, provider, __) {
+                  return ItemChoice(
+                    isSelected: provider.listCheckChosenAllergicFood[index],
+                    itemTitle: provider.listNameAllergicFood[index],
+                    onTapFunction: () {
+                      provider.onTapAllergicItem(index);
+                    },
+                    isNeedHelpTooltip: false,
+                  );
+                },
+              );
             },
             separatorBuilder: (context, index) {
               return SizedBox(height: 8.h);

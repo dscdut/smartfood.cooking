@@ -1,21 +1,22 @@
 import 'package:equatable/equatable.dart';
 
 class CookingStep extends Equatable {
-  final String? content;
-  final int? order;
-  final List<String>? images;
-
   const CookingStep({this.content, this.order, this.images});
 
   factory CookingStep.fromJson(Map<String, dynamic> json) => CookingStep(
         content: json['content'] as String?,
         order: json['order'] as int?,
-        images: (json['images'] as List<dynamic>?)
-            ?.map((e) => e as String)
+        images: (json['images'] as List<String>?)
+            ?.map((e) => e)
             .toList(),
       );
 
-  Map<String, dynamic> toJson() => {
+  final String? content;
+  final int? order;
+  final List<String>? images;
+
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'content': content,
         'order': order,
         'images': images,

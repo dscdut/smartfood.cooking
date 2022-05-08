@@ -42,33 +42,33 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: currentIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        onTap: (value) => changeIndex(value),
+        onTap: changeIndex,
         iconSize: 30,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(PhosphorIcons.house),
             activeIcon: Icon(PhosphorIcons.houseFill),
-            label: "Home",
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIcons.magnifyingGlass),
             activeIcon: Icon(PhosphorIcons.magnifyingGlassFill),
-            label: "Search",
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIcons.plusCircle),
             activeIcon: Icon(PhosphorIcons.plusCircleFill),
-            label: "Add",
+            label: 'Add',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIcons.heart),
             activeIcon: Icon(PhosphorIcons.heartFill),
-            label: "Favorite",
+            label: 'Favorite',
           ),
           BottomNavigationBarItem(
             icon: Icon(PhosphorIcons.userCircle),
             activeIcon: Icon(PhosphorIcons.userCircleFill),
-            label: "User",
+            label: 'User',
           )
         ],
       ),

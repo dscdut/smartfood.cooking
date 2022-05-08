@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 childAnimationBuilder: (widget) {
                   return SlideAnimation(
-                    horizontalOffset: 75.0,
+                    horizontalOffset: 75,
                     child: FadeInAnimation(
                       child: widget,
                     ),
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Xin chào, A",
+                          'Xin chào, A',
                           style: CustomTextTheme.headline1.copyWith(
                             color: Palette.pink500,
                             fontSize: 32.sp,
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                         const CircleAvatar(
                           backgroundColor: Colors.indigo,
                           child: Text(
-                            "A",
+                            'A',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Hôm nay bạn muốn nấu món gì?",
+                      'Hôm nay bạn muốn nấu món gì?',
                       style: CustomTextTheme.headline4.copyWith(
                         color: Palette.gray400,
                         fontSize: 20.sp,
@@ -85,7 +85,9 @@ class HomeScreen extends StatelessWidget {
                       MenuButton(
                         menuName: 'Tủ lạnh\nbạn có gì?',
                         onMenuAction: () => Navigator.pushNamed(
-                            context, RouteManager.chooseYourIngredient),
+                          context,
+                          RouteManager.chooseYourIngredient,
+                        ),
                         child: SvgPicture.asset(
                           ImagePath.fridgeIcon,
                           height: 32.h,
@@ -122,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Công thức hôm nay",
+                      'Công thức hôm nay',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -137,22 +139,24 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Consumer<RecipeProvider>(
-                            builder: (context, provider, child) {
-                          return MenuRecipeCard(
-                            imageUrl:
-                                provider.menuData[index]["imageUrl"] as String,
-                            isFavorite: provider.listTodayRecipe[index],
-                            level: provider.menuData[index]["level"] as String,
-                            recipeName:
-                                provider.menuData[index]["name"] as String,
-                            timeNeed:
-                                provider.menuData[index]["time"] as String,
-                            onMenuCardAction: () {},
-                            onFavoriteAction: () {
-                              recipeProvider.favoriteRecipeAction(index);
-                            },
-                          );
-                        });
+                          builder: (context, provider, child) {
+                            return MenuRecipeCard(
+                              imageUrl: provider.menuData[index]['imageUrl']!
+                                  as String,
+                              isFavorite: provider.listTodayRecipe[index],
+                              level:
+                                  provider.menuData[index]['level']! as String,
+                              recipeName:
+                                  provider.menuData[index]['name']! as String,
+                              timeNeed:
+                                  provider.menuData[index]['time']! as String,
+                              onMenuCardAction: () {},
+                              onFavoriteAction: () {
+                                recipeProvider.favoriteRecipeAction(index);
+                              },
+                            );
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(width: 26.w);
@@ -162,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Chế độ ăn",
+                      'Chế độ ăn',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -177,19 +181,19 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Consumer<RecipeProvider>(
-                            builder: (context, provider, child) {
-                          return DietModeCard(
-                            imageUrl: provider.dietModeData[index]["imageUrl"]
-                                as String,
-                            joinedCount: provider.dietModeData[index]
-                                ["joinedCount"] as String,
-                            modeName: provider.dietModeData[index]["modeName"]
-                                as String,
-                            noMenu:
-                                provider.dietModeData[index]["menu"] as String,
-                            onTapAction: () {},
-                          );
-                        });
+                          builder: (context, provider, child) {
+                            return DietModeCard(
+                              imageUrl: provider.dietModeData[index]
+                                  ['imageUrl']!,
+                              joinedCount: provider.dietModeData[index]
+                                  ['joinedCount']!,
+                              modeName: provider.dietModeData[index]
+                                  ['modeName']!,
+                              noMenu: provider.dietModeData[index]['menu']!,
+                              onTapAction: () {},
+                            );
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(width: 25.w);
@@ -199,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "SmartFood News",
+                      'SmartFood News',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -217,9 +221,9 @@ class HomeScreen extends StatelessWidget {
                           builder: (context, provider, child) {
                             return NewsCard(
                               description: provider.newsData[index]
-                                  ["description"]!,
-                              imageUrl: provider.newsData[index]["imageUrl"]!,
-                              title: provider.newsData[index]["newsTitle"]!,
+                                  ['description']!,
+                              imageUrl: provider.newsData[index]['imageUrl']!,
+                              title: provider.newsData[index]['newsTitle']!,
                             );
                           },
                         );

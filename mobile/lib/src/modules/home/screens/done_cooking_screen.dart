@@ -33,7 +33,7 @@ class DoneCookingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Chúc mừng bạn đã hoàn thành món ăn",
+                  'Chúc mừng bạn đã hoàn thành món ăn',
                   style: CustomTextTheme.headline4.copyWith(
                     color: Palette.gray500,
                     fontSize: 16.sp,
@@ -80,9 +80,11 @@ class DoneCookingScreen extends StatelessWidget {
                         width: 6.w,
                       ),
                       Text(
-                        "Lượng Calo bạn đã tiêu thụ",
+                        'Lượng Calo bạn đã tiêu thụ',
                         style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.orange500, fontSize: 16.sp),
+                          color: Palette.orange500,
+                          fontSize: 16.sp,
+                        ),
                       )
                     ],
                   ),
@@ -107,7 +109,7 @@ class DoneCookingScreen extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "32%",
+                    '32%',
                     style: CustomTextTheme.subtitle1.copyWith(
                       color: Palette.gray500,
                       fontSize: 15.sp,
@@ -125,10 +127,12 @@ class DoneCookingScreen extends StatelessWidget {
                     .popUntil(ModalRoute.withName(RouteManager.mainScreen));
               },
               style: TextButton.styleFrom(
-                  fixedSize: Size(210.w, 45.h),
-                  backgroundColor: Palette.orange500,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20))),
+                fixedSize: Size(210.w, 45.h),
+                backgroundColor: Palette.orange500,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -141,7 +145,7 @@ class DoneCookingScreen extends StatelessWidget {
                     width: 6.w,
                   ),
                   Text(
-                    "Quay về trang chủ",
+                    'Quay về trang chủ',
                     style: CustomTextTheme.headline4.copyWith(
                       color: Palette.backgroundColor,
                       fontSize: 17.sp,

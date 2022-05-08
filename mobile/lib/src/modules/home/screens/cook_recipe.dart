@@ -35,15 +35,16 @@ class CookRecipe extends StatelessWidget {
                   ),
                   SizedBox(width: 8.w),
                   Expanded(
-                      child: Text(
-                    recipe.name!,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    style: CustomTextTheme.headline2.copyWith(
-                      color: Palette.pink500,
-                      fontSize: 24.sp,
+                    child: Text(
+                      recipe.name!,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: CustomTextTheme.headline2.copyWith(
+                        color: Palette.pink500,
+                        fontSize: 24.sp,
+                      ),
                     ),
-                  )),
+                  ),
                   const CustomBackButton(
                     isHide: true,
                   ),
@@ -55,7 +56,7 @@ class CookRecipe extends StatelessWidget {
               onTap: () => Navigator.pushNamed(
                 context,
                 RouteManager.viewImage,
-                arguments: recipe.imageUrl!,
+                arguments: recipe.imageUrl,
               ),
               child: Hero(
                 tag: recipe.imageUrl!,
@@ -81,12 +82,12 @@ class CookRecipe extends StatelessWidget {
                         ),
                         child: CachedNetworkImage(
                           cacheManager: CustomCacheManager.customCacheManager,
-                          imageUrl: recipe.imageUrl != ""
+                          imageUrl: recipe.imageUrl != ''
                               ? recipe.imageUrl!
-                              : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                                  "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                                  "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                                  "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                              : 'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                                  '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                                  'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                                  '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg',
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20.r),
@@ -111,14 +112,14 @@ class CookRecipe extends StatelessWidget {
                             );
                           },
                           errorWidget: (context, string, dymamic) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
                             child: const Center(
                               child: Icon(
                                 PhosphorIcons.image,
                                 color: Palette.orange500,
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
                             ),
                           ),
                         ),
@@ -192,10 +193,11 @@ class CookRecipe extends StatelessWidget {
                                     SizedBox(width: 4.w),
                                     Text(
                                       //TODO: need time data
-                                      "30p",
+                                      '30p',
                                       style: CustomTextTheme.bodyText1.copyWith(
-                                          fontSize: 14.sp,
-                                          color: Palette.backgroundColor),
+                                        fontSize: 14.sp,
+                                        color: Palette.backgroundColor,
+                                      ),
                                     ),
                                     const Spacer(),
                                     const Text(
@@ -212,7 +214,7 @@ class CookRecipe extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      ' ' + recipe.level!,
+                                      ' ${recipe.level!}',
                                       style: CustomTextTheme.bodyText1.copyWith(
                                         fontSize: 14.sp,
                                         color: Palette.backgroundColor,
@@ -229,7 +231,7 @@ class CookRecipe extends StatelessWidget {
                                     SizedBox(width: 2.w),
                                     Text(
                                       //TODO: need data for favorite
-                                      "4.8",
+                                      '4.8',
                                       style: CustomTextTheme.bodyText1.copyWith(
                                         fontSize: 14.sp,
                                         color: Palette.backgroundColor,
@@ -281,13 +283,15 @@ class CookRecipe extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         NutritionCard(
-                            nameNutrition: 'Đạm', valueNutrition: '50g'),
-                        NutritionCard(
-                          nameNutrition: "Chất béo",
+                          nameNutrition: 'Đạm',
                           valueNutrition: '50g',
                         ),
                         NutritionCard(
-                          nameNutrition: "Protein",
+                          nameNutrition: 'Chất béo',
+                          valueNutrition: '50g',
+                        ),
+                        NutritionCard(
+                          nameNutrition: 'Protein',
                           valueNutrition: '50g',
                         ),
                       ],
@@ -297,9 +301,7 @@ class CookRecipe extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                     child: Text(
-                      'Nguyên liệu (' +
-                          recipe.ingredients!.length.toString() +
-                          ')',
+                      'Nguyên liệu (${recipe.ingredients!.length})',
                       style: CustomTextTheme.headline3.copyWith(
                         color: Palette.gray500,
                         fontSize: 21.sp,
@@ -330,8 +332,8 @@ class CookRecipe extends StatelessWidget {
                           Navigator.of(context).pushNamed(
                             RouteManager.stepsToCooking,
                             arguments: {
-                              "step": recipe.steps,
-                              "name": recipe.name,
+                              'step': recipe.steps,
+                              'name': recipe.name,
                             },
                           );
                         },
@@ -378,10 +380,10 @@ class CookRecipe extends StatelessWidget {
         children: [
           CachedNetworkImage(
             imageUrl: ingredient.url ??
-                "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                    "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                    "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                    "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                    '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                    'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                    '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg',
             imageBuilder: (context, imageProvider) {
               return CircleAvatar(
                 backgroundImage: imageProvider,
@@ -391,7 +393,7 @@ class CookRecipe extends StatelessWidget {
               return CircleAvatar(
                 backgroundColor: Palette.backgroundColor,
                 child: Padding(
-                  padding: const EdgeInsets.all(5.0),
+                  padding: const EdgeInsets.all(5),
                   child: Center(
                     child: CircularProgressIndicator(
                       value: progress.progress,
@@ -405,7 +407,7 @@ class CookRecipe extends StatelessWidget {
             errorWidget: (context, string, dymamic) => const CircleAvatar(
               backgroundColor: Palette.backgroundColor,
               child: Padding(
-                padding: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(5),
                 child: Center(
                   child: Icon(
                     PhosphorIcons.image,
@@ -418,7 +420,7 @@ class CookRecipe extends StatelessWidget {
           SizedBox(width: 12.w),
           Expanded(
             child: Text(
-              ingredient.name ?? "",
+              ingredient.name ?? '',
               style: CustomTextTheme.subtitle1.copyWith(
                 color: Palette.gray500,
                 fontSize: 17.sp,
