@@ -1,12 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class IngredientRecipe extends Equatable {
-  final String? name;
-  final String? value;
-  final String? unit;
-  final String? url;
-
-
   const IngredientRecipe({this.name, this.value, this.unit, this.url});
 
   factory IngredientRecipe.fromJson(Map<String, dynamic> json) =>
@@ -17,7 +11,12 @@ class IngredientRecipe extends Equatable {
         url: json['url'] as String?,
       );
 
-  Map<String, dynamic> toJson() => {
+  final String? name;
+  final String? value;
+  final String? unit;
+  final String? url;
+  
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'name': name,
         'value': value,
         'unit': unit,

@@ -16,7 +16,7 @@ class ChooseRegionPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Chọn vùng miền",
+          'Chọn vùng miền',
           style: CustomTextTheme.headline1.copyWith(
             color: Palette.gray500,
             fontSize: 32.sp,
@@ -36,7 +36,7 @@ class ChooseRegionPage extends StatelessWidget {
                 builder: (context, provider, child) {
                   return RegionCard(
                     imagePath: ImagePath.foodNorthImage,
-                    title: "Miền Bắc",
+                    title: 'Miền Bắc',
                     isChosen: provider.listCheckChosenRegion[0],
                   );
                 },
@@ -50,7 +50,7 @@ class ChooseRegionPage extends StatelessWidget {
                 builder: (context, provider, child) {
                   return RegionCard(
                     imagePath: ImagePath.foodCentralImage,
-                    title: "Miền Trung",
+                    title: 'Miền Trung',
                     isChosen: provider.listCheckChosenRegion[1],
                   );
                 },
@@ -70,7 +70,7 @@ class ChooseRegionPage extends StatelessWidget {
               builder: (context, provider, child) {
                 return RegionCard(
                   imagePath: ImagePath.foodSouthImage,
-                  title: "Miền Nam",
+                  title: 'Miền Nam',
                   isChosen: provider.listCheckChosenRegion[2],
                 );
               },
@@ -95,7 +95,7 @@ class RegionCard extends StatelessWidget {
   }) : super(key: key);
 
   Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
+    const interactiveStates = <MaterialState>{
       MaterialState.selected,
     };
     if (!states.any(interactiveStates.contains)) {
@@ -123,7 +123,7 @@ class RegionCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               border: isChosen
-                  ? Border.all(color: Palette.pink500, width: 2.0)
+                  ? Border.all(color: Palette.pink500, width: 2)
                   : null,
               borderRadius: BorderRadius.circular(20.r),
               boxShadow: [
@@ -149,7 +149,6 @@ class RegionCard extends StatelessWidget {
           right: 0,
           top: -5.h,
           child: IgnorePointer(
-            ignoring: true,
             child: Checkbox(
               checkColor: Colors.white,
               fillColor: MaterialStateProperty.resolveWith(getColor),

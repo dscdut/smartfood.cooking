@@ -8,69 +8,73 @@ enum SearchStatus { loading, idle, error }
 enum DataLoadingStatus { loading, idle, error }
 
 class RecipeProvider extends ChangeNotifier {
+  RecipeProvider({
+    required this.recipeRepository,
+  });
+
   final menuData = [
     {
-      "name": "Bánh canh",
-      "time": "20",
-      "level": "Dễ",
-      "imageUrl": "https://traicaycaonghe.vn/"
-          "wp-content/uploads/2021/07/banh-canh-tuoi-bot-loc-hue-ngon.jpg",
-      "isFavorite": false,
+      'name': 'Bánh canh',
+      'time': '20',
+      'level': 'Dễ',
+      'imageUrl': 'https://traicaycaonghe.vn/'
+          'wp-content/uploads/2021/07/banh-canh-tuoi-bot-loc-hue-ngon.jpg',
+      'isFavorite': false,
     },
     {
-      "name": "Phở gà",
-      "time": "30",
-      "level": "Dễ",
-      "imageUrl": "https://img-global.cpcdn.com/recipes/"
-          "b711dcb7a259c93c/400x400cq70/photo.jpg",
-      "isFavorite": false,
+      'name': 'Phở gà',
+      'time': '30',
+      'level': 'Dễ',
+      'imageUrl': 'https://img-global.cpcdn.com/recipes/'
+          'b711dcb7a259c93c/400x400cq70/photo.jpg',
+      'isFavorite': false,
     },
     {
-      "name": "Gỏi gà lá chanh chua ngọt",
-      "time": "10",
-      "level": "Dễ",
-      "imageUrl": "https://photo-cms-kienthuc.zadn.vn/"
-          "zoom/800/uploaded/hongnhat/2021_01_10/smj-1_MNJT.jpg",
-      "isFavorite": true,
+      'name': 'Gỏi gà lá chanh chua ngọt',
+      'time': '10',
+      'level': 'Dễ',
+      'imageUrl': 'https://photo-cms-kienthuc.zadn.vn/'
+          'zoom/800/uploaded/hongnhat/2021_01_10/smj-1_MNJT.jpg',
+      'isFavorite': true,
     },
     {
-      "name": "Cơm tấm",
-      "time": "30",
-      "level": "Vừa",
-      "imageUrl": "https://statics.vinpearl.com/"
-          "com-tam-ngon-o-sai-gon-0_1630562640.jpg",
-      "isFavorite": true,
+      'name': 'Cơm tấm',
+      'time': '30',
+      'level': 'Vừa',
+      'imageUrl': 'https://statics.vinpearl.com/'
+          'com-tam-ngon-o-sai-gon-0_1630562640.jpg',
+      'isFavorite': true,
     },
     {
-      "name": "Mì quảng tôm thịt trứng",
-      "time": "30",
-      "level": "T.bình",
-      "imageUrl": "https://cdn.cet.edu.vn/"
-          "wp-content/uploads/2021/04/to-mi-quang.jpg",
-      "isFavorite": false,
+      'name': 'Mì quảng tôm thịt trứng',
+      'time': '30',
+      'level': 'T.bình',
+      'imageUrl': 'https://cdn.cet.edu.vn/'
+          'wp-content/uploads/2021/04/to-mi-quang.jpg',
+      'isFavorite': false,
     },
   ];
   final dietModeData = [
     {
-      "modeName": "Eat Clean",
-      "joinedCount": "2.5",
-      "menu": "3",
-      "imageUrl":
-          "https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg"
+      'modeName': 'Eat Clean',
+      'joinedCount': '2.5',
+      'menu': '3',
+      'imageUrl':
+          'https://meta.vn/Data/image/2020/05/20/che-do-an-eat-clean-4.jpg'
     },
     {
-      "modeName": "cho người béo phì",
-      "joinedCount": "1.5",
-      "menu": "3",
-      "imageUrl":
-          "https://omron-yte.com.vn/wp-content/uploads/2014/11/giam-can-e1491808919423.jpg"
+      'modeName': 'cho người béo phì',
+      'joinedCount': '1.5',
+      'menu': '3',
+      'imageUrl':
+          'https://omron-yte.com.vn/wp-content/uploads/2014/11/giam-can-e1491808919423.jpg'
     },
     {
-      "modeName": "cho người tập Gym",
-      "joinedCount": "6.9",
-      "menu": "3",
-      "imageUrl":
-          "https://www.elleman.vn/wp-content/uploads/2018/03/20/an-uong-khoa-hoc-elle-man-feature.jpg"
+      'modeName': 'cho người tập Gym',
+      'joinedCount': '6.9',
+      'menu': '3',
+      'imageUrl':
+          'https://www.elleman.vn/wp-content/uploads/2018/03/20/an-uong-khoa-hoc-elle-man-feature.jpg'
     }
   ];
 
@@ -99,8 +103,7 @@ class RecipeProvider extends ChangeNotifier {
 
   final RecipeRepository recipeRepository;
   final listTodayRecipe = List.filled(5, false);
-  var loadingData = DataLoadingStatus.idle;
-  RecipeProvider({required this.recipeRepository});
+  DataLoadingStatus loadingData = DataLoadingStatus.idle;
 
   void favoriteRecipeAction(int index) {
     listTodayRecipe[index] = !listTodayRecipe[index];
@@ -108,10 +111,13 @@ class RecipeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> findRecipe(BuildContext context,
-      {required Map<int, bool?> data, bool isInSelectedScreen = false}) async {
+  Future<void> findRecipe(
+    BuildContext context, {
+    required Map<int, bool?> data,
+    bool isInSelectedScreen = false,
+  }) async {
     try {
-      var listId = <int>[];
+      final listId = <int>[];
       data.forEach(
         (key, value) {
           if (value == true) {
@@ -119,7 +125,7 @@ class RecipeProvider extends ChangeNotifier {
           }
         },
       );
-      showLoadingDialog(context, contentDialog: "Đang tìm kiếm món ăn");
+      await showLoadingDialog(context, contentDialog: 'Đang tìm kiếm món ăn');
       await recipeRepository.getRecipesByIngredients(listId).then((recipes) {
         Navigator.pop(context);
         if (recipes.isEmpty) {
@@ -129,34 +135,46 @@ class RecipeProvider extends ChangeNotifier {
           );
         } else {
           isInSelectedScreen
-              ? Navigator.popAndPushNamed(context, RouteManager.selectRecipe,
-                  arguments: recipes)
-              : Navigator.pushNamed(context, RouteManager.selectRecipe,
-                  arguments: recipes);
+              ? Navigator.popAndPushNamed(
+                  context,
+                  RouteManager.selectRecipe,
+                  arguments: recipes,
+                )
+              : Navigator.pushNamed(
+                  context,
+                  RouteManager.selectRecipe,
+                  arguments: recipes,
+                );
         }
       });
     } catch (e) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Error to finding"),
+          content: Text('Error to finding'),
         ),
       );
     }
   }
 
-  Future<Recipe?> getDataRecipeById(BuildContext context,
-      {required int id}) async {
+  Future<Recipe?> getDataRecipeById(
+    BuildContext context, {
+    required int id,
+  }) async {
     try {
-      showLoadingDialog(context, contentDialog: "Đang lấy dữ liệu món ăn");
-      var data = await recipeRepository.getRecipeById(id);
-      Navigator.pop(context);
-      return data;
+      await showLoadingDialog(
+        context,
+        contentDialog: 'Đang lấy dữ liệu món ăn',
+      );
+      await recipeRepository.getRecipeById(id).then((data) {
+        Navigator.pop(context);
+        return data;
+      });
     } catch (e) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Lấy dữ liệu món ăn không thành công"),
+          content: Text('Lấy dữ liệu món ăn không thành công'),
         ),
       );
     }

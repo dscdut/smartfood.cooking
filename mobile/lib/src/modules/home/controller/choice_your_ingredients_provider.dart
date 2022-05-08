@@ -11,13 +11,13 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
 
   Set ingredientData = <Ingredient>{};
   Set ingredientFilterData = <Ingredient>{};
-  var selectedTypeList = <bool>[];
-  var selectedData = <int, bool?>{};
-  var filterDataMode = FilterDataMode.none;
-  var isLoadingMore = false;
-  var status = LoadingStatus.idle;
-  var searchStatus = SearchLoadingStatus.idle;
-  var listPageObserve = List<int>.filled(13, 1);
+  List<bool> selectedTypeList = <bool>[];
+  Map<int, bool?> selectedData = <int, bool?>{};
+  FilterDataMode filterDataMode = FilterDataMode.none;
+  bool isLoadingMore = false;
+  LoadingStatus status = LoadingStatus.idle;
+  SearchLoadingStatus searchStatus = SearchLoadingStatus.idle;
+  List<int> listPageObserve = List<int>.filled(13, 1);
   int pageForSearch = 1;
   final IngredientRepository ingredientRepository;
   late TextEditingController searchEditingController;
@@ -90,19 +90,18 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   Future<void> onSelected(int index) async {
     //TODO: refactor Chip Mode
     if (index == 0 && selectedTypeList[index] == false) {
-      selectedTypeList = List<bool>.filled(13, false, growable: false)
-        ..first = true;
+      selectedTypeList = List<bool>.filled(13, false)..first = true;
       ingredientFilterData.clear();
       ingredientFilterData.addAll(ingredientData);
       filterDataMode = FilterDataMode.none;
     } else if (index != 0) {
       if (!selectedTypeList[index]) {
         filterDataMode = FilterDataMode.chip;
-        selectedTypeList = List<bool>.filled(13, false, growable: false);
+        selectedTypeList = List<bool>.filled(13, false);
         selectedTypeList[index] = true;
         selectedTypeList[0] = false;
         ingredientFilterData.clear();
-        for (int j = 1; j < selectedTypeList.length; j++) {
+        for (var j = 1; j < selectedTypeList.length; j++) {
           if (selectedTypeList[j] == true) {
             ingredientFilterData
                 .addAll(ingredientData.where((data) => data.categoryId == j));
@@ -127,7 +126,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           listPageObserve[index]++;
           //sort
           final temp = ingredientData.toList();
-          temp.sort(((a, b) => a.categoryId!.compareTo(b.categoryId!)));
+          temp.sort((a, b) => a.categoryId!.compareTo(b.categoryId!));
           ingredientData = temp.toSet();
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id!: false});
@@ -143,8 +142,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       (element) => element == false,
     )) {
       ingredientFilterData.clear();
-      selectedTypeList = List<bool>.filled(13, false, growable: false)
-        ..first = true;
+      selectedTypeList = List<bool>.filled(13, false)..first = true;
       ingredientFilterData.addAll(ingredientData);
     }
 
@@ -159,26 +157,38 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     if (searchEditingController.text.isEmpty) {
       ingredientFilterData.clear();
       if (selectedTypeList.indexOf(
-              selectedTypeList.firstWhere((element) => element == true)) !=
+            selectedTypeList.firstWhere((element) => element == true),
+          ) !=
           0) {
         ingredientFilterData.addAll(
-          ingredientData.where((element) =>
-              element.categoryId!.compareTo(selectedTypeList.indexOf(
-                  selectedTypeList.firstWhere((element) => element == true))) ==
-              0),
+          ingredientData.where(
+            (element) =>
+                element.categoryId!.compareTo(
+                  selectedTypeList.indexOf(
+                    selectedTypeList.firstWhere((element) => element == true),
+                  ),
+                ) ==
+                0,
+          ),
         );
       } else {
         ingredientFilterData.addAll(ingredientData);
       }
     } else {
       ingredientFilterData = ingredientFilterData
-          .where((element) => (element.name!
-                  .toLowerCase()
-                  .contains(searchEditingController.text.toLowerCase()) &&
-              element.categoryId!.compareTo(selectedTypeList.indexOf(
-                      selectedTypeList
-                          .firstWhere((element) => element == true))) ==
-                  0))
+          .where(
+            (element) =>
+                element.name!
+                    .toLowerCase()
+                    .contains(searchEditingController.text.toLowerCase()) &&
+                element.categoryId!.compareTo(
+                      selectedTypeList.indexOf(
+                        selectedTypeList
+                            .firstWhere((element) => element == true),
+                      ),
+                    ) ==
+                    0,
+          )
           .toSet();
       searchStatus = SearchLoadingStatus.loading;
       notifyListeners();
@@ -188,13 +198,21 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         if (data.isNotEmpty) {
           pageForSearch++;
           if (selectedTypeList.indexOf(
-                  selectedTypeList.firstWhere((element) => element == true)) !=
+                selectedTypeList.firstWhere((element) => element == true),
+              ) !=
               0) {
-            ingredientFilterData.addAll(data.where((element) =>
-                element.categoryId!.compareTo(selectedTypeList.indexOf(
-                    selectedTypeList
-                        .firstWhere((element) => element == true))) ==
-                0));
+            ingredientFilterData.addAll(
+              data.where(
+                (element) =>
+                    element.categoryId!.compareTo(
+                      selectedTypeList.indexOf(
+                        selectedTypeList
+                            .firstWhere((element) => element == true),
+                      ),
+                    ) ==
+                    0,
+              ),
+            );
           } else {
             ingredientFilterData.addAll(data);
           }
@@ -207,10 +225,12 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
         } else {
           searchStatus = SearchLoadingStatus.error;
         }
-      }).catchError(((err) {
-        searchStatus = SearchLoadingStatus.error;
-        pageForSearch = 1;
-      }));
+      }).catchError(
+        (err) {
+          searchStatus = SearchLoadingStatus.error;
+          pageForSearch = 1;
+        },
+      );
     }
     notifyListeners();
   }
@@ -263,8 +283,10 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     filterDataMode = FilterDataMode.none;
     searchEditingController.clear();
     ingredientFilterData.clear();
-    onSelected(selectedTypeList
-        .indexOf(selectedTypeList.firstWhere(((element) => element == true))));
+    onSelected(
+      selectedTypeList
+          .indexOf(selectedTypeList.firstWhere((element) => element == true)),
+    );
     notifyListeners();
   }
 
@@ -274,7 +296,7 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
   }
 
   void onDeleteAllAction() {
-    selectedData.updateAll(((key, value) => value = false));
+    selectedData.updateAll((key, value) => value = false);
     notifyListeners();
   }
 

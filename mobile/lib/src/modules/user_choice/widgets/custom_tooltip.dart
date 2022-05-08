@@ -3,11 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class CustomTooltip extends StatefulWidget {
-  final String message;
-  final Widget? child;
-
   const CustomTooltip({Key? key, this.child, required this.message})
       : super(key: key);
+  final String message;
+  final Widget? child;
 
   @override
   _CustomTooltipState createState() => _CustomTooltipState();
@@ -20,7 +19,7 @@ class _CustomTooltipState extends State<CustomTooltip>
   // ignore: prefer_const_constructors
   var _offset = Offset(0, 0);
   // ignore: unused_field
-  Size? _size;
+  late Size? _size;
   OverlayEntry? overlayEntry;
 
   late AnimationController _controller;
@@ -29,12 +28,14 @@ class _CustomTooltipState extends State<CustomTooltip>
   void initState() {
     key = LabeledGlobalKey(widget.message);
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
     super.initState();
   }
 
   void getWidgetDetails() {
-    final renderBox = key.currentContext!.findRenderObject() as RenderBox;
+    final renderBox = key.currentContext!.findRenderObject()! as RenderBox;
     _size = renderBox.size;
     final offset = renderBox.localToGlobal(Offset.zero);
     _offset = offset;
@@ -48,7 +49,8 @@ class _CustomTooltipState extends State<CustomTooltip>
         width: 300.w,
         child: ScaleTransition(
           scale: Tween<double>(begin: 0, end: 1).animate(
-              CurvedAnimation(parent: _controller, curve: Curves.easeInOut)),
+            CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -57,7 +59,7 @@ class _CustomTooltipState extends State<CustomTooltip>
                 child: Padding(
                   padding: EdgeInsets.only(right: 30.0.w),
                   child: CustomPaint(
-                    size: const Size(15.0, 10.0),
+                    size: const Size(15, 10),
                     painter: TrianglePainter(),
                   ),
                 ),
@@ -104,7 +106,7 @@ class _CustomTooltipState extends State<CustomTooltip>
         await Future.delayed(const Duration(milliseconds: 300))
             .then((value) => _controller.reverse());
         await Future.delayed(const Duration(milliseconds: 100))
-            .then(((value) => overlayEntry!.remove()));
+            .then((value) => overlayEntry!.remove());
       },
     );
   }
@@ -113,14 +115,14 @@ class _CustomTooltipState extends State<CustomTooltip>
 class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint _paint = Paint()
+    final _paint = Paint()
       ..strokeWidth = 2.0
       ..color = Palette.infoColor
       ..style = PaintingStyle.fill;
 
-    Path path = Path()
-      ..moveTo(size.width / 2.0, 0.0)
-      ..lineTo(0.0, size.height + 1)
+    final path = Path()
+      ..moveTo(size.width / 2.0, 0)
+      ..lineTo(0, size.height + 1)
       ..lineTo(size.width, size.height + 1);
 
     canvas.drawPath(path, _paint);

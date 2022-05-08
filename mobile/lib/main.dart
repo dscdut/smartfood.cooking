@@ -7,7 +7,7 @@ import 'package:mobile/src/di/injector.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await dotenv.load(fileName: "assets/.env");
+  await dotenv.load(fileName: 'assets/.env');
   initDependences();
   runApp(const App());
 }

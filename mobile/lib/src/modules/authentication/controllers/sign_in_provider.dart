@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/data/model/user_data.dart';
 import 'package:mobile/src/data/repositories/authentication_repository.dart';
 
 class SignInProvider with ChangeNotifier {
@@ -17,7 +16,7 @@ class SignInProvider with ChangeNotifier {
 
   Future<void> onTapSigninWithGoogle() async {
     // ignore: unused_local_variable
-    final UserData? newUser = await authenticationRepository.loginWithGoogle();
+    final newUser = await authenticationRepository.loginWithGoogle();
 
     //TODO: action tap SignIn
   }

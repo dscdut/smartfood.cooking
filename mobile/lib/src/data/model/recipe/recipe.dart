@@ -1,16 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:mobile/src/data/model/recipe/cooking_step.dart';
+import 'package:mobile/src/data/model/recipe/ingredient_recipe.dart';
 
-import 'ingredient_recipe.dart';
-import 'cooking_step.dart';
 
 class Recipe extends Equatable {
-  final int? id;
-  final String? name;
-  final String? level;
-  final String? description;
-  final String? imageUrl;
-  final List<IngredientRecipe>? ingredients;
-  final List<CookingStep>? steps;
 
   const Recipe({
     this.id,
@@ -22,21 +15,30 @@ class Recipe extends Equatable {
     this.steps,
   });
 
-  factory Recipe.fromJson(Map<String, dynamic> json) => Recipe(
+   factory Recipe.fromJson(Map<String, dynamic> json) => Recipe(
         id: json['id'] as int?,
         name: json['name'] as String?,
         level: json['level'] as String?,
         description: json['description'] as String?,
         imageUrl: json['url'] as String?,
-        ingredients: (json['ingredients'] as List<dynamic>?)
-            ?.map((e) => IngredientRecipe.fromJson(e as Map<String, dynamic>))
+        ingredients: (json['ingredients'] as List<Map<String, dynamic>>?)
+            ?.map(IngredientRecipe.fromJson)
             .toList(),
-        steps: (json['steps'] as List<dynamic>?)
-            ?.map((e) => CookingStep.fromJson(e as Map<String, dynamic>))
+        steps: (json['steps'] as List<Map<String, dynamic>>?)
+            ?.map(CookingStep.fromJson)
             .toList(),
       );
 
-  Map<String, dynamic> toJson() => {
+   final int? id;
+  final String? name;
+  final String? level;
+  final String? description;
+  final String? imageUrl;
+  final List<IngredientRecipe>? ingredients;
+  final List<CookingStep>? steps;
+
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'name': name,
         'level': level,

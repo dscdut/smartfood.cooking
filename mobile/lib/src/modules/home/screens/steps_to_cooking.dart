@@ -35,7 +35,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
     super.initState();
     listPictureStepPageController = PageController()
       ..addListener(() {
-        final int? newIndex = listPictureStepPageController.page?.round();
+        final newIndex = listPictureStepPageController.page?.round();
         if (currentImagePage != newIndex) {
           setState(() {
             currentImagePage = newIndex!;
@@ -44,7 +44,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
       });
     dynamicViewPageController = PageController()
       ..addListener(() {
-        final int? newIndex = dynamicViewPageController.page?.round();
+        final newIndex = dynamicViewPageController.page?.round();
         if (indexCurrentPage != newIndex) {
           setState(() {
             indexCurrentPage = newIndex!;
@@ -58,9 +58,9 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
   void didChangeDependencies() {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    listStep = arguments["step"] as List<CookingStep>;
+    listStep = arguments['step'] as List<CookingStep>;
     print(listStep!.length);
-    nameRecipe = arguments["name"] as String;
+    nameRecipe = arguments['name'] as String;
     log(listStep.toString());
     super.didChangeDependencies();
   }
@@ -85,42 +85,45 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   ),
                   SizedBox(width: 8.w),
                   Expanded(
-                      child: Text(
-                    nameRecipe,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    style: CustomTextTheme.headline2.copyWith(
-                      color: Palette.pink500,
-                      fontSize: 24.sp,
+                    child: Text(
+                      nameRecipe,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: CustomTextTheme.headline2.copyWith(
+                        color: Palette.pink500,
+                        fontSize: 24.sp,
+                      ),
                     ),
-                  )),
+                  ),
                   SizedBox(width: 22.w),
                 ],
               ),
             ),
-            listStep!.length != 1
-                ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Palette.orange400,
-                            borderRadius: BorderRadius.circular(20)),
-                        margin: EdgeInsets.only(top: 30.h),
-                        width: 100.w,
-                        height: 40.h,
-                        child: Center(
-                          child: Text(
-                            "Bước ${indexCurrentPage + 1}",
-                            style: CustomTextTheme.headline4
-                                .copyWith(color: Palette.backgroundColor),
-                          ),
-                        ),
+            if (listStep!.length != 1)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Palette.orange400,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    margin: EdgeInsets.only(top: 30.h),
+                    width: 100.w,
+                    height: 40.h,
+                    child: Center(
+                      child: Text(
+                        'Bước ${indexCurrentPage + 1}',
+                        style: CustomTextTheme.headline4
+                            .copyWith(color: Palette.backgroundColor),
                       ),
                     ),
-                  )
-                : const SizedBox(),
+                  ),
+                ),
+              )
+            else
+              const SizedBox(),
             SizedBox(
               height: 220.h,
               child: Stack(
@@ -136,9 +139,11 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                           tag: listStep![indexCurrentPage].images![index],
                           child: GestureDetector(
                             onTap: () => Navigator.pushNamed(
-                                context, RouteManager.viewImage,
-                                arguments:
-                                    listStep![indexCurrentPage].images![index]),
+                              context,
+                              RouteManager.viewImage,
+                              arguments:
+                                  listStep![indexCurrentPage].images![index],
+                            ),
                             child: Container(
                               margin: EdgeInsets.symmetric(
                                 horizontal: 8.w,
@@ -171,6 +176,11 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                         },
                         errorWidget: (context, string, dymamic) => Container(
                           height: 180.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(15.r),
+                            ),
+                          ),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +191,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                                 ),
                                 SizedBox(height: 8.h),
                                 Text(
-                                  "Không có hình ảnh hiển thị",
+                                  'Không có hình ảnh hiển thị',
                                   style: CustomTextTheme.subtitle1.copyWith(
                                     color: Palette.gray500,
                                   ),
@@ -189,58 +199,57 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                               ],
                             ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(15.r),
-                            ),
-                          ),
                         ),
                       );
                     },
                   ),
-                  currentImagePage != 0
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 16.w),
-                            child: CustomBackButton(
-                              onPressedFunction: () =>
-                                  listPictureStepPageController.previousPage(
-                                curve: Curves.linear,
-                                duration: const Duration(
-                                  milliseconds: 300,
-                                ),
-                              ),
-                              opacity: 0.7,
+                  if (currentImagePage != 0)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.w),
+                        child: CustomBackButton(
+                          onPressedFunction: () =>
+                              listPictureStepPageController.previousPage(
+                            curve: Curves.linear,
+                            duration: const Duration(
+                              milliseconds: 300,
                             ),
                           ),
-                        )
-                      : const SizedBox(),
-                  currentImagePage !=
-                          listStep![indexCurrentPage].images!.length - 1
-                      ? Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 16.w),
-                            child: CustomBackButton(
-                              onPressedFunction: () =>
-                                  listPictureStepPageController.nextPage(
-                                curve: Curves.linear,
-                                duration: const Duration(
-                                  milliseconds: 300,
-                                ),
-                              ),
-                              reverse: true,
-                              opacity: 0.7,
+                          opacity: 0.7,
+                        ),
+                      ),
+                    )
+                  else
+                    const SizedBox(),
+                  if (currentImagePage !=
+                      listStep![indexCurrentPage].images!.length - 1)
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 16.w),
+                        child: CustomBackButton(
+                          onPressedFunction: () =>
+                              listPictureStepPageController.nextPage(
+                            curve: Curves.linear,
+                            duration: const Duration(
+                              milliseconds: 300,
                             ),
                           ),
-                        )
-                      : const SizedBox(),
+                          reverse: true,
+                          opacity: 0.7,
+                        ),
+                      ),
+                    )
+                  else
+                    const SizedBox(),
                 ],
               ),
             ),
             //TODO: will refactor ```DynamicHeightPageView```
             DynamicHeightPageView(
+              indexCurrentPage: indexCurrentPage,
+              pageController: dynamicViewPageController,
               children: listStep!.map((e) {
                 return Text(
                   e.content!,
@@ -249,8 +258,6 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   textAlign: TextAlign.justify,
                 );
               }).toList(),
-              indexCurrentPage: indexCurrentPage,
-              pageController: dynamicViewPageController,
             ),
             SizedBox(
               height: 24.h,
@@ -269,10 +276,11 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                           height: 10.h,
                           margin: EdgeInsets.only(left: key == 0 ? 0 : 15.w),
                           decoration: BoxDecoration(
-                              color: indexCurrentPage == key
-                                  ? Palette.pink500
-                                  : Palette.pink100,
-                              borderRadius: BorderRadius.circular(8.h)),
+                            color: indexCurrentPage == key
+                                ? Palette.pink500
+                                : Palette.pink100,
+                            borderRadius: BorderRadius.circular(8.h),
+                          ),
                         ),
                       );
                     },
@@ -281,71 +289,53 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                   .toList(),
             ),
             const Spacer(),
-            indexCurrentPage < listStep!.length - 1
-                ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Visibility(
-                          visible: indexCurrentPage != 0,
-                          child: TextButton(
-                            onPressed: () {
-                              if (indexCurrentPage != 0) {
-                                setState(() =>
-                                    indexCurrentPage = indexCurrentPage - 1);
-                                dynamicViewPageController.previousPage(
-                                  curve: Curves.linear,
-                                  duration: const Duration(milliseconds: 200),
-                                );
-                              }
-                            },
-                            style: TextButton.styleFrom(
-                                side: const BorderSide(
-                                    width: 2.0, color: Palette.orange500),
-                                fixedSize: Size(110.w, 40.h),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20))),
-                            child: Text(
-                              "Quay lại",
-                              style: CustomTextTheme.headline4
-                                  .copyWith(color: Palette.gray500),
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              indexCurrentPage = indexCurrentPage + 1;
-                            });
-                            dynamicViewPageController.nextPage(
+            if (indexCurrentPage < listStep!.length - 1)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Visibility(
+                      visible: indexCurrentPage != 0,
+                      child: TextButton(
+                        onPressed: () {
+                          if (indexCurrentPage != 0) {
+                            setState(
+                              () => indexCurrentPage = indexCurrentPage - 1,
+                            );
+                            dynamicViewPageController.previousPage(
                               curve: Curves.linear,
                               duration: const Duration(milliseconds: 200),
                             );
-                          },
-                          style: TextButton.styleFrom(
-                            fixedSize: Size(110.w, 40.h),
-                            backgroundColor: Palette.orange500,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                          }
+                        },
+                        style: TextButton.styleFrom(
+                          side: const BorderSide(
+                            width: 2,
+                            color: Palette.orange500,
                           ),
-                          child: Text(
-                            "Tiếp theo",
-                            style: CustomTextTheme.headline4
-                                .copyWith(color: Palette.backgroundColor),
+                          fixedSize: Size(110.w, 40.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                      ],
-                    ),
-                  )
-                : Center(
-                    child: TextButton(
-                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteManager.doneCooking,
-                        ModalRoute.withName(RouteManager.cookRecipe),
+                        child: Text(
+                          'Quay lại',
+                          style: CustomTextTheme.headline4
+                              .copyWith(color: Palette.gray500),
+                        ),
                       ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          indexCurrentPage = indexCurrentPage + 1;
+                        });
+                        dynamicViewPageController.nextPage(
+                          curve: Curves.linear,
+                          duration: const Duration(milliseconds: 200),
+                        );
+                      },
                       style: TextButton.styleFrom(
                         fixedSize: Size(110.w, 40.h),
                         backgroundColor: Palette.orange500,
@@ -354,12 +344,36 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                         ),
                       ),
                       child: Text(
-                        "Hoàn thành",
+                        'Tiếp theo',
                         style: CustomTextTheme.headline4
                             .copyWith(color: Palette.backgroundColor),
                       ),
                     ),
+                  ],
+                ),
+              )
+            else
+              Center(
+                child: TextButton(
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteManager.doneCooking,
+                    ModalRoute.withName(RouteManager.cookRecipe),
                   ),
+                  style: TextButton.styleFrom(
+                    fixedSize: Size(110.w, 40.h),
+                    backgroundColor: Palette.orange500,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                    'Hoàn thành',
+                    style: CustomTextTheme.headline4
+                        .copyWith(color: Palette.backgroundColor),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

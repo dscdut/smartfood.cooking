@@ -25,7 +25,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       children: [
         Center(
           child: Text(
-            "Quên mật khẩu",
+            'Quên mật khẩu',
             style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
@@ -38,9 +38,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 36.0.w),
           child: Text(
-            "Đừng lo lắng! Nhập email bạn đã đăng kí "
-            "vào bên dưới để được hướng dẫn "
-            "khôi phục lại mật khẩu.",
+            'Đừng lo lắng! Nhập email bạn đã đăng kí '
+            'vào bên dưới để được hướng dẫn '
+            'khôi phục lại mật khẩu.',
             textAlign: TextAlign.center,
             style: CustomTextTheme.subtitle2.copyWith(
               color: Palette.gray500,
@@ -78,7 +78,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 PhosphorIcons.user,
                 color: Palette.gray500,
               ),
-              hintText: "Email đã đăng ký",
+              hintText: 'Email đã đăng ký',
               border: InputBorder.none,
               hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
@@ -100,13 +100,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "Nhớ lại mật khẩu? ",
+                  text: 'Nhớ lại mật khẩu? ',
                   style: CustomTextTheme.bodyText3.copyWith(
                     fontSize: 15.sp,
                   ),
                 ),
                 TextSpan(
-                  text: "Đăng nhập ngay",
+                  text: 'Đăng nhập ngay',
                   style: CustomTextTheme.bodyText1.copyWith(
                     color: Palette.pink500,
                     fontSize: 15.sp,
@@ -135,7 +135,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 color: Palette.orange500,
               ),
               child: Text(
-                "Tiếp tục",
+                'Tiếp tục',
                 style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,

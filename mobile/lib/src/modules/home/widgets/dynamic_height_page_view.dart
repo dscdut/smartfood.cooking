@@ -35,7 +35,7 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
 
   @override
   Widget build(BuildContext context) {
-    final double fixedHeight =
+    final fixedHeight =
         ScreenUtil().screenHeight - 475.h - MediaQuery.of(context).padding.top;
     return SizedBox(
       height: min(fixedHeight, _currentHeight),
@@ -47,14 +47,13 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
             minHeight: 0,
             alignment: Alignment.topCenter,
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: UpdatedSizeWidget(
                   onSizeChange: (Size size) =>
                       setState(() => listHeigtOfChildren[index] = size.height),
-                  child: widget.children[index],
                   previousHeight: listHeigtOfChildren[index],
+                  child: widget.children[index],
                 ),
               ),
             ),
@@ -66,16 +65,16 @@ class _DynamicHeightPageViewState extends State<DynamicHeightPageView>
 }
 
 class UpdatedSizeWidget extends StatelessWidget {
+  const UpdatedSizeWidget({
+    Key? key,
+    required this.child,
+    required this.onSizeChange,
+    required this.previousHeight,
+  }) : super(key: key);
+
   final Widget child;
   final ValueChanged<Size> onSizeChange;
   final double previousHeight;
-
-  const UpdatedSizeWidget(
-      {Key? key,
-      required this.child,
-      required this.onSizeChange,
-      required this.previousHeight})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +85,7 @@ class UpdatedSizeWidget extends StatelessWidget {
   void updateSize(BuildContext context) {
     // print("update size call");
     try {
-      final Size? currentSize = context.size;
+      final currentSize = context.size;
       if (previousHeight != currentSize?.height) {
         onSizeChange(currentSize!);
       }

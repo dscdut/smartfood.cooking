@@ -41,7 +41,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     onPressedFunction: () => Navigator.pop(context),
                   ),
                   Text(
-                    "Công thức của bạn",
+                    'Công thức của bạn',
                     style: CustomTextTheme.headline2
                         .copyWith(color: Palette.pink500, fontSize: 26.sp),
                   ),
@@ -52,7 +52,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     },
                     icon: const Icon(
                       PhosphorIcons.sliders,
-                      size: 32.0,
+                      size: 32,
                       color: Palette.pink500,
                     ),
                   )
@@ -70,7 +70,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                       position: index,
                       duration: const Duration(milliseconds: 500),
                       child: SlideAnimation(
-                        verticalOffset: 100.0,
+                        verticalOffset: 100,
                         child: FadeInAnimation(
                           child: RecipeCard(recipe: listFound[index]),
                         ),

@@ -7,7 +7,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("UserScreen"),
+        child: Text('UserScreen'),
       ),
     );
   }

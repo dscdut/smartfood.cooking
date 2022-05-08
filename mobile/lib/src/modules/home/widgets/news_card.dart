@@ -6,7 +6,6 @@ import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/core/utils/custom_cache_manager.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-
 class NewsCard extends StatelessWidget {
   const NewsCard({
     Key? key,
@@ -39,11 +38,11 @@ class NewsCard extends StatelessWidget {
         children: [
           CachedNetworkImage(
             cacheManager: CustomCacheManager.customCacheManager,
-            imageUrl: imageUrl == ""
-                ? "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                    "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                    "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                    "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg"
+            imageUrl: imageUrl == ''
+                ? 'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                    '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                    'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                    '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg'
                 : imageUrl,
             imageBuilder: (context, imageProvider) => Container(
               height: 120.h,
@@ -75,15 +74,15 @@ class NewsCard extends StatelessWidget {
             },
             errorWidget: (context, string, dymamic) => Container(
               height: 120.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(15.r),
+                ),
+              ),
               child: const Center(
                 child: Icon(
                   PhosphorIcons.warning,
                   color: Palette.orange500,
-                ),
-              ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(15.r),
                 ),
               ),
             ),

@@ -1,9 +1,14 @@
 class UserData {
-  String? email;
-  String? username;
+  UserData({
+    this.email,
+    this.username,
+  });
 
-  UserData({this.email, this.username});
+  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
+        email: json['email'] as String?,
+        username: json['username'] as String?,
+      );
 
-  factory UserData.fromJson(Map<String, dynamic> json) =>
-      UserData(email: json["email"], username: json["username"]);
+  final String? email;
+  final String? username;
 }

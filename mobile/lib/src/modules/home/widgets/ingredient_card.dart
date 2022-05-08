@@ -23,7 +23,7 @@ class IngredientCard extends StatelessWidget {
   final VoidCallback? onDeleteAction;
 
   Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
+    const interactiveStates = <MaterialState>{
       MaterialState.selected,
     };
     if (!states.any(interactiveStates.contains)) {
@@ -68,12 +68,12 @@ class IngredientCard extends StatelessWidget {
                   flex: 4,
                   child: CachedNetworkImage(
                     cacheManager: CustomCacheManager.customCacheManager,
-                    imageUrl: imageUrl != ""
+                    imageUrl: imageUrl != ''
                         ? imageUrl
-                        : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                            "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                            "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                            "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                        : 'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                            '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                            'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                            '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(
@@ -101,15 +101,15 @@ class IngredientCard extends StatelessWidget {
                       );
                     },
                     errorWidget: (context, string, dymamic) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12.r),
+                        ),
+                      ),
                       child: const Center(
                         child: Icon(
                           PhosphorIcons.warning,
                           color: Palette.orange500,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(12.r),
                         ),
                       ),
                     ),
@@ -121,7 +121,7 @@ class IngredientCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: Center(
                       child: Text(
-                        materialName ?? "null",
+                        materialName ?? 'null',
                         style: CustomTextTheme.bodyText1.copyWith(
                           color: Palette.gray500,
                           fontSize: 14.sp,
@@ -141,14 +141,15 @@ class IngredientCard extends StatelessWidget {
             right: -4.w,
             child: onDeleteAction == null
                 ? IgnorePointer(
-                    ignoring: true,
                     child: Checkbox(
                       checkColor: Colors.white,
                       fillColor: MaterialStateProperty.resolveWith(getColor),
                       value: isSelected,
                       shape: const CircleBorder(),
                       side: const BorderSide(
-                          width: 1.5, color: Palette.backgroundColor),
+                        width: 1.5,
+                        color: Palette.backgroundColor,
+                      ),
                       onChanged: (bool? value) {},
                     ),
                   )

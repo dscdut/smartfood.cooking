@@ -35,12 +35,12 @@ class App extends StatelessWidget {
           builder: (context, widget) {
             ScreenUtil.setContext(context);
             return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
               child: widget!,
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
             );
           },
           useInheritedMediaQuery: true,
-          title: "Smart Food",
+          title: 'Smart Food',
           debugShowCheckedModeBanner: false,
           routes: RouteManager.listRoute,
           initialRoute: RouteManager.splash,

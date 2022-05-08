@@ -35,7 +35,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
       children: [
         Center(
           child: Text(
-            "Khôi phục mật khẩu",
+            'Khôi phục mật khẩu',
             style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
@@ -73,7 +73,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
                 PhosphorIcons.lockKey,
                 color: Palette.gray500,
               ),
-              hintText: "Nhập mật khẩu mới",
+              hintText: 'Nhập mật khẩu mới',
               border: InputBorder.none,
               hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
@@ -130,7 +130,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
                 PhosphorIcons.lockKey,
                 color: Palette.gray500,
               ),
-              hintText: "Xác nhận lại mật khẩu mới",
+              hintText: 'Xác nhận lại mật khẩu mới',
               border: InputBorder.none,
               hintStyle: CustomTextTheme.subtitle2.copyWith(
                 color: Palette.gray300,
@@ -174,7 +174,7 @@ class _ChangeNewPasswordPageState extends State<ChangeNewPasswordPage> {
                 color: Palette.orange500,
               ),
               child: Text(
-                "Hoàn thành",
+                'Hoàn thành',
                 style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,
