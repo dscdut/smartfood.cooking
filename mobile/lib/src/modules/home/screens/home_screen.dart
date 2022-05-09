@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Xin chào, A",
+                          'Xin chào, A',
                           style: CustomTextTheme.headline1.copyWith(
                             color: Palette.pink500,
                             fontSize: 32.sp,
@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                         const CircleAvatar(
                           backgroundColor: Colors.indigo,
                           child: Text(
-                            "A",
+                            'A',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Hôm nay bạn muốn nấu món gì?",
+                      'Hôm nay bạn muốn nấu món gì?',
                       style: CustomTextTheme.headline4.copyWith(
                         color: Palette.gray400,
                         fontSize: 20.sp,
@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Công thức hôm nay",
+                      'Công thức hôm nay',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -140,13 +140,13 @@ class HomeScreen extends StatelessWidget {
                             builder: (context, provider, child) {
                           return MenuRecipeCard(
                             imageUrl:
-                                provider.menuData[index]["imageUrl"] as String,
+                                provider.menuData[index]['imageUrl'] as String,
                             isFavorite: provider.listTodayRecipe[index],
-                            level: provider.menuData[index]["level"] as String,
+                            level: provider.menuData[index]['level'] as String,
                             recipeName:
-                                provider.menuData[index]["name"] as String,
+                                provider.menuData[index]['name'] as String,
                             timeNeed:
-                                provider.menuData[index]["time"] as String,
+                                provider.menuData[index]['time'] as String,
                             onMenuCardAction: () {},
                             onFavoriteAction: () {
                               recipeProvider.favoriteRecipeAction(index);
@@ -162,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "Chế độ ăn",
+                      'Chế độ ăn',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -179,14 +179,14 @@ class HomeScreen extends StatelessWidget {
                         return Consumer<RecipeProvider>(
                             builder: (context, provider, child) {
                           return DietModeCard(
-                            imageUrl: provider.dietModeData[index]["imageUrl"]
+                            imageUrl: provider.dietModeData[index]['imageUrl']
                                 as String,
                             joinedCount: provider.dietModeData[index]
-                                ["joinedCount"] as String,
-                            modeName: provider.dietModeData[index]["modeName"]
+                                ['joinedCount'] as String,
+                            modeName: provider.dietModeData[index]['modeName']
                                 as String,
                             noMenu:
-                                provider.dietModeData[index]["menu"] as String,
+                                provider.dietModeData[index]['menu'] as String,
                             onTapAction: () {},
                           );
                         });
@@ -199,7 +199,7 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
                     child: Text(
-                      "SmartFood News",
+                      'SmartFood News',
                       style: CustomTextTheme.headline2.copyWith(
                         color: Palette.pink500,
                         fontSize: 30.sp,
@@ -217,9 +217,9 @@ class HomeScreen extends StatelessWidget {
                           builder: (context, provider, child) {
                             return NewsCard(
                               description: provider.newsData[index]
-                                  ["description"]!,
-                              imageUrl: provider.newsData[index]["imageUrl"]!,
-                              title: provider.newsData[index]["newsTitle"]!,
+                                  ['description']!,
+                              imageUrl: provider.newsData[index]['imageUrl']!,
+                              title: provider.newsData[index]['newsTitle']!,
                             );
                           },
                         );

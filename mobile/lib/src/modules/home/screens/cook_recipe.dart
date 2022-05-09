@@ -517,7 +517,7 @@ class CookRecipe extends StatelessWidget {
                                         ),
                                         const Icon(
                                           Icons.star,
-                                          color: Palette.yellowStar,
+                                          color: Palette.gray200,
                                           size: 15,
                                         ),
                                         SizedBox(
