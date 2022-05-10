@@ -250,29 +250,83 @@ class CookRecipe extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.h),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Dinh dưỡng',
+            SizedBox(
+              height: 390.h,
+              child: ScrollConfiguration(
+                behavior: NoShowLimitScroll(),
+                child: ListView(padding: EdgeInsets.zero, children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Dinh dưỡng',
+                              style: CustomTextTheme.headline3.copyWith(
+                                color: Palette.gray500,
+                                fontSize: 21.sp,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              'Xem tất cả',
+                              style: CustomTextTheme.bodyText1.copyWith(
+                                color: Palette.pink500,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            NutritionCard(
+                                nameNutrition: 'Đạm', valueNutrition: '50g'),
+                            NutritionCard(
+                              nameNutrition: 'Chất béo',
+                              valueNutrition: '50g',
+                            ),
+                            NutritionCard(
+                              nameNutrition: 'Protein',
+                              valueNutrition: '50g',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Text(
+                          'Nguyên liệu (' +
+                              recipe.ingredients!.length.toString() +
+                              ')',
                           style: CustomTextTheme.headline3.copyWith(
                             color: Palette.gray500,
                             fontSize: 21.sp,
                           ),
                         ),
-                        const Spacer(),
-                        Text(
-                          'Xem tất cả',
-                          style: CustomTextTheme.bodyText1.copyWith(
-                            color: Palette.pink500,
-                            fontSize: 14.sp,
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      SizedBox(
+                        height: 200.h,
+                        child: ScrollConfiguration(
+                          behavior: NoShowLimitScroll(),
+                          child: ListView(
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            children: recipe.ingredients!
+                                .map(listIngredient)
+                                .toList(),
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -306,19 +360,29 @@ class CookRecipe extends StatelessWidget {
                         color: Palette.gray500,
                         fontSize: 21.sp,
                       ),
-                    ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 8.h,
-                  ),
-                  Expanded(
-                    child: ScrollConfiguration(
-                      behavior: NoShowLimitScroll(),
-                      child: ListView(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        children:
-                            recipe.ingredients!.map(listIngredient).toList(),
-                      ),
+                ]),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      RouteManager.stepsToCooking,
+                      arguments: {
+                        'step': recipe.steps,
+                        'name': recipe.name,
+                      },
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    fixedSize: Size(210.w, 45.h),
+                    backgroundColor: Palette.orange500,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   SizedBox(
@@ -362,11 +426,11 @@ class CookRecipe extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    ],
+                  ),
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
