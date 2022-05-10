@@ -23,7 +23,7 @@ class _ForgotPasswordActionScreenState
 
   @override
   void initState() {
-    pageController = PageController(initialPage: 0);
+    pageController = PageController();
     super.initState();
   }
 
@@ -79,7 +79,7 @@ class _ForgotPasswordActionScreenState
                 ),
                 Center(
                   child: Text(
-                    "Bạn cần trợ giúp?",
+                    'Bạn cần trợ giúp?',
                     style: CustomTextTheme.subtitle1.copyWith(
                       color: Palette.gray500,
                       fontSize: 16.sp,

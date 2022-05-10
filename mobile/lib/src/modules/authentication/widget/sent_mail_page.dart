@@ -28,7 +28,7 @@ class _SentMailPageState extends State<SentMailPage> {
       children: [
         Center(
           child: Text(
-            "Đã gửi email cho bạn",
+            'Đã gửi email cho bạn',
             style: CustomTextTheme.headline2.copyWith(
               color: Palette.pink500,
               fontSize: 28.sp,
@@ -39,8 +39,8 @@ class _SentMailPageState extends State<SentMailPage> {
           height: 16.h,
         ),
         Text(
-          "Chúng tôi đã gửi đến một liên kết đặt lại mật khẩu "
-          "tới abc***23@gmail.com",
+          'Chúng tôi đã gửi đến một liên kết đặt lại mật khẩu '
+          'tới abc***23@gmail.com',
           textAlign: TextAlign.center,
           style: CustomTextTheme.subtitle2.copyWith(
             color: Palette.gray500,
@@ -59,13 +59,13 @@ class _SentMailPageState extends State<SentMailPage> {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "Không nhận được email? ",
+                  text: 'Không nhận được email? ',
                   style: CustomTextTheme.bodyText3.copyWith(
                     fontSize: 15.sp,
                   ),
                 ),
                 TextSpan(
-                  text: "Gửi lại ngay",
+                  text: 'Gửi lại ngay',
                   style: CustomTextTheme.bodyText1.copyWith(
                     color: Palette.pink500,
                     fontSize: 15.sp,
@@ -94,7 +94,7 @@ class _SentMailPageState extends State<SentMailPage> {
                 color: Palette.orange500,
               ),
               child: Text(
-                "Quay lại đăng nhập",
+                'Quay lại đăng nhập',
                 style: CustomTextTheme.headline4.copyWith(
                   color: Palette.backgroundColor,
                   fontSize: 17.sp,

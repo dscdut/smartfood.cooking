@@ -57,12 +57,12 @@ class RecipeCard extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   cacheManager: CustomCacheManager.customCacheManager,
-                  imageUrl: recipe.imageUrl != ""
+                  imageUrl: recipe.imageUrl != ''
                       ? recipe.imageUrl!
-                      : "https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs="
-                          "/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co"
-                          "eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203"
-                          "-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg",
+                      : 'https://www.seriouseats.com/thmb/1Tl-bBEgEnFwD_bSxF4BOWNixPs='
+                          '/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__co'
+                          'eus__resources__content_migration__serious_eats__seriouseats.com__2020__12__20201203'
+                          '-indonesian-pantry-vicky-wasik-1-b827da1c26134cf18153da281f8efb19.jpg',
                   imageBuilder: (context, imageProvider) => Container(
                     height: 120.w,
                     width: 120.w,
@@ -92,14 +92,14 @@ class RecipeCard extends StatelessWidget {
                   errorWidget: (context, string, dymamic) => Container(
                     height: 120.w,
                     width: 120.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
                     child: const Center(
                       child: Icon(
                         PhosphorIcons.warning,
                         color: Palette.orange500,
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
                 ),
@@ -124,18 +124,18 @@ class RecipeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          splashRadius: 24,
-                          onPressed: () {
-                            // setState(() {
-                            //  recipe.favorited = !val.favorited;
-                            // });
-                          },
-                          icon: const Icon(PhosphorIcons.heartFill),
-                          color: Palette.orange500
-                          // : Palette.backgroundColor,
-                          ),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        splashRadius: 24,
+                        onPressed: () {
+                          // setState(() {
+                          //  recipe.favorited = !val.favorited;
+                          // });
+                        },
+                        icon: const Icon(PhosphorIcons.heartFill),
+                        color: Palette.orange500,
+                        // : Palette.backgroundColor,
+                      ),
                       Row(
                         children: [
                           Icon(
@@ -145,7 +145,7 @@ class RecipeCard extends StatelessWidget {
                           ),
                           SizedBox(width: 2.w),
                           Text(
-                            "4.8",
+                            '4.8',
                             style: CustomTextTheme.headline4.copyWith(
                               color: Palette.backgroundColor,
                               fontWeight: FontWeight.w800,
@@ -200,7 +200,7 @@ class RecipeCard extends StatelessWidget {
                             size: 24.sp,
                           ),
                           Text(
-                            ' ' + recipe.level!,
+                            ' ${recipe.level!}',
                             style: CustomTextTheme.bodyText1.copyWith(
                               color: Palette.gray400,
                               fontSize: 14.sp,
@@ -226,7 +226,7 @@ class RecipeCard extends StatelessWidget {
               child: Center(
                 child: IconButton(
                   splashRadius: 0.1,
-                  padding: const EdgeInsets.all(0),
+                  padding:  EdgeInsets.zero,
                   iconSize: 20.sp,
                   icon: const Icon(PhosphorIcons.arrowRightBold),
                   color: Palette.backgroundColor,

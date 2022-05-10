@@ -7,7 +7,7 @@ class FoodBank extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("FoodBank"),
+        child: Text('FoodBank'),
       ),
     );
   }

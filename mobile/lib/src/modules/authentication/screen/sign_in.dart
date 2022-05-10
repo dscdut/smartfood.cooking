@@ -40,7 +40,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    final SignInProvider signInProvider = context.read<SignInProvider>();
+    final signInProvider = context.read<SignInProvider>();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -88,7 +88,7 @@ class _SignInState extends State<SignIn> {
                           PhosphorIcons.user,
                           color: Palette.gray500,
                         ),
-                        hintText: "Email hoặc tên đăng nhập",
+                        hintText: 'Email hoặc tên đăng nhập',
                         border: InputBorder.none,
                         hintStyle: CustomTextTheme.subtitle2.copyWith(
                           color: Palette.gray300,
@@ -143,7 +143,7 @@ class _SignInState extends State<SignIn> {
                           PhosphorIcons.lockKey,
                           color: Palette.gray500,
                         ),
-                        hintText: "Mật khẩu",
+                        hintText: 'Mật khẩu',
                         border: InputBorder.none,
                         hintStyle: CustomTextTheme.subtitle2.copyWith(
                           color: Palette.gray300,
@@ -216,7 +216,7 @@ class _SignInState extends State<SignIn> {
                     color: Palette.orange500,
                   ),
                   child: Text(
-                    "Đăng nhập",
+                    'Đăng nhập',
                     style: CustomTextTheme.headline4.copyWith(
                       color: Palette.backgroundColor,
                       fontSize: 18.sp,
@@ -230,7 +230,7 @@ class _SignInState extends State<SignIn> {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: "Chưa có tài khoản? ",
+                      text: 'Chưa có tài khoản? ',
                       style: CustomTextTheme.subtitle2.copyWith(
                         fontSize: 16.sp,
                         color: Palette.gray400,
@@ -238,7 +238,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                     TextSpan(
-                      text: "Đăng ký ngay",
+                      text: 'Đăng ký ngay',
                       style: CustomTextTheme.subtitle1.copyWith(
                         color: Palette.pink500,
                         fontSize: 16.sp,
@@ -273,10 +273,11 @@ class _SignInState extends State<SignIn> {
                     width: 25.w,
                   ),
                   Expanded(
-                      child: Container(
-                    height: 2.h,
-                    color: Palette.gray300,
-                  )),
+                    child: Container(
+                      height: 2.h,
+                      color: Palette.gray300,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -295,32 +296,35 @@ class _SignInState extends State<SignIn> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: TextButton(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 25.w,
-                      ),
-                      Image.asset(
-                        'assets/images/decoration/google.png',
-                        height: 20.r,
-                        width: 20.r,
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        'Đăng nhập bằng Google',
-                        style: CustomTextTheme.headline4
-                            .copyWith(color: Palette.gray500),
-                      )
-                    ],
-                  ),
-                  onPressed: () async {
-                    await signInProvider.onTapSigninWithGoogle();
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 25.w,
+                    ),
+                    Image.asset(
+                      'assets/images/decoration/google.png',
+                      height: 20.r,
+                      width: 20.r,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      'Đăng nhập bằng Google',
+                      style: CustomTextTheme.headline4
+                          .copyWith(color: Palette.gray500),
+                    )
+                  ],
+                ),
+                onPressed: ()  {
+                   signInProvider.onTapSigninWithGoogle().then((_) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        RouteManager.mainScreen, (route) => false);
-                  }),
+                      RouteManager.mainScreen,
+                      (route) => false,
+                    );
+                  });
+                },
+              ),
             ),
             Container(
               margin: const EdgeInsets.all(21),
@@ -338,7 +342,6 @@ class _SignInState extends State<SignIn> {
               ),
               child: TextButton(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: 25.w,

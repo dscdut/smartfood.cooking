@@ -68,7 +68,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                     ),
                     icon: const Icon(
                       PhosphorIcons.sliders,
-                      size: 32.0,
+                      size: 32,
                       color: Palette.pink500,
                     ),
                   )
@@ -78,30 +78,24 @@ class _SelectRecipeState extends State<SelectRecipe> {
             SizedBox(height: 20.h),
             Expanded(
               child: AnimationLimiter(
-                child: Consumer<RecipeFilterProvider>(
-                  builder: (context, value, child) {
-                    return ListView.separated(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      itemCount: recipeFilterProvider.listDisplay.length,
-                      itemBuilder: (context, index) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 500),
-                          child: SlideAnimation(
-                            verticalOffset: 100.0,
-                            child: FadeInAnimation(
-                              child: RecipeCard(
-                                recipe: recipeFilterProvider.listDisplay[index],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(
-                          height: 16.h,
-                        );
-                      },
+                child: ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  itemCount: listFound.length,
+                  itemBuilder: (context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      duration: const Duration(milliseconds: 500),
+                      child: SlideAnimation(
+                        verticalOffset: 100,
+                        child: FadeInAnimation(
+                          child: RecipeCard(recipe: listFound[index]),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 16.h,
                     );
                   },
                 ),

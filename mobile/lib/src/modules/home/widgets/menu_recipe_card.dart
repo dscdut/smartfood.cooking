@@ -79,15 +79,15 @@ class MenuRecipeCard extends StatelessWidget {
                       );
                     },
                     errorWidget: (context, string, dymamic) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20.r),
+                        ),
+                      ),
                       child: const Center(
                         child: Icon(
                           PhosphorIcons.warning,
                           color: Palette.orange500,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20.r),
                         ),
                       ),
                     ),
@@ -188,7 +188,7 @@ class MenuRecipeCard extends StatelessWidget {
                           ),
                           SizedBox(width: 3.w),
                           Text(
-                            "$timeNeed phút",
+                            '$timeNeed phút',
                             style: CustomTextTheme.bodyText2.copyWith(
                               color: Palette.gray400,
                               fontSize: 13.sp,

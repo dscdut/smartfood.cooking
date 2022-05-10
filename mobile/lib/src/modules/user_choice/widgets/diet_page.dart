@@ -11,13 +11,12 @@ class DietPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int listLength =
-        context.read<UserChoiceProvider>().listNameDiet.length;
+    final listLength = context.read<UserChoiceProvider>().listNameDiet.length;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Chế độ ăn",
+          'Chế độ ăn',
           style: CustomTextTheme.headline1.copyWith(
             color: Palette.gray500,
             fontSize: 32.sp,
@@ -27,16 +26,18 @@ class DietPage extends StatelessWidget {
           child: ListView.separated(
             itemCount: listLength,
             itemBuilder: (context, index) {
-              return Consumer<UserChoiceProvider>(builder: (_, provider, __) {
-                return ItemChoice(
-                  isSelected: provider.currentIndex == index,
-                  itemTitle: provider.listNameDiet[index],
-                  onTapFunction: () {
-                    provider.onTapDietItem(index);
-                  },
-                  isNeedHelpTooltip: !(index == listLength - 1),
-                );
-              });
+              return Consumer<UserChoiceProvider>(
+                builder: (_, provider, __) {
+                  return ItemChoice(
+                    isSelected: provider.currentIndex == index,
+                    itemTitle: provider.listNameDiet[index],
+                    onTapFunction: () {
+                      provider.onTapDietItem(index);
+                    },
+                    isNeedHelpTooltip: !(index == listLength - 1),
+                  );
+                },
+              );
             },
             separatorBuilder: (context, index) {
               return SizedBox(height: 18.h);

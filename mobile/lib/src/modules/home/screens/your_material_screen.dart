@@ -15,14 +15,14 @@ class YourMaterialScreen extends StatelessWidget {
           right: 20,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              "Danh sách nguyên liệu của bạn",
+              'Danh sách nguyên liệu của bạn',
               style: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -37,7 +37,7 @@ class YourMaterialScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return Image.network(
-                  "https://media.self.com/photos/5f189b76c58e27c99fbef9e3/1:1/w_768,c_limit/blackberry-vanilla-french-toast.jpg",
+                  'https://media.self.com/photos/5f189b76c58e27c99fbef9e3/1:1/w_768,c_limit/blackberry-vanilla-french-toast.jpg',
                   key: ValueKey(index),
                 );
               },
@@ -50,15 +50,15 @@ class YourMaterialScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteManager.notFound);
               },
-              child: const Text(
-                "Tiếp tục",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.pink,
                 fixedSize: const Size(100, 30),
+              ),
+              child: const Text(
+                'Tiếp tục',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(
@@ -71,15 +71,15 @@ class YourMaterialScreen extends StatelessWidget {
                   RouteManager.chooseYourIngredient,
                 );
               },
-              child: const Text(
-                "Chỉnh sửa",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
               style: TextButton.styleFrom(
                 backgroundColor: Colors.pink,
                 fixedSize: const Size(100, 30),
+              ),
+              child: const Text(
+                'Chỉnh sửa',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

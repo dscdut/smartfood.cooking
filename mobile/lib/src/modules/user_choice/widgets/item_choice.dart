@@ -46,24 +46,25 @@ class ItemChoice extends StatelessWidget {
                     ),
                   ),
                 ),
-                isNeedHelpTooltip
-                    ? CustomTooltip(
-                        message: 'Eat Clean là chế độ ăn sạch, sử dụng '
-                            'các thực phẩm sạch, không qua chế biến '
-                            'sẵn, không chất phụ gia, bảo quản và '
-                            'giữ nguyên bản chất tự nhiên của thức ăn.',
-                        child: IconButton(
-                          constraints: const BoxConstraints(),
-                          padding: EdgeInsets.zero,
-                          splashRadius: 24.sp,
-                          icon: const Icon(
-                            PhosphorIcons.question,
-                          ),
-                          iconSize: 28.sp,
-                          onPressed: () {},
-                        ),
-                      )
-                    : const SizedBox()
+                if (isNeedHelpTooltip)
+                  CustomTooltip(
+                    message: 'Eat Clean là chế độ ăn sạch, sử dụng '
+                        'các thực phẩm sạch, không qua chế biến '
+                        'sẵn, không chất phụ gia, bảo quản và '
+                        'giữ nguyên bản chất tự nhiên của thức ăn.',
+                    child: IconButton(
+                      constraints: const BoxConstraints(),
+                      padding: EdgeInsets.zero,
+                      splashRadius: 24.sp,
+                      icon: const Icon(
+                        PhosphorIcons.question,
+                      ),
+                      iconSize: 28.sp,
+                      onPressed: () {},
+                    ),
+                  )
+                else
+                  const SizedBox()
               ],
             ),
           ),

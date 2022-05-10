@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 childAnimationBuilder: (widget) {
                   return SlideAnimation(
-                    horizontalOffset: 75.0,
+                    horizontalOffset: 75,
                     child: FadeInAnimation(
                       child: widget,
                     ),
@@ -85,7 +85,9 @@ class HomeScreen extends StatelessWidget {
                       MenuButton(
                         menuName: 'Tủ lạnh\nbạn có gì?',
                         onMenuAction: () => Navigator.pushNamed(
-                            context, RouteManager.chooseYourIngredient),
+                          context,
+                          RouteManager.chooseYourIngredient,
+                        ),
                         child: SvgPicture.asset(
                           ImagePath.fridgeIcon,
                           height: 32.h,
@@ -137,22 +139,24 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Consumer<RecipeProvider>(
-                            builder: (context, provider, child) {
-                          return MenuRecipeCard(
-                            imageUrl:
-                                provider.menuData[index]['imageUrl'] as String,
-                            isFavorite: provider.listTodayRecipe[index],
-                            level: provider.menuData[index]['level'] as String,
-                            recipeName:
-                                provider.menuData[index]['name'] as String,
-                            timeNeed:
-                                provider.menuData[index]['time'] as String,
-                            onMenuCardAction: () {},
-                            onFavoriteAction: () {
-                              recipeProvider.favoriteRecipeAction(index);
-                            },
-                          );
-                        });
+                          builder: (context, provider, child) {
+                            return MenuRecipeCard(
+                              imageUrl: provider.menuData[index]['imageUrl']!
+                                  as String,
+                              isFavorite: provider.listTodayRecipe[index],
+                              level:
+                                  provider.menuData[index]['level']! as String,
+                              recipeName:
+                                  provider.menuData[index]['name']! as String,
+                              timeNeed:
+                                  provider.menuData[index]['time']! as String,
+                              onMenuCardAction: () {},
+                              onFavoriteAction: () {
+                                recipeProvider.favoriteRecipeAction(index);
+                              },
+                            );
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(width: 26.w);
@@ -177,19 +181,19 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Consumer<RecipeProvider>(
-                            builder: (context, provider, child) {
-                          return DietModeCard(
-                            imageUrl: provider.dietModeData[index]['imageUrl']
-                                as String,
-                            joinedCount: provider.dietModeData[index]
-                                ['joinedCount'] as String,
-                            modeName: provider.dietModeData[index]['modeName']
-                                as String,
-                            noMenu:
-                                provider.dietModeData[index]['menu'] as String,
-                            onTapAction: () {},
-                          );
-                        });
+                          builder: (context, provider, child) {
+                            return DietModeCard(
+                              imageUrl: provider.dietModeData[index]
+                                  ['imageUrl']!,
+                              joinedCount: provider.dietModeData[index]
+                                  ['joinedCount']!,
+                              modeName: provider.dietModeData[index]
+                                  ['modeName']!,
+                              noMenu: provider.dietModeData[index]['menu']!,
+                              onTapAction: () {},
+                            );
+                          },
+                        );
                       },
                       separatorBuilder: (context, index) {
                         return SizedBox(width: 25.w);

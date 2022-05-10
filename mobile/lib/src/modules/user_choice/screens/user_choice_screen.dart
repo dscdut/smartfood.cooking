@@ -26,11 +26,12 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
   @override
   void initState() {
     tabController = TabController(
-        vsync: this,
-        length: 4,
-        animationDuration: const Duration(milliseconds: 300));
+      vsync: this,
+      length: 4,
+      animationDuration: const Duration(milliseconds: 300),
+    );
     super.initState();
-    pageController = PageController(initialPage: 0);
+    pageController = PageController();
   }
 
   @override
@@ -68,10 +69,13 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                 TextButton(
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
-                        context, RouteManager.mainScreen, (route) => false);
+                      context,
+                      RouteManager.mainScreen,
+                      (route) => false,
+                    );
                   },
                   child: Text(
-                    "Bỏ qua",
+                    'Bỏ qua',
                     style: CustomTextTheme.headline3.copyWith(
                       color: Palette.gray300,
                       fontSize: 22.sp,
@@ -117,7 +121,10 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                       );
                     } else {
                       Navigator.pushNamedAndRemoveUntil(
-                          context, RouteManager.mainScreen, (route) => false);
+                        context,
+                        RouteManager.mainScreen,
+                        (route) => false,
+                      );
                     }
                   },
                   child: Ink(
@@ -130,7 +137,7 @@ class _UserChoiceScreenState extends State<UserChoiceScreen>
                       color: Palette.orange500,
                     ),
                     child: Text(
-                      tabController.index + 1 == 4 ? "Xác nhận" : "Tiếp tục",
+                      tabController.index + 1 == 4 ? 'Xác nhận' : 'Tiếp tục',
                       style: CustomTextTheme.headline4.copyWith(
                         color: Palette.backgroundColor,
                         fontSize: 18.sp,

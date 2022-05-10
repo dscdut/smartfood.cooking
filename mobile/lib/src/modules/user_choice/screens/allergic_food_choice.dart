@@ -16,36 +16,96 @@ class AllergicFoodChoice extends StatefulWidget {
 class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
   late final ScrollController _scrollController;
 
-  var selectedTypeList = <bool>[];
+  List<bool> selectedTypeList = <bool>[];
   final List<String> typeMaterialList = <String>[
-    "Tất cả",
-    "Thịt",
-    "Thủy sản",
-    "Rau củ quả",
-    "Trứng",
-    "Sữa",
-    "Gia vị",
-    "Hạt",
-    "Thực phẩm chế biến",
-    "Gạo, bột, đồ khô",
-    "Nước",
-    "Nội tạng",
-    "Khác",
+    'Tất cả',
+    'Thịt',
+    'Thủy sản',
+    'Rau củ quả',
+    'Trứng',
+    'Sữa',
+    'Gia vị',
+    'Hạt',
+    'Thực phẩm chế biến',
+    'Gạo, bột, đồ khô',
+    'Nước',
+    'Nội tạng',
+    'Khác',
   ];
 
   final List<Map<String, dynamic>> listData = [
-    {"name": "Thịt gà", "imageUrl": "", "category": 1, "isSelected": false},
-    {"name": "Cá lóc", "imageUrl": "", "category": 2, "isSelected": false},
-    {"name": "Rau cần tây", "imageUrl": "", "category": 3, "isSelected": false},
-    {"name": "Rau lang", "imageUrl": "", "category": 3, "isSelected": false},
-    {"name": "Thịt heo", "imageUrl": "", "category": 1, "isSelected": false},
-    {"name": "Sườn non", "imageUrl": "", "category": 1, "isSelected": false},
-    {"name": "Ba chỉ", "imageUrl": "", "category": 1, "isSelected": false},
-    {"name": "Cá rô phi", "imageUrl": "", "category": 2, "isSelected": false},
-    {"name": "Bắp cải", "imageUrl": "", "category": 3, "isSelected": false},
-    {"name": "Cá rô đồng", "imageUrl": "", "category": 2, "isSelected": false},
-    {"name": "Cá trê", "imageUrl": "", "category": 2, "isSelected": false},
-    {"name": "Thịt bò", "imageUrl": "", "category": 1, "isSelected": false},
+    <String, dynamic>{
+      'name': 'Thịt gà',
+      'imageUrl': '',
+      'category': 1,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Cá lóc',
+      'imageUrl': '',
+      'category': 2,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Rau cần tây',
+      'imageUrl': '',
+      'category': 3,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Rau lang',
+      'imageUrl': '',
+      'category': 3,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Thịt heo',
+      'imageUrl': '',
+      'category': 1,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Sườn non',
+      'imageUrl': '',
+      'category': 1,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Ba chỉ',
+      'imageUrl': '',
+      'category': 1,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Cá rô phi',
+      'imageUrl': '',
+      'category': 2,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Bắp cải',
+      'imageUrl': '',
+      'category': 3,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Cá rô đồng',
+      'imageUrl': '',
+      'category': 2,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Cá trê',
+      'imageUrl': '',
+      'category': 2,
+      'isSelected': false,
+    },
+    <String, dynamic>{
+      'name': 'Thịt bò',
+      'imageUrl': '',
+      'category': 1,
+      'isSelected': false,
+    },
   ];
 
   @override
@@ -74,7 +134,7 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                     onPressedFunction: () => Navigator.pop(context),
                   ),
                   Text(
-                    "Nguyên liệu dị ứng",
+                    'Nguyên liệu dị ứng',
                     style: CustomTextTheme.headline2.copyWith(
                       color: Palette.pink500,
                       fontSize: 26.sp,
@@ -110,7 +170,7 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                   isCollapsed: true,
                   contentPadding: EdgeInsets.only(left: 14.w),
                   border: InputBorder.none,
-                  hintText: "Nguyên liệu bạn bị dị ứng?",
+                  hintText: 'Nguyên liệu bạn bị dị ứng?',
                   hintStyle: CustomTextTheme.headline4.copyWith(
                     color: Palette.gray300,
                     fontSize: 18.sp,
@@ -135,16 +195,16 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                     ),
                     label: Text(typeMaterialList[index]),
                     labelStyle: CustomTextTheme.subtitle1.copyWith(
-                        color: selectedTypeList[index]
-                            ? Colors.white
-                            : Palette.gray500),
+                      color: selectedTypeList[index]
+                          ? Colors.white
+                          : Palette.gray500,
+                    ),
                     selected: selectedTypeList[index],
                     onSelected: (value) {
                       setState(() {
                         if (index == 0 && selectedTypeList[index] == false) {
-                          selectedTypeList =
-                              List<bool>.filled(13, false, growable: false)
-                                ..first = true;
+                          selectedTypeList = List<bool>.filled(13, false)
+                            ..first = true;
                         } else if (index != 0) {
                           selectedTypeList[index] = value;
                           selectedTypeList[0] = false;
@@ -152,9 +212,8 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                         if (selectedTypeList.every(
                           (element) => element == false,
                         )) {
-                          selectedTypeList =
-                              List<bool>.filled(13, false, growable: false)
-                                ..first = true;
+                          selectedTypeList = List<bool>.filled(13, false)
+                            ..first = true;
                         }
                       });
                     },
@@ -181,15 +240,16 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                 ),
                 itemBuilder: (context, index) {
                   return IngredientCard(
-                      imageUrl: listData[index]["imageUrl"] as String,
-                      materialName: listData[index]["name"] as String,
-                      isSelected: listData[index]["isSelected"] as bool,
-                      onMaterialTap: () {
-                        setState(() {
-                          listData[index]["isSelected"] =
-                              !(listData[index]["isSelected"] as bool);
-                        });
+                    imageUrl: listData[index]['imageUrl'] as String,
+                    materialName: listData[index]['name'] as String,
+                    isSelected: listData[index]['isSelected'] as bool,
+                    onMaterialTap: () {
+                      setState(() {
+                        listData[index]['isSelected'] =
+                            !(listData[index]['isSelected'] as bool);
                       });
+                    },
+                  );
                 },
               ),
             ),
@@ -208,7 +268,7 @@ class _AllergicFoodChoiceState extends State<AllergicFoodChoice> {
                   color: Palette.orange500,
                 ),
                 child: Text(
-                  "Xác nhận",
+                  'Xác nhận',
                   style: CustomTextTheme.headline4.copyWith(
                     color: Palette.backgroundColor,
                     fontSize: 18.sp,

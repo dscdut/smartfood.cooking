@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mobile/src/modules/authentication/screen/forgot_password_action_screen.dart';
+import 'package:mobile/src/modules/authentication/screen/sign_in.dart';
+import 'package:mobile/src/modules/authentication/screen/sign_up.dart';
 import 'package:mobile/src/modules/home/screens/choose_your_ingredient.dart';
 import 'package:mobile/src/modules/home/screens/cook_recipe.dart';
 import 'package:mobile/src/modules/home/screens/done_cooking_screen.dart';
 import 'package:mobile/src/modules/home/screens/not_found_screen.dart';
 import 'package:mobile/src/modules/home/screens/select_recipe.dart';
-import 'package:mobile/src/modules/authentication/screen/sign_in.dart';
-import 'package:mobile/src/modules/authentication/screen/sign_up.dart';
-import 'package:mobile/src/modules/authentication/screen/forgot_password_action_screen.dart';
 import 'package:mobile/src/modules/home/screens/steps_to_cooking.dart';
 import 'package:mobile/src/modules/home/screens/your_material_screen.dart';
 import 'package:mobile/src/modules/home/widgets/view_image.dart';
@@ -17,9 +17,9 @@ import 'package:mobile/src/modules/user_choice/screens/user_choice_screen.dart';
 
 class RouteManager {
   static const String splash = '/';
-  static const String mainScreen = "/main";
-  static const String notFound = "/notFound";
-  static const String yourMaterial = "/yourMaterial";
+  static const String mainScreen = '/main';
+  static const String notFound = '/notFound';
+  static const String yourMaterial = '/yourMaterial';
   static const String chooseYourIngredient = '/chooseYourIngredient';
   static const String stepsToCooking = '/stepsToCooking';
   static const String cookRecipe = '/cookRecipe';
