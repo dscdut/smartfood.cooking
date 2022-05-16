@@ -59,7 +59,7 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     listStep = arguments['step'] as List<CookingStep>;
-    print(listStep!.length);
+    log(listStep!.length.toString());
     nameRecipe = arguments['name'] as String;
     log(listStep.toString());
     super.didChangeDependencies();

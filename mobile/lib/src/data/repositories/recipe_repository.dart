@@ -13,8 +13,8 @@ class RecipeRepository {
     try {
       final dataRaw = await baseApi
           .postMethod('/recipes/ingredients', body: {'ids': idIngredients});
-      final data = jsonDecode(dataRaw) as Iterable<Map<String, dynamic>>;
-      return data.map(Recipe.fromJson).toList();
+      final data = jsonDecode(dataRaw) as Iterable;
+      return data.map((e) => Recipe.fromJson(e)).toList();
     } catch (e) {
       log('getRecipesByIngredients fail ${e.toString()}');
       throw Exception('getRecipesByIngredients fail');

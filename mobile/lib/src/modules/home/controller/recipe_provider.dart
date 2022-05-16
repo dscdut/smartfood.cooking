@@ -125,7 +125,7 @@ class RecipeProvider extends ChangeNotifier {
           }
         },
       );
-      await showLoadingDialog(context, contentDialog: 'Đang tìm kiếm món ăn');
+      showLoadingDialog(context, contentDialog: 'Đang tìm kiếm món ăn');
       await recipeRepository.getRecipesByIngredients(listId).then((recipes) {
         Navigator.pop(context);
         if (recipes.isEmpty) {
@@ -162,7 +162,7 @@ class RecipeProvider extends ChangeNotifier {
     required int id,
   }) async {
     try {
-      await showLoadingDialog(
+      showLoadingDialog(
         context,
         contentDialog: 'Đang lấy dữ liệu món ăn',
       );

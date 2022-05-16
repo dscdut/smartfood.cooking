@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
-import 'package:mobile/src/data/model/ingredient.dart';
 import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
 import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/home/widgets/ingredient_card.dart';
@@ -69,8 +68,7 @@ class SelectedIngredientScreen extends StatelessWidget {
                         ),
                         itemBuilder: (context, index) {
                           log(listSelectedIngredient[index].key.toString());
-                          final Ingredient data =
-                              provider.ingredientData.firstWhere(
+                          final data = provider.ingredientData.firstWhere(
                             (element) =>
                                 element.id == listSelectedIngredient[index].key,
                           );
@@ -143,7 +141,11 @@ class SelectedIngredientScreen extends StatelessWidget {
                 .isNotEmpty)
               Padding(
                 padding: EdgeInsets.only(
-                    left: 16.0.w, right: 16.0.w, bottom: 24.h, top: 8.h),
+                  left: 16.0.w,
+                  right: 16.0.w,
+                  bottom: 24.h,
+                  top: 8.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -161,47 +163,49 @@ class SelectedIngredientScreen extends StatelessWidget {
                         ),
                       ),
                       child: Consumer<ChoiceYourIngredientsProvider>(
-                          builder: (_, provider, __) {
-                        return Text(
-                          "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.gray500,
-                            fontSize: 18.sp,
-                          ),
-                        );
-                      }),
+                        builder: (_, provider, __) {
+                          return Text(
+                            "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.gray500,
+                              fontSize: 18.sp,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     Consumer<ChoiceYourIngredientsProvider>(
-                        builder: (context, provider, child) {
-                      return TextButton(
-                        onPressed: () {
-                          if (provider.selectedData.values
-                              .where((element) => element == true)
-                              .toList()
-                              .isNotEmpty) {
-                            context.read<RecipeProvider>().findRecipe(
-                                  context,
-                                  data: provider.selectedData,
-                                  isInSelectedScreen: true,
-                                );
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(115.w, 45.h),
-                          backgroundColor: Palette.orange500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      builder: (context, provider, child) {
+                        return TextButton(
+                          onPressed: () {
+                            if (provider.selectedData.values
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty) {
+                              context.read<RecipeProvider>().findRecipe(
+                                    context,
+                                    data: provider.selectedData,
+                                    isInSelectedScreen: true,
+                                  );
+                            }
+                          },
+                          style: TextButton.styleFrom(
+                            fixedSize: Size(115.w, 45.h),
+                            backgroundColor: Palette.orange500,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          "Tiếp tục",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.backgroundColor,
-                            fontSize: 18.sp,
+                          child: Text(
+                            'Tiếp tục',
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.backgroundColor,
+                              fontSize: 18.sp,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ],
                 ),
               )

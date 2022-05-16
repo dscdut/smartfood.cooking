@@ -83,10 +83,6 @@ class ChooseRegionPage extends StatelessWidget {
 }
 
 class RegionCard extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final bool isChosen;
-
   const RegionCard({
     Key? key,
     required this.imagePath,
@@ -94,6 +90,9 @@ class RegionCard extends StatelessWidget {
     this.isChosen = false,
   }) : super(key: key);
 
+  final String imagePath;
+  final String title;
+  final bool isChosen;
   Color getColor(Set<MaterialState> states) {
     const interactiveStates = <MaterialState>{
       MaterialState.selected,

@@ -79,47 +79,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 32.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MenuButton(
-                        menuName: 'Tủ lạnh\nbạn có gì?',
-                        onMenuAction: () => Navigator.pushNamed(
-                          context,
-                          RouteManager.chooseYourIngredient,
-                        ),
-                        child: SvgPicture.asset(
-                          ImagePath.fridgeIcon,
-                          height: 32.h,
-                          width: 32.h,
-                        ),
-                      ),
-                      MenuButton(
-                        menuName: 'Công thức\nSmartfood',
-                        onMenuAction: () {},
-                        child: const Icon(
-                          PhosphorIcons.forkKnifeBold,
-                          color: Palette.yellowStar,
-                        ),
-                      ),
-                      MenuButton(
-                        menuName: 'Tạo\nthực đơn',
-                        onMenuAction: () {},
-                        child: const Icon(
-                          PhosphorIcons.calendarPlusBold,
-                          color: Palette.infoColor,
-                        ),
-                      ),
-                      MenuButton(
-                        menuName: 'Tính\ncalories',
-                        onMenuAction: () {},
-                        child: const Icon(
-                          PhosphorIcons.fireFill,
-                          color: Palette.orange500,
-                        ),
-                      ),
-                    ],
-                  ),
+                  const _MenuActionBar(),
                   SizedBox(height: 24.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14.0.w),
@@ -239,6 +199,57 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _MenuActionBar extends StatelessWidget {
+  const _MenuActionBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        MenuButton(
+          menuName: 'Tủ lạnh\nbạn có gì?',
+          onMenuAction: () => Navigator.pushNamed(
+            context,
+            RouteManager.chooseYourIngredient,
+          ),
+          child: SvgPicture.asset(
+            ImagePath.fridgeIcon,
+            height: 32.h,
+            width: 32.h,
+          ),
+        ),
+        MenuButton(
+          menuName: 'Công thức\nSmartfood',
+          onMenuAction: () {},
+          child: const Icon(
+            PhosphorIcons.forkKnifeBold,
+            color: Palette.yellowStar,
+          ),
+        ),
+        MenuButton(
+          menuName: 'Tạo\nthực đơn',
+          onMenuAction: () {},
+          child: const Icon(
+            PhosphorIcons.calendarPlusBold,
+            color: Palette.infoColor,
+          ),
+        ),
+        MenuButton(
+          menuName: 'Tính\ncalories',
+          onMenuAction: () {},
+          child: const Icon(
+            PhosphorIcons.fireFill,
+            color: Palette.orange500,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -5,9 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 
 class BaseApi {
-  final Client http;
-
   BaseApi({required this.http});
+  final Client http;
 
   Future<String> getMethod(String path) async {
     try {

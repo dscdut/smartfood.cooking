@@ -7,14 +7,14 @@ import 'package:mobile/src/core/utils/custom_cache_manager.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DietModeCard extends StatelessWidget {
-  const DietModeCard(
-      {Key? key,
-      required this.imageUrl,
-      required this.modeName,
-      required this.joinedCount,
-      required this.noMenu,
-      required this.onTapAction})
-      : super(key: key);
+  const DietModeCard({
+    Key? key,
+    required this.imageUrl,
+    required this.modeName,
+    required this.joinedCount,
+    required this.noMenu,
+    required this.onTapAction,
+  }) : super(key: key);
 
   final String imageUrl;
   final String modeName;

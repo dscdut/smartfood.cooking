@@ -7,20 +7,6 @@ enum SearchLoadingStatus { loading, error, idle }
 enum FilterDataMode { search, chip, none }
 
 class ChoiceYourIngredientsProvider with ChangeNotifier {
-  // STATIC DATA for Choose Your Material screen
-
-  Set ingredientData = <Ingredient>{};
-  Set ingredientFilterData = <Ingredient>{};
-  List<bool> selectedTypeList = <bool>[];
-  Map<int, bool?> selectedData = <int, bool?>{};
-  FilterDataMode filterDataMode = FilterDataMode.none;
-  bool isLoadingMore = false;
-  LoadingStatus status = LoadingStatus.idle;
-  SearchLoadingStatus searchStatus = SearchLoadingStatus.idle;
-  List<int> listPageObserve = List<int>.filled(13, 1);
-  int pageForSearch = 1;
-  final IngredientRepository ingredientRepository;
-  late TextEditingController searchEditingController;
 
   ChoiceYourIngredientsProvider({required this.ingredientRepository}) {
     searchEditingController = TextEditingController();
@@ -34,6 +20,20 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     });
   }
 
+  final IngredientRepository ingredientRepository;
+  late TextEditingController searchEditingController;
+
+  Set<Ingredient> ingredientData = <Ingredient>{};
+  Set<Ingredient> ingredientFilterData = <Ingredient>{};
+  List<bool> selectedTypeList = <bool>[];
+  Map<int, bool?> selectedData = <int, bool?>{};
+  FilterDataMode filterDataMode = FilterDataMode.none;
+  bool isLoadingMore = false;
+  LoadingStatus status = LoadingStatus.idle;
+  SearchLoadingStatus searchStatus = SearchLoadingStatus.idle;
+  List<int> listPageObserve = List<int>.filled(13, 1);
+  int pageForSearch = 1;
+
   Future<void> loadIngredientData() async {
     status = LoadingStatus.loading;
     notifyListeners();
@@ -41,7 +41,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       await ingredientRepository.getListIngredients(1).then((value) {
         ingredientData.addAll(value);
       });
-
       if (ingredientData.isNotEmpty) {
         status = LoadingStatus.idle;
       } else {
@@ -70,8 +69,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       isLoadingMore = false;
     } finally {
       isLoadingMore = false;
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   String countSelectedMaterial() {
@@ -91,11 +90,15 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     //TODO: refactor Chip Mode
     if (index == 0 && selectedTypeList[index] == false) {
       selectedTypeList = List<bool>.filled(13, false)..first = true;
-      ingredientFilterData.clear();
-      ingredientFilterData.addAll(ingredientData);
+      ingredientFilterData
+        ..clear()
+        ..addAll(ingredientData);
+
       filterDataMode = FilterDataMode.none;
     } else if (index != 0) {
       if (!selectedTypeList[index]) {
+        selectedTypeList[index] = false;
+      } else {
         filterDataMode = FilterDataMode.chip;
         selectedTypeList = List<bool>.filled(13, false);
         selectedTypeList[index] = true;
@@ -107,8 +110,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
                 .addAll(ingredientData.where((data) => data.categoryId == j));
           }
         }
-      } else {
-        selectedTypeList[index] = false;
       }
 
       if (ingredientFilterData.isEmpty &&
@@ -125,8 +126,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           ingredientData.addAll(data);
           listPageObserve[index]++;
           //sort
-          final temp = ingredientData.toList();
-          temp.sort((a, b) => a.categoryId!.compareTo(b.categoryId!));
+          final temp = ingredientData
+            ..toList().sort((a, b) => a.categoryId!.compareTo(b.categoryId!));
           ingredientData = temp.toSet();
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id!: false});
@@ -145,7 +146,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       selectedTypeList = List<bool>.filled(13, false)..first = true;
       ingredientFilterData.addAll(ingredientData);
     }
-
     notifyListeners();
   }
 
@@ -195,12 +195,16 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
       await ingredientRepository
           .searchIngredients(searchEditingController.text, pageForSearch)
           .then((data) {
-        if (data.isNotEmpty) {
+        if (data.isEmpty) {
+          searchStatus = SearchLoadingStatus.error;
+        } else {
           pageForSearch++;
           if (selectedTypeList.indexOf(
                 selectedTypeList.firstWhere((element) => element == true),
-              ) !=
+              ) ==
               0) {
+            ingredientFilterData.addAll(data);
+          } else {
             ingredientFilterData.addAll(
               data.where(
                 (element) =>
@@ -213,8 +217,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
                     0,
               ),
             );
-          } else {
-            ingredientFilterData.addAll(data);
           }
           selectedData.addAll({for (var e in data) e.id!: false});
           if (ingredientData.isEmpty) {
@@ -222,8 +224,6 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           } else {
             searchStatus = SearchLoadingStatus.idle;
           }
-        } else {
-          searchStatus = SearchLoadingStatus.error;
         }
       }).catchError(
         (err) {

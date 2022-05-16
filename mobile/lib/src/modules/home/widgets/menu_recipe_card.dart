@@ -115,28 +115,26 @@ class MenuRecipeCard extends StatelessWidget {
                   Positioned(
                     top: -2,
                     right: -2,
-                    child: ClipOval(
-                      child: Material(
-                        color: Colors.transparent,
-                        child: IconButton(
-                          splashRadius: 20,
-                          icon: Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: FittedBox(
-                              fit: BoxFit.fill,
-                              child: Icon(
-                                PhosphorIcons.heartFill,
-                                size: 26,
-                                color: isFavorite
-                                    ? Palette.orange500
-                                    : Palette.backgroundColor,
-                              ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        splashRadius: 20,
+                        icon: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Icon(
+                              PhosphorIcons.heartFill,
+                              size: 26,
+                              color: isFavorite
+                                  ? Palette.orange500
+                                  : Palette.backgroundColor,
                             ),
                           ),
-                          onPressed: onFavoriteAction,
                         ),
+                        onPressed: onFavoriteAction,
                       ),
                     ),
                   ),
