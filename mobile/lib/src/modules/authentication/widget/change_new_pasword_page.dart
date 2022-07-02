@@ -6,7 +6,7 @@ import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ChangeNewPasswordPage extends StatefulWidget {
-  const ChangeNewPasswordPage({Key? key}) : super(key: key);
+  const ChangeNewPasswordPage({super.key});
 
   @override
   State<ChangeNewPasswordPage> createState() => _ChangeNewPasswordPageState();

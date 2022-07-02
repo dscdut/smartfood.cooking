@@ -13,7 +13,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({Key? key, required this.recipe}) : super(key: key);
+  const RecipeCard({super.key, required this.recipe});
 
   final Recipe recipe;
 
@@ -226,7 +226,7 @@ class RecipeCard extends StatelessWidget {
               child: Center(
                 child: IconButton(
                   splashRadius: 0.1,
-                  padding:  EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   iconSize: 20.sp,
                   icon: const Icon(PhosphorIcons.arrowRightBold),
                   color: Palette.backgroundColor,

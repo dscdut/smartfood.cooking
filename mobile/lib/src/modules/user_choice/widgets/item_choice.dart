@@ -7,13 +7,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ItemChoice extends StatelessWidget {
   const ItemChoice({
-    Key? key,
+    super.key,
     required this.itemTitle,
     required this.isSelected,
     this.isNeedHelpTooltip = true,
     required this.onTapFunction,
     this.toolTipContent,
-  }) : super(key: key);
+  });
 
   final String itemTitle;
   final bool isSelected;

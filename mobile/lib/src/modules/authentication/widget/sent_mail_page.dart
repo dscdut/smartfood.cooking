@@ -10,9 +10,9 @@ import 'package:mobile/src/core/theme/palette.dart';
 
 class SentMailPage extends StatefulWidget {
   const SentMailPage({
-    Key? key,
+    super.key,
     required this.pageController,
-  }) : super(key: key);
+  });
 
   final PageController pageController;
 

@@ -3,21 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class CustomTooltip extends StatefulWidget {
-  const CustomTooltip({Key? key, this.child, required this.message})
-      : super(key: key);
+  const CustomTooltip({super.key, this.child, required this.message});
   final String message;
   final Widget? child;
 
   @override
-  _CustomTooltipState createState() => _CustomTooltipState();
+  State<CustomTooltip> createState() => _CustomTooltipState();
 }
 
 class _CustomTooltipState extends State<CustomTooltip>
     with TickerProviderStateMixin {
   final color = Colors.black.withAlpha(120);
   late GlobalKey key;
-  // ignore: prefer_const_constructors
-  var _offset = Offset(0, 0);
+  var _offset = const Offset(0, 0);
   // ignore: unused_field
   late Size? _size;
   OverlayEntry? overlayEntry;
@@ -115,7 +113,7 @@ class _CustomTooltipState extends State<CustomTooltip>
 class TrianglePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final _paint = Paint()
+    final paint = Paint()
       ..strokeWidth = 2.0
       ..color = Palette.infoColor
       ..style = PaintingStyle.fill;
@@ -125,7 +123,7 @@ class TrianglePainter extends CustomPainter {
       ..lineTo(0, size.height + 1)
       ..lineTo(size.width, size.height + 1);
 
-    canvas.drawPath(path, _paint);
+    canvas.drawPath(path, paint);
   }
 
   @override

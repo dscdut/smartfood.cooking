@@ -9,7 +9,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AllergicFoodPage extends StatelessWidget {
-  const AllergicFoodPage({Key? key}) : super(key: key);
+  const AllergicFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {

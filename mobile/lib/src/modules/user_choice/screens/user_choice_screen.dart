@@ -6,13 +6,13 @@ import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/modules/user_choice/widgets/allergic_food_page.dart';
-import 'package:mobile/src/modules/user_choice/widgets/choose_region_page.dart';
 import 'package:mobile/src/modules/user_choice/widgets/choose_favorite_food_page.dart';
+import 'package:mobile/src/modules/user_choice/widgets/choose_region_page.dart';
 import 'package:mobile/src/modules/user_choice/widgets/diet_page.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class UserChoiceScreen extends StatefulWidget {
-  const UserChoiceScreen({Key? key}) : super(key: key);
+  const UserChoiceScreen({super.key});
 
   @override
   State<UserChoiceScreen> createState() => _UserChoiceScreenState();

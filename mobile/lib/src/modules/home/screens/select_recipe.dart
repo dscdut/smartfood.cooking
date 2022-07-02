@@ -6,14 +6,14 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/data/model/recipe/recipe.dart';
-import 'package:mobile/src/modules/home/controller/recipeFilter_provider.dart';
+import 'package:mobile/src/modules/home/controller/recipe_filter_provider.dart';
 import 'package:mobile/src/modules/home/widgets/recipe_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SelectRecipe extends StatefulWidget {
-  const SelectRecipe({Key? key}) : super(key: key);
+  const SelectRecipe({super.key});
 
   @override
   State<SelectRecipe> createState() => _SelectRecipeState();
@@ -303,10 +303,7 @@ Widget recipeFilter(
             Consumer<RecipeFilterProvider>(
               builder: (context, provider, child) {
                 return Text(
-                  provider.timeFilter.start.toInt().toString() +
-                      ' tới ' +
-                      provider.timeFilter.end.toInt().toString() +
-                      ' phút',
+                  '${provider.timeFilter.start.toInt()} tới ${provider.timeFilter.end.toInt()} phút',
                   style: CustomTextTheme.subtitle2
                       .copyWith(color: Palette.gray400, fontSize: 16.sp),
                 );
@@ -327,7 +324,6 @@ Widget recipeFilter(
               child: RangeSlider(
                 activeColor: Palette.pink500,
                 inactiveColor: Palette.pink200,
-                min: 0,
                 max: 300,
                 values: recipeFilterProvider.timeFilter,
                 onChanged: (RangeValues newTimeFilter) {
@@ -494,10 +490,7 @@ Widget recipeFilter(
             Consumer<RecipeFilterProvider>(
               builder: (context, provider, child) {
                 return Text(
-                  provider.caloriFilter.start.toInt().toString() +
-                      ' tới ' +
-                      provider.caloriFilter.end.toInt().toString() +
-                      ' calories',
+                  '${provider.caloriFilter.start.toInt()} tới ${provider.caloriFilter.end.toInt()} calories',
                   style: CustomTextTheme.subtitle2
                       .copyWith(color: Palette.gray400, fontSize: 16.sp),
                 );
@@ -515,7 +508,6 @@ Widget recipeFilter(
               child: RangeSlider(
                 activeColor: Palette.pink500,
                 inactiveColor: Palette.pink200,
-                min: 0,
                 max: 5000,
                 values: recipeFilterProvider.caloriFilter,
                 onChanged: (RangeValues newTimeFilter) {

@@ -8,7 +8,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class MenuRecipeCard extends StatelessWidget {
   const MenuRecipeCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.recipeName,
     required this.isFavorite,
@@ -16,7 +16,7 @@ class MenuRecipeCard extends StatelessWidget {
     required this.onMenuCardAction,
     required this.timeNeed,
     required this.level,
-  }) : super(key: key);
+  });
 
   final String imageUrl;
   final String recipeName;

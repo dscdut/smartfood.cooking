@@ -7,7 +7,7 @@ import 'package:mobile/src/modules/user_choice/widgets/item_choice.dart';
 import 'package:provider/provider.dart';
 
 class DietPage extends StatelessWidget {
-  const DietPage({Key? key}) : super(key: key);
+  const DietPage({super.key});
 
   @override
   Widget build(BuildContext context) {

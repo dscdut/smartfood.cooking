@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/core/config/router.dart';
 
 class YourMaterialScreen extends StatelessWidget {
-  const YourMaterialScreen({Key? key}) : super(key: key);
+  const YourMaterialScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

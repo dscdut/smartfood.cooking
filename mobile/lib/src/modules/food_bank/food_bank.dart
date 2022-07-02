@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FoodBank extends StatelessWidget {
-  const FoodBank({Key? key}) : super(key: key);
+  const FoodBank({super.key});
 
   @override
   Widget build(BuildContext context) {

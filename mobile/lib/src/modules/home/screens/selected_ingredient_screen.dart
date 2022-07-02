@@ -15,7 +15,7 @@ import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:provider/provider.dart';
 
 class SelectedIngredientScreen extends StatelessWidget {
-  const SelectedIngredientScreen({Key? key}) : super(key: key);
+  const SelectedIngredientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,11 @@ class SelectedIngredientScreen extends StatelessWidget {
                 .isNotEmpty)
               Padding(
                 padding: EdgeInsets.only(
-                    left: 16.0.w, right: 16.0.w, bottom: 24.h, top: 8.h),
+                  left: 16.0.w,
+                  right: 16.0.w,
+                  bottom: 24.h,
+                  top: 8.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -161,47 +165,49 @@ class SelectedIngredientScreen extends StatelessWidget {
                         ),
                       ),
                       child: Consumer<ChoiceYourIngredientsProvider>(
-                          builder: (_, provider, __) {
-                        return Text(
-                          "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.gray500,
-                            fontSize: 18.sp,
-                          ),
-                        );
-                      }),
+                        builder: (_, provider, __) {
+                          return Text(
+                            "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.gray500,
+                              fontSize: 18.sp,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     Consumer<ChoiceYourIngredientsProvider>(
-                        builder: (context, provider, child) {
-                      return TextButton(
-                        onPressed: () {
-                          if (provider.selectedData.values
-                              .where((element) => element == true)
-                              .toList()
-                              .isNotEmpty) {
-                            context.read<RecipeProvider>().findRecipe(
-                                  context,
-                                  data: provider.selectedData,
-                                  isInSelectedScreen: true,
-                                );
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(115.w, 45.h),
-                          backgroundColor: Palette.orange500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      builder: (context, provider, child) {
+                        return TextButton(
+                          onPressed: () {
+                            if (provider.selectedData.values
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty) {
+                              context.read<RecipeProvider>().findRecipe(
+                                    context,
+                                    data: provider.selectedData,
+                                    isInSelectedScreen: true,
+                                  );
+                            }
+                          },
+                          style: TextButton.styleFrom(
+                            fixedSize: Size(115.w, 45.h),
+                            backgroundColor: Palette.orange500,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          "Tiếp tục",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.backgroundColor,
-                            fontSize: 18.sp,
+                          child: Text(
+                            'Tiếp tục',
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.backgroundColor,
+                              fontSize: 18.sp,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ],
                 ),
               )

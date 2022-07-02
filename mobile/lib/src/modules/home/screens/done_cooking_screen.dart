@@ -7,7 +7,7 @@ import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DoneCookingScreen extends StatelessWidget {
-  const DoneCookingScreen({Key? key}) : super(key: key);
+  const DoneCookingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

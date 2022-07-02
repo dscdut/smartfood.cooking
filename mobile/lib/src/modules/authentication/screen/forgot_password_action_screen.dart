@@ -10,7 +10,7 @@ import 'package:mobile/src/modules/authentication/widget/sent_mail_page.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class ForgotPasswordActionScreen extends StatefulWidget {
-  const ForgotPasswordActionScreen({Key? key}) : super(key: key);
+  const ForgotPasswordActionScreen({super.key});
 
   @override
   State<ForgotPasswordActionScreen> createState() =>

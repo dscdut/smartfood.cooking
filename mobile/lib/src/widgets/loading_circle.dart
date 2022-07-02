@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 
 class LoadingCircle extends StatelessWidget {
-  const LoadingCircle({Key? key, this.content}) : super(key: key);
+  const LoadingCircle({super.key, this.content});
 
   final String? content;
   @override

@@ -8,11 +8,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.description,
-  }) : super(key: key);
+  });
 
   final String imageUrl;
   final String title;

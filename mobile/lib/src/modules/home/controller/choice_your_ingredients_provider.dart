@@ -3,12 +3,12 @@ import 'package:mobile/src/data/model/ingredient.dart';
 import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 
 enum LoadingStatus { loading, error, idle }
+
 enum SearchLoadingStatus { loading, error, idle }
+
 enum FilterDataMode { search, chip, none }
 
 class ChoiceYourIngredientsProvider with ChangeNotifier {
-  // STATIC DATA for Choose Your Material screen
-
   Set ingredientData = <Ingredient>{};
   Set ingredientFilterData = <Ingredient>{};
   List<bool> selectedTypeList = <bool>[];
@@ -91,8 +91,9 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
     //TODO: refactor Chip Mode
     if (index == 0 && selectedTypeList[index] == false) {
       selectedTypeList = List<bool>.filled(13, false)..first = true;
-      ingredientFilterData.clear();
-      ingredientFilterData.addAll(ingredientData);
+      ingredientFilterData
+        ..clear()
+        ..addAll(ingredientData);
       filterDataMode = FilterDataMode.none;
     } else if (index != 0) {
       if (!selectedTypeList[index]) {
@@ -125,8 +126,8 @@ class ChoiceYourIngredientsProvider with ChangeNotifier {
           ingredientData.addAll(data);
           listPageObserve[index]++;
           //sort
-          final temp = ingredientData.toList();
-          temp.sort((a, b) => a.categoryId!.compareTo(b.categoryId!));
+          final temp = ingredientData.toList()
+            ..sort((a, b) => a.categoryId!.compareTo(b.categoryId!));
           ingredientData = temp.toSet();
           ingredientFilterData.addAll(data);
           selectedData.addAll({for (var e in data) e.id!: false});

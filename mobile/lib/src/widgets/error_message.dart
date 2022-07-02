@@ -4,7 +4,7 @@ import 'package:mobile/src/core/theme/palette.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ErrorMessage extends StatelessWidget {
-  const ErrorMessage({Key? key, this.content}) : super(key: key);
+  const ErrorMessage({super.key, this.content});
 
   final String? content;
   @override
