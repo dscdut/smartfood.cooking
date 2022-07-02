@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
@@ -55,43 +54,32 @@ class SelectedIngredientScreen extends StatelessWidget {
                     final listSelectedIngredient = provider.selectedData.entries
                         .where((entry) => entry.value == true)
                         .toList();
-                    return AnimationLimiter(
-                      child: GridView.builder(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 16.h,
-                        ),
-                        itemCount: listSelectedIngredient.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 8.h,
-                          crossAxisSpacing: 8.w,
-                        ),
-                        itemBuilder: (context, index) {
-                          log(listSelectedIngredient[index].key.toString());
-                          final Ingredient data =
-                              provider.ingredientData.firstWhere(
-                            (element) =>
-                                element.id == listSelectedIngredient[index].key,
-                          );
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            duration: const Duration(milliseconds: 400),
-                            child: SlideAnimation(
-                              verticalOffset: 100,
-                              child: FadeInAnimation(
-                                child: IngredientCard(
-                                  imageUrl: data.url!,
-                                  materialName: data.name!,
-                                  onDeleteAction: () => provider.onDeleteAction(
-                                    listSelectedIngredient[index].key,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                    return GridView.builder(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 16.h,
                       ),
+                      itemCount: listSelectedIngredient.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8.h,
+                        crossAxisSpacing: 8.w,
+                      ),
+                      itemBuilder: (context, index) {
+                        log(listSelectedIngredient[index].key.toString());
+                        final Ingredient data =
+                            provider.ingredientData.firstWhere(
+                          (element) =>
+                              element.id == listSelectedIngredient[index].key,
+                        );
+                        return IngredientCard(
+                          imageUrl: data.url!,
+                          materialName: data.name!,
+                          onDeleteAction: () => provider.onDeleteAction(
+                            listSelectedIngredient[index].key,
+                          ),
+                        );
+                      },
                     );
                   } else {
                     return Center(

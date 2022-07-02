@@ -16,45 +16,41 @@ class App extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      builder: () => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => getIt<UserChoiceProvider>(),
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => getIt<UserChoiceProvider>(),
+            ),
+            // ChangeNotifierProvider(
+            //   create: (_) => getIt<ChoiceYourIngredientsProvider>(),
+            //   lazy: false,
+            // ),
+            ChangeNotifierProvider(
+              create: (_) => getIt<RecipeProvider>(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => getIt<SignInProvider>(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => getIt<RecipeFilterProvider>(),
+            )
+          ],
+          child: MaterialApp(
+            useInheritedMediaQuery: true,
+            title: 'Smart Food',
+            debugShowCheckedModeBanner: false,
+            routes: RouteManager.listRoute,
+            initialRoute: RouteManager.splash,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              fontFamily: 'Nunito',
+              useMaterial3: true,
+            ),
           ),
-          // ChangeNotifierProvider(
-          //   create: (_) => getIt<ChoiceYourIngredientsProvider>(),
-          //   lazy: false,
-          // ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<RecipeProvider>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<SignInProvider>(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => getIt<RecipeFilterProvider>(),
-          )
-        ],
-        child: MaterialApp(
-          builder: (context, widget) {
-            ScreenUtil.setContext(context);
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-              child: widget!,
-            );
-          },
-          useInheritedMediaQuery: true,
-          title: 'Smart Food',
-          debugShowCheckedModeBanner: false,
-          routes: RouteManager.listRoute,
-          initialRoute: RouteManager.splash,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            fontFamily: 'Nunito',
-            useMaterial3: true,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

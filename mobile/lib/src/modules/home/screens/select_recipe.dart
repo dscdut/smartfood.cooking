@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/data/model/recipe/recipe.dart';
@@ -77,28 +76,17 @@ class _SelectRecipeState extends State<SelectRecipe> {
             ),
             SizedBox(height: 20.h),
             Expanded(
-              child: AnimationLimiter(
-                child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  itemCount: _listFound.length,
-                  itemBuilder: (context, index) {
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      duration: const Duration(milliseconds: 500),
-                      child: SlideAnimation(
-                        verticalOffset: 100,
-                        child: FadeInAnimation(
-                          child: RecipeCard(recipe: _listFound[index]),
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 16.h,
-                    );
-                  },
-                ),
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                itemCount: _listFound.length,
+                itemBuilder: (context, index) {
+                  return RecipeCard(recipe: _listFound[index]);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                    height: 16.h,
+                  );
+                },
               ),
             )
           ],

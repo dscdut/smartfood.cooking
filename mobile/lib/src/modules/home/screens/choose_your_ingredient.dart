@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mobile/src/core/helpers/debounce.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
@@ -287,52 +286,40 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                           content: 'Đã có lỗi xảy ra, vui lòng thử lại!',
                         );
                       } else {
-                        return AnimationLimiter(
-                          child: GridView.builder(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 8.h,
-                            ),
-                            controller: _scrollController,
-                            itemCount: provider.ingredientFilterData.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10.h,
-                              crossAxisSpacing: 10.w,
-                            ),
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 400),
-                                child: SlideAnimation(
-                                  verticalOffset: 100.0,
-                                  child: FadeInAnimation(
-                                    child: IngredientCard(
-                                      imageUrl: provider.ingredientFilterData
-                                          .elementAt(index)
-                                          .url!,
-                                      materialName: provider
-                                          .ingredientFilterData
-                                          .elementAt(index)
-                                          .name,
-                                      isSelected: provider.selectedData[provider
-                                          .ingredientFilterData
-                                          .elementAt(index)
-                                          .id]!,
-                                      onMaterialTap: () =>
-                                          provider.onTapIngredientsCard(
-                                        index,
-                                        provider.ingredientFilterData
-                                            .elementAt(index)
-                                            .id!,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
+                        return GridView.builder(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 8.h,
                           ),
+                          controller: _scrollController,
+                          itemCount: provider.ingredientFilterData.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10.h,
+                            crossAxisSpacing: 10.w,
+                          ),
+                          itemBuilder: (context, index) {
+                            return IngredientCard(
+                              imageUrl: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .url!,
+                              materialName: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .name,
+                              isSelected: provider.selectedData[provider
+                                  .ingredientFilterData
+                                  .elementAt(index)
+                                  .id]!,
+                              onMaterialTap: () =>
+                                  provider.onTapIngredientsCard(
+                                index,
+                                provider.ingredientFilterData
+                                    .elementAt(index)
+                                    .id!,
+                              ),
+                            );
+                          },
                         );
                       }
                     },
