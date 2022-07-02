@@ -80,7 +80,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
               child: AnimationLimiter(
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  itemCount: listFound.length,
+                  itemCount: _listFound.length,
                   itemBuilder: (context, index) {
                     return AnimationConfiguration.staggeredList(
                       position: index,
@@ -88,7 +88,7 @@ class _SelectRecipeState extends State<SelectRecipe> {
                       child: SlideAnimation(
                         verticalOffset: 100,
                         child: FadeInAnimation(
-                          child: RecipeCard(recipe: listFound[index]),
+                          child: RecipeCard(recipe: _listFound[index]),
                         ),
                       ),
                     );

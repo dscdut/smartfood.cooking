@@ -37,7 +37,9 @@ class IngredientRepository {
   }
 
   Future<List<Ingredient>> getListIngredientByCategory(
-      int categoryId, int page) async {
+    int categoryId,
+    int page,
+  ) async {
     try {
       final dataRaw = await baseApi.postMethod(
         '/ingredients/categories?page=$page&size=12',

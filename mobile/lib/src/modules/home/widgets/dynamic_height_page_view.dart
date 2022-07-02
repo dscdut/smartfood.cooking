@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DynamicHeightPageView extends StatefulWidget {
-  final List<Widget> children;
-  final PageController pageController;
-  final ValueChanged<int>? onPageChanged;
-  final int indexCurrentPage;
-
   const DynamicHeightPageView({
     Key? key,
     required this.children,
@@ -16,6 +11,10 @@ class DynamicHeightPageView extends StatefulWidget {
     this.onPageChanged,
     required this.indexCurrentPage,
   }) : super(key: key);
+  final List<Widget> children;
+  final PageController pageController;
+  final ValueChanged<int>? onPageChanged;
+  final int indexCurrentPage;
 
   @override
   _DynamicHeightPageViewState createState() => _DynamicHeightPageViewState();
@@ -78,7 +77,7 @@ class UpdatedSizeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) => updateSize(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) => updateSize(context));
     return child;
   }
 

@@ -4,12 +4,12 @@ analyzer:
 
 linter:
   rules:
-    - avoid_print
-    - require_trailing_commas
-    - prefer_single_quotes
-    - cascade_invocations
-    - always_use_package_imports
-    - sort_child_properties_last
-    - sort_constructors_first
-    - sort_unnamed_constructors_first
-    - unnecessary_string_interpolations
+    avoid_print: true
+    require_trailing_commas: true
+    prefer_single_quotes: true
+    cascade_invocations: true
+    always_use_package_imports: true
+    prefer_final_in_for_each: true
+    avoid_redundant_argument_values: true
+    unnecessary_string_interpolations: true
+    # always_specify_types: true
