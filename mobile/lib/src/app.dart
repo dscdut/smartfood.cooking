@@ -23,10 +23,6 @@ class App extends StatelessWidget {
             ChangeNotifierProvider(
               create: (_) => getIt<UserChoiceProvider>(),
             ),
-            // ChangeNotifierProvider(
-            //   create: (_) => getIt<ChoiceYourIngredientsProvider>(),
-            //   lazy: false,
-            // ),
             ChangeNotifierProvider(
               create: (_) => getIt<RecipeProvider>(),
             ),

@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/helpers/show_loading_dialog.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/core/utils/custom_cache_manager.dart';
@@ -22,17 +21,25 @@ class RecipeCard extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
       onTap: () async {
+        showLoadingDialog(context, contentDialog: 'Đang lấy dữ liệu món ăn');
         await context
             .read<RecipeProvider>()
             .getDataRecipeById(context, id: recipe.id!)
             .then((value) {
-          log(value.toString());
+          Navigator.pop(context);
           Navigator.pushNamed(
             context,
             RouteManager.cookRecipe,
             arguments: recipe.copyWith(
-              ingredients: value!.ingredients,
+              ingredients: value.ingredients,
               steps: value.steps,
+            ),
+          );
+        }).catchError((e) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Lấy dữ liệu món ăn không thành công'),
             ),
           );
         });
@@ -240,8 +247,8 @@ class RecipeCard extends StatelessWidget {
                           context,
                           RouteManager.cookRecipe,
                           arguments: recipe.copyWith(
-                            ingredients: value!.ingredients,
-                            steps: value.steps,
+                            ingredients: value.ingredients ?? [],
+                            steps: value.steps ?? [],
                           ),
                         );
                       },

@@ -5,6 +5,7 @@ import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/data/repositories/recipe_repository.dart';
 
 enum SearchStatus { loading, idle, error }
+
 enum DataLoadingStatus { loading, idle, error }
 
 class RecipeProvider extends ChangeNotifier {
@@ -125,7 +126,7 @@ class RecipeProvider extends ChangeNotifier {
           }
         },
       );
-      await showLoadingDialog(context, contentDialog: 'Đang tìm kiếm món ăn');
+      showLoadingDialog(context, contentDialog: 'Đang tìm kiếm món ăn');
       await recipeRepository.getRecipesByIngredients(listId).then((recipes) {
         Navigator.pop(context);
         if (recipes.isEmpty) {
@@ -157,27 +158,15 @@ class RecipeProvider extends ChangeNotifier {
     }
   }
 
-  Future<Recipe?> getDataRecipeById(
+  Future<Recipe> getDataRecipeById(
     BuildContext context, {
     required int id,
   }) async {
     try {
-      await showLoadingDialog(
-        context,
-        contentDialog: 'Đang lấy dữ liệu món ăn',
-      );
-      await recipeRepository.getRecipeById(id).then((data) {
-        Navigator.pop(context);
-        return data;
-      });
+      final data = await recipeRepository.getRecipeById(id);
+      return data;
     } catch (e) {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Lấy dữ liệu món ăn không thành công'),
-        ),
-      );
+      throw Exception('Error');
     }
-    return null;
   }
 }

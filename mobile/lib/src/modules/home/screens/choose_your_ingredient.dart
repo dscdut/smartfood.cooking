@@ -349,12 +349,12 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         ),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(20.r),
-                          onTap: () {
+                          onTap: () async {
                             if (provider.selectedData.values
                                 .where((element) => element == true)
                                 .toList()
                                 .isNotEmpty) {
-                              context.read<RecipeProvider>().findRecipe(
+                              await context.read<RecipeProvider>().findRecipe(
                                     context,
                                     data: provider.selectedData,
                                   );
