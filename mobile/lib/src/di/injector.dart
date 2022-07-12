@@ -9,7 +9,7 @@ import 'package:mobile/src/data/repositories/ingredient_repository.dart';
 import 'package:mobile/src/data/repositories/recipe_repository.dart';
 import 'package:mobile/src/modules/authentication/controllers/sign_in_provider.dart';
 import 'package:mobile/src/modules/home/controller/choice_your_ingredients_provider.dart';
-import 'package:mobile/src/modules/home/controller/recipeFilter_provider.dart';
+import 'package:mobile/src/modules/home/controller/recipe_filter_provider.dart';
 import 'package:mobile/src/modules/home/controller/recipe_provider.dart';
 import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.dart';
 
@@ -47,6 +47,7 @@ void initDependences() {
     ..registerFactory<RecipeProvider>(
       () => RecipeProvider(recipeRepository: getIt()),
     )
+    ..registerFactory<RecipeFilterProvider>(() => RecipeFilterProvider())
     ..registerFactory<SignInProvider>(
       () => SignInProvider(authenticationRepository: getIt()),
     );

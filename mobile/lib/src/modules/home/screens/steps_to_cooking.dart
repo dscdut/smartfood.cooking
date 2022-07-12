@@ -13,7 +13,7 @@ import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class StepsToCookingScreen extends StatefulWidget {
-  const StepsToCookingScreen({Key? key}) : super(key: key);
+  const StepsToCookingScreen({super.key});
 
   @override
   State<StepsToCookingScreen> createState() => _StepsToCookingScreenState();
@@ -246,7 +246,6 @@ class _StepsToCookingScreenState extends State<StepsToCookingScreen> {
                 ],
               ),
             ),
-            //TODO: will refactor ```DynamicHeightPageView```
             DynamicHeightPageView(
               indexCurrentPage: indexCurrentPage,
               pageController: dynamicViewPageController,

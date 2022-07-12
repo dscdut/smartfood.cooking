@@ -6,7 +6,7 @@ import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.d
 import 'package:provider/provider.dart';
 
 class ChooseFavoriteFoodPage extends StatelessWidget {
-  const ChooseFavoriteFoodPage({Key? key}) : super(key: key);
+  const ChooseFavoriteFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +54,11 @@ class ChooseFavoriteFoodPage extends StatelessWidget {
 
 class FavoriteFoodCard extends StatelessWidget {
   const FavoriteFoodCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     this.isChosen = false,
-  }) : super(key: key);
+  });
 
   final String imagePath;
   final String title;

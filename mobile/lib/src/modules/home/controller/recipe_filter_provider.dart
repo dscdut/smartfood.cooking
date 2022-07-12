@@ -50,11 +50,11 @@ class RecipeFilterProvider extends ChangeNotifier {
 
   void submitFilter(List<Recipe> listFound) {
     filterResult = [];
-    listFound.forEach((element) {
+    for (final element in listFound) {
       if (element.level.toString() == checkFilterLevel()) {
         filterResult.add(element);
       }
-    });
+    }
     notifyListeners();
   }
 

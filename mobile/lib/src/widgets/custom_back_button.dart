@@ -5,13 +5,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
-    Key? key,
+    super.key,
     this.onPressedFunction,
     this.reverse = false,
     this.opacity = 1.0,
     this.isHide = false,
-  })  : assert(opacity >= 0.0 && opacity <= 1.0),
-        super(key: key);
+  }) : assert(opacity >= 0.0 && opacity <= 1.0);
 
   final VoidCallback? onPressedFunction;
   final bool reverse;

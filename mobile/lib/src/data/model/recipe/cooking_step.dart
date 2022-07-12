@@ -6,15 +6,14 @@ class CookingStep extends Equatable {
   factory CookingStep.fromJson(Map<String, dynamic> json) => CookingStep(
         content: json['content'] as String?,
         order: json['order'] as int?,
-        images: (json['images'] as List<String>?)
-            ?.map((e) => e)
+        images: (json['images'] as List<dynamic>?)
+            ?.map((e) => e as String)
             .toList(),
       );
 
   final String? content;
   final int? order;
   final List<String>? images;
-
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'content': content,

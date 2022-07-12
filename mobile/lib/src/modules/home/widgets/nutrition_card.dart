@@ -5,10 +5,10 @@ import 'package:mobile/src/core/theme/palette.dart';
 
 class NutritionCard extends StatelessWidget {
   const NutritionCard({
-    Key? key,
+    super.key,
     required this.nameNutrition,
     required this.valueNutrition,
-  }) : super(key: key);
+  });
 
   final String nameNutrition;
   final String valueNutrition;

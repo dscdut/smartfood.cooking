@@ -7,7 +7,7 @@ import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AllergicFoodChoice extends StatefulWidget {
-  const AllergicFoodChoice({Key? key}) : super(key: key);
+  const AllergicFoodChoice({super.key});
 
   @override
   State<AllergicFoodChoice> createState() => _AllergicFoodChoiceState();

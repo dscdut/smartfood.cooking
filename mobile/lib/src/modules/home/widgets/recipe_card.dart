@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
+import 'package:mobile/src/core/helpers/show_loading_dialog.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/core/utils/custom_cache_manager.dart';
@@ -13,7 +12,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class RecipeCard extends StatelessWidget {
-  const RecipeCard({Key? key, required this.recipe}) : super(key: key);
+  const RecipeCard({super.key, required this.recipe});
 
   final Recipe recipe;
 
@@ -22,17 +21,25 @@ class RecipeCard extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
       onTap: () async {
+        showLoadingDialog(context, contentDialog: 'Đang lấy dữ liệu món ăn');
         await context
             .read<RecipeProvider>()
             .getDataRecipeById(context, id: recipe.id!)
             .then((value) {
-          log(value.toString());
+          Navigator.pop(context);
           Navigator.pushNamed(
             context,
             RouteManager.cookRecipe,
             arguments: recipe.copyWith(
-              ingredients: value!.ingredients,
+              ingredients: value.ingredients,
               steps: value.steps,
+            ),
+          );
+        }).catchError((e) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Lấy dữ liệu món ăn không thành công'),
             ),
           );
         });
@@ -226,7 +233,7 @@ class RecipeCard extends StatelessWidget {
               child: Center(
                 child: IconButton(
                   splashRadius: 0.1,
-                  padding:  EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
                   iconSize: 20.sp,
                   icon: const Icon(PhosphorIcons.arrowRightBold),
                   color: Palette.backgroundColor,
@@ -240,8 +247,8 @@ class RecipeCard extends StatelessWidget {
                           context,
                           RouteManager.cookRecipe,
                           arguments: recipe.copyWith(
-                            ingredients: value!.ingredients,
-                            steps: value.steps,
+                            ingredients: value.ingredients ?? [],
+                            steps: value.steps ?? [],
                           ),
                         );
                       },

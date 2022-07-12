@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/core/utils/custom_cache_manager.dart';
 
 class ViewImage extends StatelessWidget {
-  const ViewImage({Key? key}) : super(key: key);
+  const ViewImage({super.key});
 
   @override
   Widget build(BuildContext context) {

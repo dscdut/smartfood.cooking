@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
@@ -15,7 +14,7 @@ import 'package:mobile/src/widgets/custom_back_button.dart';
 import 'package:provider/provider.dart';
 
 class SelectedIngredientScreen extends StatelessWidget {
-  const SelectedIngredientScreen({Key? key}) : super(key: key);
+  const SelectedIngredientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,43 +54,32 @@ class SelectedIngredientScreen extends StatelessWidget {
                     final listSelectedIngredient = provider.selectedData.entries
                         .where((entry) => entry.value == true)
                         .toList();
-                    return AnimationLimiter(
-                      child: GridView.builder(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 16.h,
-                        ),
-                        itemCount: listSelectedIngredient.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 8.h,
-                          crossAxisSpacing: 8.w,
-                        ),
-                        itemBuilder: (context, index) {
-                          log(listSelectedIngredient[index].key.toString());
-                          final Ingredient data =
-                              provider.ingredientData.firstWhere(
-                            (element) =>
-                                element.id == listSelectedIngredient[index].key,
-                          );
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            duration: const Duration(milliseconds: 400),
-                            child: SlideAnimation(
-                              verticalOffset: 100,
-                              child: FadeInAnimation(
-                                child: IngredientCard(
-                                  imageUrl: data.url!,
-                                  materialName: data.name!,
-                                  onDeleteAction: () => provider.onDeleteAction(
-                                    listSelectedIngredient[index].key,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                    return GridView.builder(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 16.h,
                       ),
+                      itemCount: listSelectedIngredient.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8.h,
+                        crossAxisSpacing: 8.w,
+                      ),
+                      itemBuilder: (context, index) {
+                        log(listSelectedIngredient[index].key.toString());
+                        final Ingredient data =
+                            provider.ingredientData.firstWhere(
+                          (element) =>
+                              element.id == listSelectedIngredient[index].key,
+                        );
+                        return IngredientCard(
+                          imageUrl: data.url!,
+                          materialName: data.name!,
+                          onDeleteAction: () => provider.onDeleteAction(
+                            listSelectedIngredient[index].key,
+                          ),
+                        );
+                      },
                     );
                   } else {
                     return Center(
@@ -143,7 +131,11 @@ class SelectedIngredientScreen extends StatelessWidget {
                 .isNotEmpty)
               Padding(
                 padding: EdgeInsets.only(
-                    left: 16.0.w, right: 16.0.w, bottom: 24.h, top: 8.h),
+                  left: 16.0.w,
+                  right: 16.0.w,
+                  bottom: 24.h,
+                  top: 8.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -161,47 +153,49 @@ class SelectedIngredientScreen extends StatelessWidget {
                         ),
                       ),
                       child: Consumer<ChoiceYourIngredientsProvider>(
-                          builder: (_, provider, __) {
-                        return Text(
-                          "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.gray500,
-                            fontSize: 18.sp,
-                          ),
-                        );
-                      }),
+                        builder: (_, provider, __) {
+                          return Text(
+                            "Xóa tất cả ${provider.countSelectedMaterial() == "0" ? "" : "(${provider.countSelectedMaterial()})"}",
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.gray500,
+                              fontSize: 18.sp,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     Consumer<ChoiceYourIngredientsProvider>(
-                        builder: (context, provider, child) {
-                      return TextButton(
-                        onPressed: () {
-                          if (provider.selectedData.values
-                              .where((element) => element == true)
-                              .toList()
-                              .isNotEmpty) {
-                            context.read<RecipeProvider>().findRecipe(
-                                  context,
-                                  data: provider.selectedData,
-                                  isInSelectedScreen: true,
-                                );
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          fixedSize: Size(115.w, 45.h),
-                          backgroundColor: Palette.orange500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                      builder: (context, provider, child) {
+                        return TextButton(
+                          onPressed: () {
+                            if (provider.selectedData.values
+                                .where((element) => element == true)
+                                .toList()
+                                .isNotEmpty) {
+                              context.read<RecipeProvider>().findRecipe(
+                                    context,
+                                    data: provider.selectedData,
+                                    isInSelectedScreen: true,
+                                  );
+                            }
+                          },
+                          style: TextButton.styleFrom(
+                            fixedSize: Size(115.w, 45.h),
+                            backgroundColor: Palette.orange500,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          "Tiếp tục",
-                          style: CustomTextTheme.headline4.copyWith(
-                            color: Palette.backgroundColor,
-                            fontSize: 18.sp,
+                          child: Text(
+                            'Tiếp tục',
+                            style: CustomTextTheme.headline4.copyWith(
+                              color: Palette.backgroundColor,
+                              fontSize: 18.sp,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ],
                 ),
               )

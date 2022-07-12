@@ -7,7 +7,7 @@ import 'package:mobile/src/modules/user_choice/controller/user_choice_provider.d
 import 'package:provider/provider.dart';
 
 class ChooseRegionPage extends StatelessWidget {
-  const ChooseRegionPage({Key? key}) : super(key: key);
+  const ChooseRegionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +88,11 @@ class RegionCard extends StatelessWidget {
   final bool isChosen;
 
   const RegionCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.title,
     this.isChosen = false,
-  }) : super(key: key);
+  });
 
   Color getColor(Set<MaterialState> states) {
     const interactiveStates = <MaterialState>{

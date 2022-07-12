@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mobile/src/core/helpers/debounce.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
@@ -17,7 +16,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ChooseYourIngredient extends StatefulWidget {
-  const ChooseYourIngredient({Key? key}) : super(key: key);
+  const ChooseYourIngredient({super.key});
 
   @override
   State<ChooseYourIngredient> createState() => _ChooseYourIngredientState();
@@ -30,19 +29,19 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
   late final Debounce _debounceUserInput;
 
   final List<String> typeMaterialList = <String>[
-    "Tất cả",
-    "Thịt",
-    "Thủy sản",
-    "Rau củ quả",
-    "Trứng",
-    "Sữa",
-    "Gia vị",
-    "Hạt",
-    "Thực phẩm chế biến",
-    "Gạo, bột, đồ khô",
-    "Nước",
-    "Nội tạng",
-    "Khác",
+    'Tất cả',
+    'Thịt',
+    'Thủy sản',
+    'Rau củ quả',
+    'Trứng',
+    'Sữa',
+    'Gia vị',
+    'Hạt',
+    'Thực phẩm chế biến',
+    'Gạo, bột, đồ khô',
+    'Nước',
+    'Nội tạng',
+    'Khác',
   ];
   @override
   void initState() {
@@ -64,9 +63,11 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
             await _choiceYourIngredientsProvider.loadMoreAllIngredientData();
           } else if (_choiceYourIngredientsProvider.filterDataMode ==
               FilterDataMode.chip) {
-            final index = _choiceYourIngredientsProvider.selectedTypeList
-                .indexOf(_choiceYourIngredientsProvider.selectedTypeList
-                    .firstWhere((element) => element == true));
+            final index =
+                _choiceYourIngredientsProvider.selectedTypeList.indexOf(
+              _choiceYourIngredientsProvider.selectedTypeList
+                  .firstWhere((element) => element == true),
+            );
             await _choiceYourIngredientsProvider
                 .loadMoreIngredientsDataByCategory(index);
           } else {
@@ -82,7 +83,6 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
   void dispose() {
     _scrollController.dispose();
     _debounceLoadMore.dispose();
-    _debounceLoadMore.dispose();
     super.dispose();
   }
 
@@ -96,7 +96,8 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
           resizeToAvoidBottomInset: false,
           body: Padding(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 20.0.h),
+              top: MediaQuery.of(context).padding.top + 20.0.h,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -109,7 +110,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         onPressedFunction: () => Navigator.pop(context),
                       ),
                       Text(
-                        "Chọn nguyên liệu",
+                        'Chọn nguyên liệu',
                         style: CustomTextTheme.headline2
                             .copyWith(color: Palette.pink500, fontSize: 26.sp),
                       ),
@@ -182,7 +183,7 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                             isCollapsed: true,
                             contentPadding: EdgeInsets.only(left: 14.w),
                             border: InputBorder.none,
-                            hintText: "Tủ lạnh bạn hôm nay có gì!",
+                            hintText: 'Tủ lạnh bạn hôm nay có gì!',
                             hintStyle: CustomTextTheme.headline4
                                 .copyWith(color: Palette.gray300),
                             suffixIcon: Consumer<ChoiceYourIngredientsProvider>(
@@ -238,23 +239,25 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                     itemCount: typeMaterialList.length,
                     itemBuilder: (context, index) {
                       return Consumer<ChoiceYourIngredientsProvider>(
-                          builder: (_, provider, __) {
-                        return ChoiceChip(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          label: Text(typeMaterialList[index]),
-                          labelStyle: CustomTextTheme.subtitle1.copyWith(
+                        builder: (_, provider, __) {
+                          return ChoiceChip(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            label: Text(typeMaterialList[index]),
+                            labelStyle: CustomTextTheme.subtitle1.copyWith(
                               color: provider.selectedTypeList[index]
                                   ? Colors.white
-                                  : Palette.gray500),
-                          selected: provider.selectedTypeList[index],
-                          onSelected: (value) => provider.onSelected(index),
-                          selectedColor: Palette.pink500,
-                          backgroundColor: Palette.backgroundColor,
-                          elevation: 2,
-                        );
-                      });
+                                  : Palette.gray500,
+                            ),
+                            selected: provider.selectedTypeList[index],
+                            onSelected: (value) => provider.onSelected(index),
+                            selectedColor: Palette.pink500,
+                            backgroundColor: Palette.backgroundColor,
+                            elevation: 2,
+                          );
+                        },
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(width: 12.w);
@@ -268,66 +271,55 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                       final searchStatus = provider.searchStatus;
                       if (searchStatus == SearchLoadingStatus.loading) {
                         return const LoadingCircle(
-                          content: "Đang tìm kiếm",
+                          content: 'Đang tìm kiếm',
                         );
                       } else if (searchStatus == SearchLoadingStatus.error) {
                         return const ErrorMessage(
-                          content: "Không tìm thấy nguyên liệu",
+                          content: 'Không tìm thấy nguyên liệu',
                         );
                       } else if (status == LoadingStatus.loading) {
                         return const LoadingCircle(
-                          content: "Đang tải nguyên liệu",
+                          content: 'Đang tải nguyên liệu',
                         );
                       } else if (status == LoadingStatus.error) {
                         return const ErrorMessage(
-                            content: "Đã có lỗi xảy ra, vui lòng thử lại!");
+                          content: 'Đã có lỗi xảy ra, vui lòng thử lại!',
+                        );
                       } else {
-                        return AnimationLimiter(
-                          child: GridView.builder(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 8.h,
-                            ),
-                            controller: _scrollController,
-                            itemCount: provider.ingredientFilterData.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10.h,
-                              crossAxisSpacing: 10.w,
-                            ),
-                            itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 400),
-                                child: SlideAnimation(
-                                  verticalOffset: 100.0,
-                                  child: FadeInAnimation(
-                                    child: IngredientCard(
-                                      imageUrl: provider.ingredientFilterData
-                                          .elementAt(index)
-                                          .url!,
-                                      materialName: provider
-                                          .ingredientFilterData
-                                          .elementAt(index)
-                                          .name,
-                                      isSelected: provider.selectedData[provider
-                                          .ingredientFilterData
-                                          .elementAt(index)
-                                          .id]!,
-                                      onMaterialTap: () =>
-                                          provider.onTapIngredientsCard(
-                                        index,
-                                        provider.ingredientFilterData
-                                            .elementAt(index)
-                                            .id!,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
+                        return GridView.builder(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 8.h,
                           ),
+                          controller: _scrollController,
+                          itemCount: provider.ingredientFilterData.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10.h,
+                            crossAxisSpacing: 10.w,
+                          ),
+                          itemBuilder: (context, index) {
+                            return IngredientCard(
+                              imageUrl: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .url!,
+                              materialName: provider.ingredientFilterData
+                                  .elementAt(index)
+                                  .name,
+                              isSelected: provider.selectedData[provider
+                                  .ingredientFilterData
+                                  .elementAt(index)
+                                  .id]!,
+                              onMaterialTap: () =>
+                                  provider.onTapIngredientsCard(
+                                index,
+                                provider.ingredientFilterData
+                                    .elementAt(index)
+                                    .id!,
+                              ),
+                            );
+                          },
                         );
                       }
                     },
@@ -357,13 +349,15 @@ class _ChooseYourIngredientState extends State<ChooseYourIngredient> {
                         ),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(20.r),
-                          onTap: () {
+                          onTap: () async {
                             if (provider.selectedData.values
                                 .where((element) => element == true)
                                 .toList()
                                 .isNotEmpty) {
-                              context.read<RecipeProvider>().findRecipe(context,
-                                  data: provider.selectedData);
+                              await context.read<RecipeProvider>().findRecipe(
+                                    context,
+                                    data: provider.selectedData,
+                                  );
                             }
                           },
                           child: Ink(

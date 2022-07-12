@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile/src/core/config/router.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 import 'package:mobile/src/core/theme/custom_text_theme.dart';
 import 'package:mobile/src/core/theme/palette.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
 
 class NotFoundScreen extends StatelessWidget {
-  const NotFoundScreen({Key? key}) : super(key: key);
+  const NotFoundScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:mobile/src/core/config/router.dart';
 import 'package:mobile/src/core/constant/image_path.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

@@ -5,11 +5,11 @@ import 'package:mobile/src/core/theme/palette.dart';
 
 class MenuButton extends StatelessWidget {
   const MenuButton({
-    Key? key,
+    super.key,
     required this.child,
     required this.menuName,
     required this.onMenuAction,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final String menuName;

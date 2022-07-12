@@ -7,9 +7,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({
-    Key? key,
+    super.key,
     required this.pageController,
-  }) : super(key: key);
+  });
 
   final PageController pageController;
 

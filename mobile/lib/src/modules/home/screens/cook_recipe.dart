@@ -9,11 +9,10 @@ import 'package:mobile/src/data/model/recipe/ingredient_recipe.dart';
 import 'package:mobile/src/data/model/recipe/recipe.dart';
 import 'package:mobile/src/modules/home/widgets/nutrition_card.dart';
 import 'package:mobile/src/widgets/custom_back_button.dart';
-import 'package:mobile/src/widgets/no_show_limit_scroll.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CookRecipe extends StatelessWidget {
-  const CookRecipe({Key? key}) : super(key: key);
+  const CookRecipe({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -252,121 +251,112 @@ class CookRecipe extends StatelessWidget {
             SizedBox(height: 8.h),
             SizedBox(
               height: 390.h,
-              child: ScrollConfiguration(
-                behavior: NoShowLimitScroll(),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Dinh dưỡng',
-                                style: CustomTextTheme.headline3.copyWith(
-                                  color: Palette.gray500,
-                                  fontSize: 21.sp,
-                                ),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Dinh dưỡng',
+                              style: CustomTextTheme.headline3.copyWith(
+                                color: Palette.gray500,
+                                fontSize: 21.sp,
                               ),
-                              const Spacer(),
-                              Text(
-                                'Xem tất cả',
-                                style: CustomTextTheme.bodyText1.copyWith(
-                                  color: Palette.pink500,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 15.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              NutritionCard(
-                                nameNutrition: 'Đạm',
-                                valueNutrition: '50g',
-                              ),
-                              NutritionCard(
-                                nameNutrition: 'Chất béo',
-                                valueNutrition: '50g',
-                              ),
-                              NutritionCard(
-                                nameNutrition: 'Protein',
-                                valueNutrition: '50g',
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 24.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                          child: Text(
-                            'Nguyên liệu (' +
-                                recipe.ingredients!.length.toString() +
-                                ')',
-                            style: CustomTextTheme.headline3.copyWith(
-                              color: Palette.gray500,
-                              fontSize: 21.sp,
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        SizedBox(
-                          height: 200.h,
-                          child: ScrollConfiguration(
-                            behavior: NoShowLimitScroll(),
-                            child: ListView(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              children: recipe.ingredients!
-                                  .map(listIngredient)
-                                  .toList(),
+                            const Spacer(),
+                            Text(
+                              'Xem tất cả',
+                              style: CustomTextTheme.bodyText1.copyWith(
+                                color: Palette.pink500,
+                                fontSize: 14.sp,
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        SizedBox(height: 15.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              NutritionCard(
-                                nameNutrition: 'Đạm',
-                                valueNutrition: '50g',
-                              ),
-                              NutritionCard(
-                                nameNutrition: 'Chất béo',
-                                valueNutrition: '50g',
-                              ),
-                              NutritionCard(
-                                nameNutrition: 'Protein',
-                                valueNutrition: '50g',
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 24.h),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                          child: Text(
-                            'Nguyên liệu (${recipe.ingredients!.length})',
-                            style: CustomTextTheme.headline3.copyWith(
-                              color: Palette.gray500,
-                              fontSize: 21.sp,
+                      ),
+                      SizedBox(height: 15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            NutritionCard(
+                              nameNutrition: 'Đạm',
+                              valueNutrition: '50g',
                             ),
+                            NutritionCard(
+                              nameNutrition: 'Chất béo',
+                              valueNutrition: '50g',
+                            ),
+                            NutritionCard(
+                              nameNutrition: 'Protein',
+                              valueNutrition: '50g',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Text(
+                          'Nguyên liệu (${recipe.ingredients!.length})',
+                          style: CustomTextTheme.headline3.copyWith(
+                            color: Palette.gray500,
+                            fontSize: 21.sp,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      SizedBox(
+                        height: 200.h,
+                        child: ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          children:
+                              recipe.ingredients!.map(listIngredient).toList(),
+                        ),
+                      ),
+                      SizedBox(height: 15.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            NutritionCard(
+                              nameNutrition: 'Đạm',
+                              valueNutrition: '50g',
+                            ),
+                            NutritionCard(
+                              nameNutrition: 'Chất béo',
+                              valueNutrition: '50g',
+                            ),
+                            NutritionCard(
+                              nameNutrition: 'Protein',
+                              valueNutrition: '50g',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24.h),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        child: Text(
+                          'Nguyên liệu (${recipe.ingredients!.length})',
+                          style: CustomTextTheme.headline3.copyWith(
+                            color: Palette.gray500,
+                            fontSize: 21.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             Center(

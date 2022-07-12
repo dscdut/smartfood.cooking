@@ -8,13 +8,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class IngredientCard extends StatelessWidget {
   const IngredientCard({
-    Key? key,
+    super.key,
     this.isSelected,
     required this.imageUrl,
     required this.materialName,
     this.onMaterialTap,
     this.onDeleteAction,
-  }) : super(key: key);
+  });
 
   final bool? isSelected;
   final String imageUrl;

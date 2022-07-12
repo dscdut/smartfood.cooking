@@ -7,34 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:133017922113:android:5c52f8ad47ffdc446ef4c0",
+        "mobilesdk_app_id": "1:133017922113:android:bdea332156d0a7166ef4c0",
         "android_client_info": {
-          "package_name": "com.dscdut.smartfood"
+          "package_name": "com.gdscdut.smartfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "133017922113-9u36lcqgen2sh3knta1t4g1s1prrj421.apps.googleusercontent.com",
+          "client_id": "133017922113-nicmb056evqv4o1ug95pavs46l5a7u2t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.dscdut.smartfood",
-            "certificate_hash": "df5a7219ef4008d29058315fd4e099643e559175"
-          }
-        },
-        {
-          "client_id": "133017922113-c505rpmgqemg0hd8n5mfh0sku8elu9rt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dscdut.smartfood",
-            "certificate_hash": "e0f5e0f8ff7fd725ca6eafe4beb8af33ee224d40"
-          }
-        },
-        {
-          "client_id": "133017922113-jqkpa1pr19nkc38jbsnei5e639ue571g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dscdut.smartfood",
-            "certificate_hash": "1920f73bffdc69f180b22e3db43a0118e75b5d3f"
+            "package_name": "com.gdscdut.smartfood",
+            "certificate_hash": "3b52b8622101dd4687d0fc73cce2a7f15fddf8fd"
           }
         },
         {

@@ -11,7 +11,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -316,8 +316,8 @@ class _SignInState extends State<SignIn> {
                     )
                   ],
                 ),
-                onPressed: ()  {
-                   signInProvider.onTapSigninWithGoogle().then((_) {
+                onPressed: () {
+                  signInProvider.onTapSigninWithGoogle().then((_) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       RouteManager.mainScreen,
                       (route) => false,
